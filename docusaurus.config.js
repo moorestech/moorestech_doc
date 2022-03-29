@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'moorestech documentation',
+  tagline: 'Documentation of moorestech development',
   url: 'https://moorestech.github.io',
   baseUrl: '/moorestech_doc/',
   onBrokenLinks: 'throw',
