@@ -16,7 +16,7 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="https://github.com/moorestech/moorestech">
+            to="https://github.com/moorestech">
             View Repository
           </Link>
         </div>
@@ -29,8 +29,7 @@ export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={`moorestech doc`}>
       <HomepageHeader />
       <main>
         <HomepageFeatures />
