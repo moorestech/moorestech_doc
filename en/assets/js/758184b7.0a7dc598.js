@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmoorestech_doc=self.webpackChunkmoorestech_doc||[]).push([[399],{5267:function(e){e.exports=JSON.parse('{"allTagsPath":"/moorestech_doc/en/blog/tags","name":"facebook","count":1,"permalink":"/moorestech_doc/en/blog/tags/facebook"}')}}]);
