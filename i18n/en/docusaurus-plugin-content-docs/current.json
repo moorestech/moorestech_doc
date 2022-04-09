@@ -1,0 +1,22 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Tutorial": {
+    "message": "Tutorial",
+    "description": "The label for category Tutorial in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Architecture": {
+    "message": "Architecture",
+    "description": "The label for category Architecture in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Protocol": {
+    "message": "Protocol",
+    "description": "The label for category Protocol in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.From Client Protocol": {
+    "message": "From Client Protocol",
+    "description": "The label for category From Client Protocol in sidebar tutorialSidebar"
+  }
+}
