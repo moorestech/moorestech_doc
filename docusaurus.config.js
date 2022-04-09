@@ -16,6 +16,12 @@ const config = {
   organizationName: 'moorestech', // Usually your GitHub org/user name.
   projectName: 'moorestech_doc', // Usually your repo name.
 
+  //翻訳の設定
+  i18n: {
+    defaultLocale: 'ja',
+    locales: ['ja', 'en'],
+  },
+
   presets: [
     [
       'classic',
@@ -54,6 +60,11 @@ const config = {
             docId: 'intro',
             position: 'left',
             label: 'Docs',
+          },
+          //UIに言語切り替え機能を追加
+          {
+            type: 'localeDropdown',
+            position: 'left',
           },
           //{to: '/blog', label: 'Blog', position: 'left'},
           {
@@ -113,6 +124,6 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
-};
+  };
 
 module.exports = config;
