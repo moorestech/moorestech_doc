@@ -1,7 +1,8 @@
 ---
 sidebar_position: 1
-title: Block Place Protocol
 ---
+
+# Block Place Protocol
 
 ブロックを設置するためのプロトコルです。  
 テスト用に設定されました。  
