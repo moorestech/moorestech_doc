@@ -1,16 +1,16 @@
 ---
-sidebar_position: 15
+sidebar_position: 10
 ---
 
-# Mining Execution Protocol
+# Block Deletion Protocol
 
-採掘を実行するプロトコルです。
+ブロックを削除するプロトコルです。
 
 ## 構造
 
 | Type  | 名前                               | デフォルト値 | 備考 | 
 | :---: | :--------------------------------: | :----------: | :--: | 
-| short | パケットID                          | 15            |      | 
+| short | パケットID                          | 10            |      |  
 | int   | ブロック座標X                        |              |      | 
 | int   | ブロック座標Y                        |              |      | 
-| int   | プレイヤーID                         |              |      | 
+| int   | プレイヤーID                         |              |      |
