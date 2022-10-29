@@ -9,7 +9,7 @@ const config = {
   title: 'moorestech documentation',
   tagline: 'Documentation of moorestech development',
   url: 'https://moorestech.github.io',
-  baseUrl: '/moorestech_doc/',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
