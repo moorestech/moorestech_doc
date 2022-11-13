@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+title: Getting Started
 ---
 
 # Getting Started
@@ -11,7 +12,7 @@ sidebar_position: 2
 ### 現在のmodファイルを確認する
 Steamのmoorestechを右クリック > プロパティ > ローカルファイル > 参照をクリック
 
-modフォルダの中にmoorestechBaseMod.zipがあることが確認できます。
+`server > mods` フォルダの中に `moorestechBaseMod.zip` があることが確認できます。
 
 ### ファイルを取り込む
 zipファイルを解凍し、デスクトップなど好きな場所に移動させてください。
@@ -135,3 +136,20 @@ nameの変更はmodのロードやセーブファイルのロードに不具合�
 
 
 ## テストプレイ
+
+modのテストプレイを行うには、zipが合った `server/mods` フォルダ内のzipファイルを削除し、展開したフォルダをコピーします。
+
+そのままゲームを起動すると、変更されたmodが読み込まれ、新しいアイテムが追加されています。
+
+:::danger セーブファイルについて
+
+modが変更されるとセーブファイルが書き換えられます！
+
+セーブファイルは Windows + R キーで出たウィンドウに `%appdata%`　と入力し、その中の `.moorestech\saves\save_1.json` となっています。
+
+必要な場合はバックアップを取ってください。
+
+:::
+
+
+![img.png](img/testplay-result.png)

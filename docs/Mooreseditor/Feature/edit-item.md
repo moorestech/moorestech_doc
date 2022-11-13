@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+title: アイテム編集機能
 ---
 
 # アイテム編集機能

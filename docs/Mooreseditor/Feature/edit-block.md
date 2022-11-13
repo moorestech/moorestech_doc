@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+title: ブロック編集機能
 ---
 
 # ブロック編集機能
