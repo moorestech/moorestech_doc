@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'moorestech documentation',
-  tagline: 'Documentation of moorestech development',
+  title: 'moorestechのドキュメントへようこそ！',
+  tagline: 'ここではゲーム概要、哲学、ゲーム仕様、実装、Mod開発について書かれています。',
   url: 'https://moorestech.github.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -51,8 +51,8 @@ const config = {
       navbar: {
         title: 'moorestech',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'moorestech logo',
+          src: 'img/logo.png',
         },
         items: [
           {
@@ -66,7 +66,13 @@ const config = {
             type: 'localeDropdown',
             position: 'left',
           },
-          //{to: '/blog', label: 'Blog', position: 'left'},
+          //{to: '/blog', label: 'Blog', position: 'left'}
+          {
+            href: 'https://discord.gg/ekFYmY3rDP',
+            label: 'Discord',
+            position: 'right',
+            className: 'navbar-icon-menu',
+          },
           {
             href: 'https://github.com/moorestech',
             label: 'GitHub',
