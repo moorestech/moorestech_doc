@@ -9,18 +9,18 @@ moorestechの公式ドキュメントへようこそ！ここではmoorestechの
 
 ## 目次
 
-### [ゲーム概要](docs/game-overview)
+### [ゲーム概要](/docs/game-overview)
 
-### [チュートリアル](docs/tutorial/opening)
+### [チュートリアル](/docs/tutorial/opening)
 
-### [mod開発](docs/mod-development/about)
+### [mod開発](/docs/mod-development/about)
 
-### [moorestech開発](docs/moorestech-dev/built-environment)
+### [moorestech開発](/docs/moorestech-dev/built-environment)
 
-### [moorestechの哲学](docs/philosophy/about)
+### [moorestechの哲学](/docs/philosophy/about)
 
-### [ロードマップ](docs/loadmap)
+### [ロードマップ](/docs/loadmap)
 
-### [ビジネス](docs/business/about)
+### [ビジネス](/docs/business/about)
 
 ### [ゲームデザインドキュメント](/docs/gdd/about)
