@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: GDD概要
+title: ゲームデザインドキュメント概要
 ---
 
 これはmoorestechのGDD（Game Design Document）です。このドキュメントではmoorestechのゲーム要素、仕様、現状と将来的な計画を書いています。
@@ -10,7 +10,7 @@ title: GDD概要
 
 ## 目次
 
-### [ゲーム基本情報](/docs/gdd/general)
+### [ゲーム基本情報](/docs/gdd/basic)
 ゲームのジャンル、プレイ人数など、基本的なことについて書いています。
 
 ### [ゲームプレイ](/docs/gdd/gameplay/craft)

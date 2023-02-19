@@ -9,18 +9,28 @@ moorestechの公式ドキュメントへようこそ！ここではmoorestechの
 
 ## 目次
 
-### [ゲーム概要](docs/game-overview)
+### [ゲーム概要](/docs/game-overview)
+ゲームのジャンル、機能、ストーリーについて簡単に書いています。詳細について知りたい場合は、[ゲームデザインドキュメント](/docs/gdd/about)をご覧ください。
 
-### [チュートリアル](docs/tutorial/opening)
+### [チュートリアル](/docs/tutorial/opening)
+このゲームの遊び方について書いています。今のところコンテンツは多くないですが、コンテンツが増え次第追加していきます。
 
-### [mod開発](docs/mod-development/about)
+### [mod開発](/docs/mod-development/about)
+mod開発の方法について書いています。今のところは主にmod開発ツールの使い方についています。
 
-### [moorestech開発](docs/moorestech-dev/built-environment)
+### [moorestech開発](/docs/moorestech-dev/built-environment)
+moorestechの開発環境の構築やコードベースのアーキテクチャ、実行構成など開発にかかわることについて書いています。
 
-### [moorestechの哲学](docs/philosophy/about)
+### [moorestechの哲学](/docs/philosophy/about)
+moorestechの考え方や目指す姿、どのようなゲームにしていきたいかなどが書いてあります。
 
-### [ロードマップ](docs/loadmap)
+### [ロードマップ](/docs/loadmap)
+今後の開発予定やリリースまでにやるべきこと、また、マイルストーンについて書いています。
 
-### [ビジネス](docs/business/about)
+ロードマップはその時の予定ですので、大きく変わる場合があります。
+
+### [ビジネス](/docs/business/about)
+売り上げ目標やビジネス戦略など、このゲーム事業の目指す姿や目標について書かれています。
 
 ### [ゲームデザインドキュメント](/docs/gdd/about)
+ゲームの仕様を網羅的に書いたドキュメントです。ゲームの仕様や計画について書いています。
