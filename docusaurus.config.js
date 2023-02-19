@@ -49,7 +49,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'moorestech',
+        title: 'Home',
         logo: {
           alt: 'moorestech logo',
           src: 'img/logo.png',
@@ -59,12 +59,12 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Docs',
+            label: 'Documentation',
           },
           //UIに言語切り替え機能を追加
           {
             type: 'localeDropdown',
-            position: 'left',
+            position: 'right',
           },
           //{to: '/blog', label: 'Blog', position: 'left'}
           {
