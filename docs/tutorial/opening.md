@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: 序盤の進め方
+title: 🚧序盤の進め方
 ---
 
 ## 鉱脈を見つける

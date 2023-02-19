@@ -1,6 +1,6 @@
 ---
-sidebar_position: 3
-title: mod開発概要
+sidebar_position: 1
+title: 🚧mod開発概要
 ---
 
 mod開発はmoorestechに新たなコンテンツを生かします
