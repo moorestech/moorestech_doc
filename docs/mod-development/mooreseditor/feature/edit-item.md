@@ -29,4 +29,4 @@ jsonを直接編集することでアイテム名を変更することができ�
 
 アイテム名を変更してはいけない理由はmodとセーブの仕組みにあります。
 
-詳しくは[アイテムとブロックのロードの仕組み](../Architecture/item-block-load-structure.md)で解説しています。
+詳しくは[アイテムとブロックのロードの仕組み](../architecture/item-block-load-structure.md)で解説しています。
