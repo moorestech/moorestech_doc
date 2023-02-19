@@ -1,8 +1,7 @@
 ---
 sidebar_position: 1
+title: 🚧moorestechクライアントの開発環境の整え方
 ---
-
-# moorestechクライアントの開発環境の整え方
 
 このチュートリアルではどのようにして、Githubからmoorestechのプロジェクトをダウンロードして、unityで開く方法を紹介します。
 
