@@ -9,4 +9,7 @@ title: 🚧ロードマップ
 
 あくまで目安だと思ってください。
 
+## 残りタスクリスト
+
+<div><iframe width="800" height="600" frameBorder="0" src="https://www.mindmeister.com/maps/public_map_shell/2606706298/moorestech?width=600&height=400&z=auto&t=Z7q8qKlBrx&live_update=1" scrolling="no" style={{overflow:"hidden",marginBottom:5+"px"}}>あなたのブラウザはディスプレイフレームに適していません。MindMeisterの<a href="https://www.mindmeister.com/2606706298/moorestech?t=Z7q8qKlBrx" target="_blank">moorestech残りタスク</a>を訪れてください。</iframe><div class="mb-5"><a href="https://www.mindmeister.com/2606706298/moorestech?t=Z7q8qKlBrx" target="_blank">moorestech残りタスク</a> 所有者： <a href="https://www.mindmeister.com/users/channel/95612482" target="_blank" rel="noopener noreferrer">坂 すたじお</a></div></div>
 
