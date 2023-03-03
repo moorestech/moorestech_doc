@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'moorestechのドキュメントへようこそ！',
   tagline: 'ここではゲーム概要、哲学、ゲーム仕様、実装、Mod開発について書かれています。',
-  url: 'https://moorestech.github.io',
+  url: 'https://doc.moores.tech/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
