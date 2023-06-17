@@ -7,7 +7,7 @@ title: ビジネス戦略の概要
 
 ## 売り上げ目標
 
-このゲームの売り上げ目標は300万本です。これは競合ゲームの[Factorio](https://store.steampowered.com/app/427520/Factorio/?l=japanese)や[Satisfactory](https://store.steampowered.com/app/526870/Satisfactory/?l=japanese)と同じ水準で、インディーゲームとしては「超大ヒット」と呼べるレベルの売り上げです。
+このゲームの売り上げ目標は**初月300万本**です。これは競合ゲームの[Factorio](https://store.steampowered.com/app/427520/Factorio/?l=japanese)や[Satisfactory](https://store.steampowered.com/app/526870/Satisfactory/?l=japanese)と同じ水準で、インディーゲームとしては「超大ヒット」と呼べるレベルの売り上げです。
 
 ## 目標達成の可能性
 
