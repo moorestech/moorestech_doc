@@ -1,3 +1,11 @@
+# moorestechのドキュメンテーション
+
+[miraheze](https://wiki.moores.tech/)に完全移行します。
+こちらはアーカイブ予定です。
+
+
+
+
 # Website
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
