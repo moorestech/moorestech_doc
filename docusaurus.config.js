@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'moorestechのドキュメントへようこそ！',
-  tagline: 'ここではゲーム概要、哲学、ゲーム仕様、実装、Mod開発について書かれています。',
+  title: 'moorestechのドキュメントは[wiki](https://wiki.moores.tech/wiki/Official_moorestech_wiki)に完全移行しています',
+  tagline: 'こちらはアーカイブとして残してあります。順次wikiに内容を移管します。',
   url: 'https://doc.moores.tech/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
