@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'moorestechのドキュメントは[wiki](https://wiki.moores.tech/wiki/Official_moorestech_wiki)に完全移行しています',
+  title: 'moorestechのドキュメントはwikiに完全移行しています',
   tagline: 'こちらはアーカイブとして残してあります。順次wikiに内容を移管します。',
   url: 'https://doc.moores.tech/',
   baseUrl: '/',
