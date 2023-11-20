@@ -16,8 +16,8 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro">
-            ドキュメントを見る
+            to="https://wiki.moores.tech/wiki/Official_moorestech_wiki">
+            新しいWikiを見る
           </Link>
         </div>
       </div>
