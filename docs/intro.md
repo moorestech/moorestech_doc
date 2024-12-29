@@ -9,10 +9,10 @@ moorestechの公式ドキュメントへようこそ！ここではmoorestechの
 
 ## 目次
 
-### [mod開発](/docs/mod-development/about)
+### mod開発
 mod開発の方法について書いています。今のところは主にmod開発ツールの使い方についています。
 
-### [moorestech開発](/docs/moorestech-dev/built-environment)
+### moorestech開発
 moorestechの開発環境の構築やコードベースのアーキテクチャ、実行構成など開発にかかわることについて書いています。
 
 ### [moorestechの哲学](/docs/philosophy/about)
