@@ -124,7 +124,8 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
     customFields: {
-      cmsEditUrl: 'https://your-cms-edit-url.com',
+      githubEditUrl: 'https://github.com/moorestech/moorestech_doc/tree/master/docs',
+      cmsEditUrl: 'https://holocron.so/github/pr/moorestech/moorestech_doc/master/editor/docs',
     },
   } satisfies Preset.ThemeConfig,
 };
