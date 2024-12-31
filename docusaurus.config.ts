@@ -2,7 +2,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+// base edit urlを定義
+export const baseEditUrl = 'https://holocron.so/github/pr/moorestech/moorestech_doc/master/editor';
 
 const config: Config = {
   title: 'moorestech documentation',
@@ -37,8 +38,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl:
-            'https://holocron.so/github/pr/moorestech/moorestech_doc/master/editor/',
+          editUrl: baseEditUrl,
             editLocalizedFiles: true,
             editCurrentVersion: true,
         },
@@ -124,8 +124,8 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
     customFields: {
-      githubEditUrl: 'https://github.com/moorestech/moorestech_doc/tree/master/docs',
-      cmsEditUrl: 'https://holocron.so/github/pr/moorestech/moorestech_doc/master/editor/docs',
+      githubEditUrl: 'https://github.com/moorestech/moorestech_doc/tree/master',
+      cmsEditUrl: baseEditUrl,
     },
   } satisfies Preset.ThemeConfig,
 };
