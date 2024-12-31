@@ -1,16 +1,22 @@
 import React from 'react';
-import {useThemeConfig} from '@docusaurus/theme-common';
 import {ThemeClassNames} from '@docusaurus/theme-common';
 import Link from "@docusaurus/Link";
 import Translate from '@docusaurus/Translate';
 import IconEdit from '@theme/Icon/Edit';
 import IconGithub from '@theme/Icon/Socials/GitHub';
+import config from "@site/docusaurus.config";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 export default function EditThisPageWrapper(props) {
-    const {customFields} = useThemeConfig();
+    const {siteConfig} = useDocusaurusContext();
+    const {cmsEditUrl} = siteConfig.customFields;
+    const {githubEditUrl} = siteConfig.customFields;
+
+    const editGithubUrl = props.editUrl.replace(cmsEditUrl, githubEditUrl);
+
     return (
         <>
-            <Link to={`${customFields.githubEditUrl}/${props.editUrl.split('/').pop()}`} className={ThemeClassNames.common.editThisPage}>
+            <Link to={editGithubUrl} className={ThemeClassNames.common.editThisPage}>
                 <IconGithub /> <> </>
                 <Translate
                     id="theme.common.editThisPage"
@@ -21,7 +27,7 @@ export default function EditThisPageWrapper(props) {
 
             <> / </>
 
-            <Link to={`${customFields.cmsEditUrl}/${props.editUrl.split('/').pop()}`} className={ThemeClassNames.common.editThisPage}>
+            <Link to={props.editUrl} className={ThemeClassNames.common.editThisPage}>
                 <IconEdit />
                 <Translate
                     id="theme.common.editThisPage"
