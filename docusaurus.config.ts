@@ -3,9 +3,14 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // base edit urlを定義
-export const baseEditUrl = 'https://holocron.so/github/pr/moorestech/moorestech_doc/master/editor';
+const baseEditUrl = 'https://holocron.so/github/pr/moorestech/moorestech_doc/master/editor';
 
 const config: Config = {
+  customFields: {
+    githubEditUrl: 'https://github.com/moorestech/moorestech_doc/tree/master',
+    cmsEditUrl: baseEditUrl,
+  },
+
   title: 'moorestech documentation',
   tagline: 'OSS自動化工業ゲーム「moorestech」へようこそ',
   favicon: 'img/favicon.ico',
@@ -122,10 +127,6 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-    },
-    customFields: {
-      githubEditUrl: 'https://github.com/moorestech/moorestech_doc/tree/master',
-      cmsEditUrl: baseEditUrl,
     },
   } satisfies Preset.ThemeConfig,
 };
