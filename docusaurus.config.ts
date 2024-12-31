@@ -17,8 +17,8 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'moorestech', // Usually your GitHub org/user name.
+  projectName: 'moorestech_doc', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -37,10 +37,10 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/moorestech/moorestech_doc/tree/master/',
+            'https://holocron.so/github/pr/moorestech/moorestech_doc/master/editor/',
+            editLocalizedFiles: true,
+            editCurrentVersion: true,
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -122,6 +122,9 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    customFields: {
+      cmsEditUrl: 'https://your-cms-edit-url.com',
     },
   } satisfies Preset.ThemeConfig,
 };
