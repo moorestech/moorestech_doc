@@ -15,6 +15,7 @@ title: 🚧moorestechクライアントの開発環境の整え方
 - unityで利用できるIDE
 
 # Githubからリポジトリをクローンする
+
 https://github.com/moorestech/moorestech_client
 
 ダウンロードしたいディレクトリーで以下の以下のコマンドを実行してください。
@@ -24,12 +25,15 @@ https://github.com/moorestech/moorestech_client
 ダウンロードはすぐに終わるはずです。
 
 # submodule updateをする
+
 moorestechではgit submoduleを使用しているため、submodule updateをする必要があります。では、先程ダウンロードしてリポジトリ内で以下のコマンドを実行してください。
 
 `git submodule update --init`
 
 # unityからプロジェクトを開く
+
 unity hubにて、`project -> open右のプルダウン -> add project from disk からリポジトリを指定してください`
 
 # 終わり！
+
 これでこのチュートリアルは終わりです。お疲れ様でした！
