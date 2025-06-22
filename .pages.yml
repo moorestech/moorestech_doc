@@ -1,1 +1,5 @@
-aaa
+content:
+  - name: posts
+    label: Posts
+    path: docs
+    type: collection
