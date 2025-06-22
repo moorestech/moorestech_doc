@@ -14,6 +14,7 @@ collections:
   - name: docs
     label: "Documentation"
     folder: docs
+    format: frontmatter
     create: true
     nested:
       depth: 20            # 必要に応じて
