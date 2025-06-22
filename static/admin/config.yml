@@ -14,10 +14,10 @@ collections:
   - name: docs
     label: "Documentation"
     folder: docs
-    identifier_field: title
-    extension: md
-    widget: "list"
     create: true
+    nested:
+      depth: 20            # 必要に応じて
+      summary: "{{title}}"
     slug: "{{slug}}"
     fields:
       - { name: title, label: Title }
