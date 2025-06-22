@@ -2,6 +2,8 @@ backend:
   name: github
   branch: main
   repo: moorestech/moorestech_doc
+  open_authoring: true
+  publish_mode: editorial_workflow
 
 # These lines should *not* be indented
 media_folder: "static/img" # Media files will be stored in the repo under static/images/uploads
