@@ -22,3 +22,4 @@ collections:
     fields:
       - { name: title, label: Title }
       - { name: body, label: Body, widget: markdown }
+    meta: { path: { widget: string, label: 'Path', index_file: 'index' } }
