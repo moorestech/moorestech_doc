@@ -1,0 +1,19 @@
+backend:
+  name: github
+  repo: moorestech/moorestech_doc   # ← あなたの repo
+  branch: master                    # または main
+  open_authoring: true              # GitHub アカウントで fork 〜 PR
+
+media_folder: static/img/uploads    # 元ファイルの保存先
+public_folder: /img/uploads         # サイト上の参照パス
+
+collections:
+  - name: docs
+    label: Documentation
+    folder: docs                    # Docusaurus の docs 直下
+    create: true
+    format: mdx
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title }
+      - { name: body, label: Body, widget: markdown }

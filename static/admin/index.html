@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>CMS</title>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+</head>
+<body>
+<script>window.CMS_MANUAL_INIT = true;</script>
+<script>
+    const config = "/admin/config.yml";
+    fetch(config).then(() => window.CMS.init({ config }));
+</script>
+</body>
+</html>
