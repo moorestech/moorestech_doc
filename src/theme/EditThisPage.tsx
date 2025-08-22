@@ -4,15 +4,17 @@ import Link from "@docusaurus/Link";
 import Translate from '@docusaurus/Translate';
 import IconEdit from '@theme/Icon/Edit';
 import IconGithub from '@theme/Icon/Socials/GitHub';
-import config from "@site/docusaurus.config";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 export default function EditThisPageWrapper(props) {
     const {siteConfig} = useDocusaurusContext();
-    const {cmsEditUrl} = siteConfig.customFields;
     const {githubEditUrl} = siteConfig.customFields;
-
-    const editGithubUrl = props.editUrl.replace(cmsEditUrl, githubEditUrl);
+    
+    // GitHubの編集URLを生成
+    const editGithubUrl = props.editUrl.replace('/admin/#/collections/doc/', githubEditUrl);
+    
+    // TinaCMSの編集URLを生成
+    const tinaEditUrl = props.editUrl;
 
     return (
         <>
@@ -27,12 +29,12 @@ export default function EditThisPageWrapper(props) {
 
             <> / </>
 
-            <Link to={props.editUrl} className={ThemeClassNames.common.editThisPage}>
+            <Link to={tinaEditUrl} className={ThemeClassNames.common.editThisPage}>
                 <IconEdit />
                 <Translate
                     id="theme.common.editThisPage"
                     description="The link label to edit the current page">
-                    Edit on holocron editor
+                    Edit with TinaCMS
                 </Translate>
             </Link>
         </>

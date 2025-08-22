@@ -2,13 +2,9 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
-// base edit urlを定義
-const baseEditUrl = 'https://holocron.so/github/pr/moorestech/moorestech_doc/master/editor';
-
 const config: Config = {
   customFields: {
-    githubEditUrl: 'https://github.com/moorestech/moorestech_doc/tree/master',
-    cmsEditUrl: baseEditUrl,
+    githubEditUrl: 'https://github.com/moorestech/moorestech_doc/tree/master/',
   },
 
   title: 'moorestech documentation',
@@ -43,9 +39,12 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: baseEditUrl,
-            editLocalizedFiles: true,
-            editCurrentVersion: true,
+          editUrl: ({ docPath }) => {
+            // TinaCMSの管理画面URLとドキュメントパスを結合
+            return `/admin/#/collections/doc/${docPath}`;
+          },
+          editLocalizedFiles: true,
+          editCurrentVersion: true,
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -77,7 +76,12 @@ const config: Config = {
           className: 'navbar-icon-menu',
         },
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: '/admin',
+          label: 'Edit with TinaCMS',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/moorestech/moorestech_doc',
           label: 'GitHub',
           position: 'right',
         },

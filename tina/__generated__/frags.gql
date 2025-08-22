@@ -1,0 +1,18 @@
+fragment DocParts on Doc {
+  __typename
+  title
+  sidebar_position
+  body
+}
+
+fragment CategoryParts on Category {
+  __typename
+  label
+  position
+  link {
+    __typename
+    type
+    id
+  }
+  collapsed
+}
