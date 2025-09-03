@@ -3,10 +3,6 @@ sidebar_position: 0
 title: はじめに
 ---
 
-
-
-テスト
-
 moorestech公式ドキュメントへようこそ。
 現在このドキュメントは整備中です。
 
@@ -14,4 +10,4 @@ moorestech公式ドキュメントへようこそ。
 
 将来的にこちらのサイトへ移行する予定です。
 
-プレスキット：<https://impress.games/press-kit/sakastudio/moorestech>[](https://impress.games/press-kit/sakastudio/moorestech)
+プレスキット：[https://impress.games/press-kit/sakastudio/moorestech](https://impress.games/press-kit/sakastudio/moorestech)
