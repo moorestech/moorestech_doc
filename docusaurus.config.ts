@@ -9,6 +9,10 @@ const config: Config = {
   customFields: {
     githubEditUrl: 'https://github.com/moorestech/moorestech_doc/tree/master',
     cmsEditUrl: baseEditUrl,
+    // GitHub OAuth (Decap lib-auth compatible)
+    authBaseUrl: 'https://api.netlify.com',
+    authEndpoint: 'auth',
+    authScope: 'public_repo',
   },
 
   title: 'moorestech documentation',

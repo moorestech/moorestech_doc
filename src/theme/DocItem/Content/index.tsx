@@ -3,6 +3,8 @@ import OriginalContent from '@theme-original/DocItem/Content';
 import {useLocation} from '@docusaurus/router';
 import InlineEditor from '@site/src/components/InlineEditor';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import { isLoggedIn } from '@site/src/auth/github';
+import LoginPrompt from '@site/src/components/InlineEditor/LoginPrompt';
 
 export default function DocItemContentWrapper(props: any) {
   const {search, pathname} = useLocation();
@@ -23,8 +25,12 @@ export default function DocItemContentWrapper(props: any) {
     console.log('[DocItem] Page loaded:', pathname, 'Edit mode:', shouldEdit);
   }, [search, pathname]);
   
-  // エディットモードの時はエディタのみ表示、それ以外は通常のコンテンツ
+  // エディットモードの時は認証状態を確認
   if (editMode) {
+    const authed = isLoggedIn();
+    if (!authed) {
+      return <LoginPrompt documentPath={pathname} />;
+    }
     return <InlineEditor documentPath={pathname} originalProps={props} />;
   }
   
