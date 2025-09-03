@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import {useHistory} from '@docusaurus/router';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './InlineEditor.module.css';
 
 interface InlineEditorProps {
@@ -15,44 +16,55 @@ export default function InlineEditor({
   originalProps
 }: InlineEditorProps) {
   const history = useHistory();
+  const {siteConfig} = useDocusaurusContext();
   const [content, setContent] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  // localStorageから初期値を読み込み
+  // 初期ロード時にGitHubからデータを取得
   useEffect(() => {
-    if (!ExecutionEnvironment.canUseDOM) return;
+    if (!ExecutionEnvironment.canUseDOM || !documentPath) return;
     
-    const key = `${storageKey}-${documentPath}`;
-    const savedContent = localStorage.getItem(key);
-    const savedMetadata = localStorage.getItem(`${key}-metadata`);
+    const fetchContent = async () => {
+      setIsLoading(true);
+      
+      try {
+        // ドキュメントパスから実際のファイルパスを構築
+        // /docs/intro -> docs/intro.md
+        const cleanPath = documentPath.replace(/^\//, '');
+        const filePath = cleanPath.endsWith('.md') ? cleanPath : `${cleanPath}.md`;
+        
+        // GitHub Raw URLを構築
+        const githubBaseUrl = (siteConfig.customFields?.githubEditUrl as string) || 'https://github.com/moorestech/moorestech_doc/tree/master';
+        const rawUrl = githubBaseUrl
+          .replace('github.com', 'raw.githubusercontent.com')
+          .replace('/tree/', '/')
+          + '/' + filePath;
+        
+        console.log('Fetching from GitHub:', rawUrl);
+        
+        const response = await fetch(rawUrl);
+        
+        if (response.ok) {
+          const text = await response.text();
+          setContent(text);
+        } else {
+          // ファイルが見つからない場合も空のコンテンツを設定
+          setContent('');
+          if (response.status !== 404) {
+            console.warn(`Failed to fetch content: ${response.statusText}`);
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching GitHub content:', err);
+        // エラー時も空のコンテンツを設定
+        setContent('');
+      } finally {
+        setIsLoading(false);
+      }
+    };
     
-    if (savedContent) {
-      setContent(savedContent);
-    } else {
-      // サンプルコンテンツを設定
-      const sampleContent = `# ${documentPath}
-
-## 概要
-このドキュメントは${documentPath}に関する情報を提供します。
-
-## 主な機能
-- 機能1
-- 機能2
-- 機能3
-
-## コードサンプル
-\`\`\`typescript
-function example() {
-  console.log('サンプルコード');
-}
-\`\`\`
-
-## 参考リンク
-- [Docusaurus](https://docusaurus.io)
-- [GitHub](https://github.com)`;
-      setContent(sampleContent);
-    }
-    
-  }, [documentPath, storageKey]);
+    fetchContent();
+  }, [documentPath, siteConfig]);
 
 
   // 編集モードを終了
@@ -97,13 +109,20 @@ function example() {
       
       {/* コンテンツエリア */}
       <div className={styles.content}>
-        <textarea
-          className={styles.textarea}
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="Start writing your documentation here..."
-          spellCheck={false}
-        />
+        {isLoading ? (
+          <div className={styles.loadingContainer}>
+            <div className={styles.loadingSpinner}>🔄</div>
+            <p>Loading content from GitHub...</p>
+          </div>
+        ) : (
+          <textarea
+            className={styles.textarea}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder=""
+            spellCheck={false}
+          />
+        )}
       </div>
     </div>
   );
