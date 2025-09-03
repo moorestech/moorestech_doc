@@ -1,17 +1,20 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import {useHistory} from '@docusaurus/router';
 import styles from './InlineEditor.module.css';
 
 interface InlineEditorProps {
   documentPath?: string;
   storageKey?: string;
+  originalProps?: any;
 }
 
 export default function InlineEditor({ 
   documentPath = '', 
-  storageKey = 'doc-inline-editor' 
+  storageKey = 'doc-inline-editor',
+  originalProps
 }: InlineEditorProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const history = useHistory();
   const [content, setContent] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -113,6 +116,12 @@ function example() {
     return () => clearTimeout(timer);
   }, [content, handleSave]);
 
+  // 編集モードを終了
+  const exitEditMode = useCallback(() => {
+    // URLから?edit=trueを削除
+    history.push(documentPath);
+  }, [documentPath, history]);
+
   // キーボードショートカット
   useEffect(() => {
     if (!ExecutionEnvironment.canUseDOM) return;
@@ -123,183 +132,169 @@ function example() {
         e.preventDefault();
         handleSave();
       }
-      // Escape でエディタを閉じる
+      // Escape で編集モード終了
       if (e.key === 'Escape') {
-        setIsOpen(false);
+        exitEditMode();
       }
     };
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleSave]);
-
-  if (!isOpen) {
-    return (
-      <button 
-        className={styles.floatingButton}
-        onClick={() => setIsOpen(true)}
-        title="Open Editor"
-      >
-        ✏️ Edit
-      </button>
-    );
-  }
+  }, [handleSave, exitEditMode]);
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.editor}>
-        {/* ヘッダー */}
-        <div className={styles.header}>
-          <div className={styles.headerLeft}>
-            <h3 className={styles.title}>📝 Document Editor</h3>
-            <span className={styles.path}>{documentPath || '/unknown'}</span>
-          </div>
-          <div className={styles.headerRight}>
-            {isSaving && <span className={styles.savingIndicator}>🔄 Saving...</span>}
-            {lastSaved && !isSaving && (
-              <span className={styles.savedIndicator}>
-                ✅ Saved at {lastSaved.toLocaleTimeString()}
-              </span>
-            )}
-            <button 
-              className={styles.closeButton}
-              onClick={() => setIsOpen(false)}
-              title="Close Editor (Esc)"
-            >
-              ✖
-            </button>
-          </div>
+    <div className={styles.editorContainer}>
+      {/* ヘッダー */}
+      <div className={styles.header}>
+        <div className={styles.headerLeft}>
+          <h3 className={styles.title}>📝 Document Editor</h3>
+          <span className={styles.path}>{documentPath || '/unknown'}</span>
         </div>
-        
-        {/* タブバー */}
-        <div className={styles.tabs}>
-          <button 
-            className={`${styles.tab} ${activeTab === 'markdown' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('markdown')}
-          >
-            📄 Markdown
-          </button>
-          <button 
-            className={`${styles.tab} ${activeTab === 'preview' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('preview')}
-          >
-            👁️ Preview
-          </button>
-          <button 
-            className={`${styles.tab} ${activeTab === 'metadata' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('metadata')}
-          >
-            🏷️ Metadata
-          </button>
-        </div>
-        
-        {/* コンテンツエリア */}
-        <div className={styles.content}>
-          {activeTab === 'markdown' && (
-            <textarea
-              className={styles.textarea}
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Start writing your documentation here..."
-              spellCheck={false}
-            />
-          )}
-          
-          {activeTab === 'preview' && (
-            <div className={styles.preview}>
-              <div className={styles.previewContent}>
-                <h4>🎯 Preview Mode</h4>
-                <p><em>(これはPoCのため、実際のマークダウンレンダリングはしません)</em></p>
-                <div className={styles.previewBox}>
-                  <pre>{content.slice(0, 500)}...</pre>
-                </div>
-                <p className={styles.stats}>
-                  📊 Statistics: {content.split('\n').length} lines, {content.length} characters
-                </p>
-              </div>
-            </div>
-          )}
-          
-          {activeTab === 'metadata' && (
-            <div className={styles.metadata}>
-              <div className={styles.metadataForm}>
-                <label className={styles.label}>
-                  <span>🏷️ Title</span>
-                  <input
-                    type="text"
-                    className={styles.input}
-                    value={metadata.title}
-                    onChange={(e) => setMetadata({...metadata, title: e.target.value})}
-                    placeholder="Document title"
-                  />
-                </label>
-                
-                <label className={styles.label}>
-                  <span>📝 Description</span>
-                  <textarea
-                    className={styles.metaTextarea}
-                    value={metadata.description}
-                    onChange={(e) => setMetadata({...metadata, description: e.target.value})}
-                    placeholder="Brief description of the document"
-                    rows={3}
-                  />
-                </label>
-                
-                <label className={styles.label}>
-                  <span>🏷️ Tags</span>
-                  <input
-                    type="text"
-                    className={styles.input}
-                    value={metadata.tags.join(', ')}
-                    onChange={(e) => setMetadata({...metadata, tags: e.target.value.split(',').map(t => t.trim())})}
-                    placeholder="tag1, tag2, tag3"
-                  />
-                </label>
-                
-                <div className={styles.metaInfo}>
-                  <span>📅 Last Modified: {new Date(metadata.lastModified).toLocaleString()}</span>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-        
-        {/* フッター */}
-        <div className={styles.footer}>
-          <div className={styles.footerLeft}>
-            <button className={styles.actionButton} onClick={handleSave}>
-              💾 Save (Cmd+S)
-            </button>
-            <button 
-              className={styles.actionButton}
-              onClick={() => {
-                setContent('');
-                setMetadata({...metadata, title: '', description: '', tags: []});
-              }}
-            >
-              🗑️ Clear
-            </button>
-            <button 
-              className={styles.actionButton}
-              onClick={() => {
-                const key = `${storageKey}-${documentPath}`;
-                const blob = new Blob([content], { type: 'text/markdown' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `${metadata.title || 'document'}.md`;
-                a.click();
-                URL.revokeObjectURL(url);
-              }}
-            >
-              📥 Export
-            </button>
-          </div>
-          <div className={styles.footerRight}>
-            <span className={styles.storageInfo}>
-              💾 Storage: {storageKey}
+        <div className={styles.headerRight}>
+          {isSaving && <span className={styles.savingIndicator}>🔄 Saving...</span>}
+          {lastSaved && !isSaving && (
+            <span className={styles.savedIndicator}>
+              ✅ Saved at {lastSaved.toLocaleTimeString()}
             </span>
+          )}
+          <button 
+            className={styles.exitButton}
+            onClick={exitEditMode}
+            title="Exit Edit Mode (Esc)"
+          >
+            👁️ View Mode
+          </button>
+        </div>
+      </div>
+      
+      {/* タブバー */}
+      <div className={styles.tabs}>
+        <button 
+          className={`${styles.tab} ${activeTab === 'markdown' ? styles.activeTab : ''}`}
+          onClick={() => setActiveTab('markdown')}
+        >
+          📄 Markdown
+        </button>
+        <button 
+          className={`${styles.tab} ${activeTab === 'preview' ? styles.activeTab : ''}`}
+          onClick={() => setActiveTab('preview')}
+        >
+          👁️ Preview
+        </button>
+        <button 
+          className={`${styles.tab} ${activeTab === 'metadata' ? styles.activeTab : ''}`}
+          onClick={() => setActiveTab('metadata')}
+        >
+          🏷️ Metadata
+        </button>
+      </div>
+      
+      {/* コンテンツエリア */}
+      <div className={styles.content}>
+        {activeTab === 'markdown' && (
+          <textarea
+            className={styles.textarea}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Start writing your documentation here..."
+            spellCheck={false}
+          />
+        )}
+        
+        {activeTab === 'preview' && (
+          <div className={styles.preview}>
+            <div className={styles.previewContent}>
+              <h4>🎯 Preview Mode</h4>
+              <p><em>(これはPoCのため、実際のマークダウンレンダリングはしません)</em></p>
+              <div className={styles.previewBox}>
+                <pre>{content.slice(0, 500)}...</pre>
+              </div>
+              <p className={styles.stats}>
+                📊 Statistics: {content.split('\n').length} lines, {content.length} characters
+              </p>
+            </div>
           </div>
+        )}
+        
+        {activeTab === 'metadata' && (
+          <div className={styles.metadata}>
+            <div className={styles.metadataForm}>
+              <label className={styles.label}>
+                <span>🏷️ Title</span>
+                <input
+                  type="text"
+                  className={styles.input}
+                  value={metadata.title}
+                  onChange={(e) => setMetadata({...metadata, title: e.target.value})}
+                  placeholder="Document title"
+                />
+              </label>
+              
+              <label className={styles.label}>
+                <span>📝 Description</span>
+                <textarea
+                  className={styles.metaTextarea}
+                  value={metadata.description}
+                  onChange={(e) => setMetadata({...metadata, description: e.target.value})}
+                  placeholder="Brief description of the document"
+                  rows={3}
+                />
+              </label>
+              
+              <label className={styles.label}>
+                <span>🏷️ Tags</span>
+                <input
+                  type="text"
+                  className={styles.input}
+                  value={metadata.tags.join(', ')}
+                  onChange={(e) => setMetadata({...metadata, tags: e.target.value.split(',').map(t => t.trim())})}
+                  placeholder="tag1, tag2, tag3"
+                />
+              </label>
+              
+              <div className={styles.metaInfo}>
+                <span>📅 Last Modified: {new Date(metadata.lastModified).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      
+      {/* フッター */}
+      <div className={styles.footer}>
+        <div className={styles.footerLeft}>
+          <button className={styles.actionButton} onClick={handleSave}>
+            💾 Save (Cmd+S)
+          </button>
+          <button 
+            className={styles.actionButton}
+            onClick={() => {
+              setContent('');
+              setMetadata({...metadata, title: '', description: '', tags: []});
+            }}
+          >
+            🗑️ Clear
+          </button>
+          <button 
+            className={styles.actionButton}
+            onClick={() => {
+              const key = `${storageKey}-${documentPath}`;
+              const blob = new Blob([content], { type: 'text/markdown' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `${metadata.title || 'document'}.md`;
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            📥 Export
+          </button>
+        </div>
+        <div className={styles.footerRight}>
+          <span className={styles.storageInfo}>
+            💾 Storage: {storageKey}
+          </span>
         </div>
       </div>
     </div>

@@ -23,10 +23,10 @@ export default function DocItemContentWrapper(props: any) {
     console.log('[DocItem] Page loaded:', pathname, 'Edit mode:', shouldEdit);
   }, [search, pathname]);
   
-  return (
-    <>
-      <OriginalContent {...props} />
-      {editMode && <InlineEditor documentPath={pathname} />}
-    </>
-  );
+  // エディットモードの時はエディタのみ表示、それ以外は通常のコンテンツ
+  if (editMode) {
+    return <InlineEditor documentPath={pathname} originalProps={props} />;
+  }
+  
+  return <OriginalContent {...props} />;
 }

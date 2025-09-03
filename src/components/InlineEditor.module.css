@@ -1,13 +1,8 @@
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
-  z-index: 10000;
+.editorContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  background: var(--ifm-background-surface-color);
   animation: fadeIn 0.2s ease-in-out;
 }
 
@@ -16,32 +11,6 @@
     opacity: 0;
   }
   to {
-    opacity: 1;
-  }
-}
-
-.editor {
-  width: min(1200px, 95vw);
-  height: min(800px, 90vh);
-  background: var(--ifm-background-surface-color);
-  border-radius: 12px;
-  box-shadow: 
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
     opacity: 1;
   }
 }
@@ -105,24 +74,23 @@
   font-weight: 500;
 }
 
-.closeButton {
-  width: 32px;
-  height: 32px;
+.exitButton {
+  padding: 8px 16px;
   border-radius: 8px;
-  border: none;
-  background: transparent;
-  color: var(--ifm-color-emphasis-600);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: 500;
   transition: all 0.2s;
 }
 
-.closeButton:hover {
-  background: var(--ifm-color-emphasis-200);
-  color: var(--ifm-color-emphasis-900);
+.exitButton:hover {
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: white;
+  transform: translateY(-1px);
 }
 
 .tabs {
@@ -317,46 +285,10 @@
   font-family: var(--ifm-font-family-monospace);
 }
 
-.floatingButton {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  padding: 12px 20px;
-  background: var(--ifm-color-primary);
-  color: white;
-  border: none;
-  border-radius: 24px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 
-    0 10px 25px -5px rgba(0, 0, 0, 0.2),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.floatingButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 20px 25px -5px rgba(0, 0, 0, 0.2),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
 
 /* ダークモード対応 */
-[data-theme='dark'] .editor {
+[data-theme='dark'] .editorContainer {
   background: var(--ifm-background-color);
-  box-shadow: 
-    0 20px 25px -5px rgba(0, 0, 0, 0.3),
-    0 10px 10px -5px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
-}
-
-[data-theme='dark'] .overlay {
-  background: rgba(0, 0, 0, 0.85);
 }
 
 [data-theme='dark'] .input,
