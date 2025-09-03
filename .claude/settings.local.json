@@ -1,9 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git checkout:*)",
-      "Bash(gemini:*)",
-      "Bash(yarn add:*)"
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
