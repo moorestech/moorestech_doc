@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git checkout:*)",
       "Bash(mkdir:*)",
-      "Bash(yarn start)"
+      "Bash(yarn start)",
+      "Bash(yarn typecheck)"
     ],
     "deny": [],
     "ask": []

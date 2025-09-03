@@ -20,7 +20,7 @@ export default function EditorHeader({ documentPath, onExitEditMode }: EditorHea
         <button 
           className={styles.exitButton}
           onClick={onExitEditMode}
-          title="Exit Edit Mode (Esc)"
+          title="Exit Edit Mode"
         >
           👁️ View Mode
         </button>
