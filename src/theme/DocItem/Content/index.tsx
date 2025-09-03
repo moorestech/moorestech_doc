@@ -3,12 +3,13 @@ import OriginalContent from '@theme-original/DocItem/Content';
 import {useLocation} from '@docusaurus/router';
 import InlineEditor from '@site/src/components/InlineEditor';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import { isLoggedIn } from '@site/src/auth/github';
+import { useIsAuthenticated } from '@site/src/auth/contexts/AuthContext';
 import LoginPrompt from '@site/src/components/InlineEditor/LoginPrompt';
 
 export default function DocItemContentWrapper(props: any) {
   const {search, pathname} = useLocation();
   const [editMode, setEditMode] = useState(false);
+  const isAuthenticated = useIsAuthenticated();
   
   useEffect(() => {
     if (!ExecutionEnvironment.canUseDOM) return;
@@ -22,13 +23,12 @@ export default function DocItemContentWrapper(props: any) {
       (window as any).__onDocPageView(pathname);
     }
     
-    console.log('[DocItem] Page loaded:', pathname, 'Edit mode:', shouldEdit);
-  }, [search, pathname]);
+    console.log('[DocItem] Page loaded:', pathname, 'Edit mode:', shouldEdit, 'Authenticated:', isAuthenticated);
+  }, [search, pathname, isAuthenticated]);
   
   // エディットモードの時は認証状態を確認
   if (editMode) {
-    const authed = isLoggedIn();
-    if (!authed) {
+    if (!isAuthenticated) {
       return <LoginPrompt documentPath={pathname} />;
     }
     return <InlineEditor documentPath={pathname} originalProps={props} />;

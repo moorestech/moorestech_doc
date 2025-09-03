@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGitHubAuth } from '../../auth/github';
+import { useGitHubAuth } from '../../auth/hooks/useGitHubAuth';
 import styles from './LoginPrompt.module.css';
 import { useHistory } from '@docusaurus/router';
 
@@ -8,7 +8,7 @@ interface LoginPromptProps {
 }
 
 export default function LoginPrompt({ documentPath }: LoginPromptProps) {
-  const { login } = useGitHubAuth();
+  const { login, isAuthenticated } = useGitHubAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const history = useHistory();
@@ -18,10 +18,12 @@ export default function LoginPrompt({ documentPath }: LoginPromptProps) {
     setError(null);
     try {
       await login();
-      // After successful login, keep edit=true and let parent render the editor
-      // by virtue of isLoggedIn() now returning true.
+      console.log('[LoginPrompt] Login successful, isAuthenticated:', isAuthenticated);
+      // After successful login, the parent component will re-render
+      // and show the editor instead of login prompt
     } catch (e: any) {
-      setError(e?.toString?.() || 'Login failed');
+      console.error('[LoginPrompt] Login failed:', e);
+      setError(e?.message || e?.toString?.() || 'Login failed');
     } finally {
       setLoading(false);
     }

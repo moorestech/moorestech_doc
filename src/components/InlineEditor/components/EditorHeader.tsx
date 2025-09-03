@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styles from '../InlineEditor.module.css';
-import { logout } from '@site/src/auth/github';
+import { useAuth } from '@site/src/auth/contexts/AuthContext';
 
 interface EditorHeaderProps {
   documentPath: string;
@@ -11,13 +11,15 @@ interface EditorHeaderProps {
  * エディターのヘッダーコンポーネント
  */
 export default function EditorHeader({ documentPath, onExitEditMode }: EditorHeaderProps) {
+  const { logout } = useAuth();
+  
   const onLogout = useCallback(() => {
     logout();
     // Reload so DocItem gate re-evaluates auth and shows login prompt if still in edit mode
     if (typeof window !== 'undefined') {
       window.location.reload();
     }
-  }, []);
+  }, [logout]);
 
   return (
     <div className={styles.header}>
