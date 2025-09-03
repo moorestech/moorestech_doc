@@ -1,6 +1,6 @@
 backend:
   name: github
-  branch: main
+  branch: master
   repo: moorestech/moorestech_doc
   open_authoring: true
 
