@@ -124,3 +124,140 @@ export async function checkWritePermissionForRepo(
     return false;
   }
 }
+
+/**
+ * 現在のユーザー情報を取得
+ * @param token - GitHubアクセストークン
+ * @returns ユーザー名 または null
+ */
+export async function getCurrentUsername(token: string): Promise<string | null> {
+  const config = EditorConfig.getInstance();
+  
+  try {
+    const response = await fetch(config.getApiUserUrl(), {
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+      },
+    });
+    
+    if (!response.ok) {
+      console.warn(`Failed to fetch current user: ${response.statusText}`);
+      return null;
+    }
+    
+    const user = await response.json();
+    return user.login;
+  } catch (err) {
+    console.error('Error fetching current user:', err);
+    return null;
+  }
+}
+
+/**
+ * ユーザーがforkしたリポジトリを検索
+ * @param originalOwner - 元のリポジトリのオーナー
+ * @param originalRepo - 元のリポジトリ名
+ * @param token - GitHubアクセストークン
+ * @returns forkリポジトリ情報 {owner, repo} または null
+ */
+export async function findUserForkRepository(
+  originalOwner: string,
+  originalRepo: string,
+  token: string
+): Promise<{ owner: string; repo: string } | null> {
+  const config = EditorConfig.getInstance();
+  
+  try {
+    // まず現在のユーザー名を取得
+    const username = await getCurrentUsername(token);
+    if (!username) {
+      console.warn('Could not get current username');
+      return null;
+    }
+    
+    // ユーザー名を使って直接forkの存在を確認
+    const response = await fetch(
+      `${config.getApiBaseUrl()}/repos/${username}/${originalRepo}`,
+      {
+        headers: {
+          Authorization: `token ${token}`,
+          Accept: 'application/vnd.github.v3+json',
+        },
+      }
+    );
+    
+    if (!response.ok) {
+      // 404の場合はforkが存在しない
+      if (response.status === 404) {
+        console.log(`No fork found for ${username}/${originalRepo}`);
+        return null;
+      }
+      console.warn(`Failed to check fork repository: ${response.statusText}`);
+      return null;
+    }
+    
+    const repo = await response.json();
+    
+    // forkかつ元のリポジトリが一致するか確認
+    if (repo.fork && repo.parent && repo.parent.full_name === `${originalOwner}/${originalRepo}`) {
+      console.log(`Found fork repository: ${username}/${repo.name}`);
+      return {
+        owner: username,
+        repo: repo.name
+      };
+    }
+    
+    // forkではない、または別のリポジトリのforkだった場合
+    console.log(`Repository ${username}/${originalRepo} exists but is not a fork of ${originalOwner}/${originalRepo}`);
+    return null;
+  } catch (err) {
+    console.error('Error searching for fork repository:', err);
+    return null;
+  }
+}
+
+/**
+ * 権限に応じて適切なリポジトリを決定
+ * @param originalOwner - 元のリポジトリのオーナー
+ * @param originalRepo - 元のリポジトリ名
+ * @param token - GitHubアクセストークン
+ * @returns 使用するリポジトリ情報 {owner, repo}
+ */
+export async function determineRepository(
+  originalOwner: string,
+  originalRepo: string,
+  token: string | null
+): Promise<{ owner: string; repo: string }> {
+  // トークンがない場合は元のリポジトリを使用（読み取り専用）
+  if (!token) {
+    return { owner: originalOwner, repo: originalRepo };
+  }
+  
+  // 書き込み権限をチェック
+  const hasWritePermission = await checkWritePermissionForRepo(
+    originalOwner,
+    originalRepo,
+    token
+  );
+  
+  if (hasWritePermission) {
+    // 書き込み権限がある場合は元のリポジトリを使用
+    console.log(`Using original repository: ${originalOwner}/${originalRepo}`);
+    return { owner: originalOwner, repo: originalRepo };
+  }
+  
+  // 書き込み権限がない場合はforkを探す
+  const fork = await findUserForkRepository(originalOwner, originalRepo, token);
+  
+  if (fork) {
+    // forkが見つかった場合はforkを使用
+    console.log(`Using fork repository: ${fork.owner}/${fork.repo}`);
+    return fork;
+  }
+  
+  // TODO: forkリポジトリを作成する機能は後で実装
+  // 現時点では元のリポジトリを読み取り専用で使用
+  console.warn('No fork found and no write permission. Using original repository in read-only mode.');
+  return { owner: originalOwner, repo: originalRepo };
+}
