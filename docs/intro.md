@@ -11,3 +11,5 @@ moorestech公式ドキュメントへようこそ。
 将来的にこちらのサイトへ移行する予定です。
 
 プレスキット：[https://impress.games/press-kit/sakastudio/moorestech](https://impress.games/press-kit/sakastudio/moorestech)
+
+test edit
