@@ -22,8 +22,7 @@ interface AuthContextValue {
   setAutoLoginCallback: (callback: () => Promise<void>) => void;
 }
 
-const TOKEN_KEY = 'docGithubToken';
-const USER_KEY = 'docGithubUser';
+// LocalStorageには認証済みフラグのみ保存（トークンは保存しない）
 const HAS_LOGGED_IN_BEFORE = 'docHasLoggedInBefore';
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -36,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [autoLoginCallback, setAutoLoginCallbackState] = useState<(() => Promise<void>) | null>(null);
   const [hasAttemptedAutoLogin, setHasAttemptedAutoLogin] = useState(false);
   
-  // 初期化時にセッションストレージから認証情報を復元
+  // 初期化時の処理（メモリのみ管理のため、ストレージからの復元は行わない）
   useEffect(() => {
     if (!ExecutionEnvironment.canUseDOM) {
       setIsLoading(false);
@@ -44,28 +43,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     
     try {
-      // セッションストレージから復元
-      const storedToken = sessionStorage.getItem(TOKEN_KEY);
-      const storedUser = sessionStorage.getItem(USER_KEY);
-      
-      if (storedToken && storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        setUser({ ...parsedUser, token: storedToken });
+      // 過去にログインしたことがあるかチェック（トークンは復元しない）
+      const hasLoggedInBefore = localStorage.getItem(HAS_LOGGED_IN_BEFORE) === 'true';
+      if (hasLoggedInBefore && autoLoginCallback && !user) {
+        // 自動ログインを試みる（OAuth認証を再実行）
+        setIsAutoLoggingIn(true);
         setIsLoading(false);
       } else {
-        // セッションにない場合、過去にログインしたことがあるかチェック
-        const hasLoggedInBefore = localStorage.getItem(HAS_LOGGED_IN_BEFORE) === 'true';
-        if (hasLoggedInBefore && autoLoginCallback) {
-          // 自動ログインを試みる
-          setIsAutoLoggingIn(true);
-          setIsLoading(false);
-        } else {
-          setIsLoading(false);
-        }
+        setIsLoading(false);
       }
     } catch (err) {
-      console.error('Failed to restore auth state:', err);
-      setError(new Error('Failed to restore authentication'));
+      console.error('Failed to initialize auth state:', err);
+      setError(new Error('Failed to initialize authentication'));
       setIsLoading(false);
     }
   }, []);
@@ -77,10 +66,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (hasAttemptedAutoLogin) return; // 既に試行済みならスキップ
     
     const hasLoggedInBefore = localStorage.getItem(HAS_LOGGED_IN_BEFORE) === 'true';
-    const hasCurrentSession = sessionStorage.getItem(TOKEN_KEY) !== null;
     
-    // 過去にログインしたことがあり、かつ現在のセッションがない場合
-    if (hasLoggedInBefore && !hasCurrentSession && !user) {
+    // 過去にログインしたことがあり、かつ現在ログインしていない場合
+    if (hasLoggedInBefore && !user) {
       setHasAttemptedAutoLogin(true); // 試行したことを記録
       setIsAutoLoggingIn(true);
       autoLoginCallback()
@@ -101,14 +89,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!ExecutionEnvironment.canUseDOM) return;
     
     try {
-      // セッションストレージに保存
-      sessionStorage.setItem(TOKEN_KEY, newUser.token);
-      sessionStorage.setItem(USER_KEY, JSON.stringify({
-        ...newUser,
-        token: undefined, // トークンは別キーで保存
-      }));
-      
-      // 過去にログインしたことがあることを記録
+      // トークンはメモリのみに保存（ストレージには保存しない）
+      // LocalStorageには認証済みフラグのみ保存
       localStorage.setItem(HAS_LOGGED_IN_BEFORE, 'true');
       
       setUser(newUser);
@@ -125,15 +107,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!ExecutionEnvironment.canUseDOM) return;
     
     try {
-      // セッションストレージから削除
-      sessionStorage.removeItem(TOKEN_KEY);
-      sessionStorage.removeItem(USER_KEY);
-      
+      // メモリから削除（ストレージには何も保存していないので削除不要）
       // 自動ログインフラグも削除（ログアウトは自動ログインの資格も破棄する）
       localStorage.removeItem(HAS_LOGGED_IN_BEFORE);
       
       setUser(null);
       setError(null);
+      setHasAttemptedAutoLogin(false); // 次回の自動ログインを可能にする
     } catch (err) {
       console.error('Failed to clear auth state:', err);
     }
@@ -144,7 +124,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!user) return;
     
     try {
-      sessionStorage.setItem(TOKEN_KEY, token);
+      // トークンはメモリのみで管理
       setUser(prev => prev ? { ...prev, token } : null);
     } catch (err) {
       const error = new Error('Failed to update token');
