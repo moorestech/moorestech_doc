@@ -4,15 +4,17 @@ import Link from "@docusaurus/Link";
 import Translate from '@docusaurus/Translate';
 import IconEdit from '@theme/Icon/Edit';
 import IconGithub from '@theme/Icon/Socials/GitHub';
-import config from "@site/docusaurus.config";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { EditorConfig } from '../config/editor.config';
 
 export default function EditThisPageWrapper(props) {
     const {siteConfig} = useDocusaurusContext();
     const {cmsEditUrl} = siteConfig.customFields;
-    const {githubEditUrl} = siteConfig.customFields;
-
-    const editGithubUrl = props.editUrl.replace(cmsEditUrl, githubEditUrl);
+    const config = EditorConfig.getInstance();
+    
+    // Extract file path from the CMS edit URL
+    const filePath = props.editUrl.replace(cmsEditUrl + '/', '');
+    const editGithubUrl = config.getEditUrl(filePath);
 
     return (
         <>

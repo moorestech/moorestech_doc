@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import {normalizeDocPath, buildGitHubRawUrl, fetchGitHubContent} from '../utils/github';
+import {normalizeDocPath, fetchGitHubContent} from '../utils/github';
+import { EditorConfig } from '../../../config/editor.config';
 
 /**
  * GitHubからドキュメントコンテンツを取得するカスタムフック
@@ -9,7 +9,6 @@ import {normalizeDocPath, buildGitHubRawUrl, fetchGitHubContent} from '../utils/
  * @returns コンテンツ、ローディング状態、コンテンツ更新関数
  */
 export function useGitHubContent(documentPath: string) {
-  const {siteConfig} = useDocusaurusContext();
   const [content, setContent] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,10 +19,9 @@ export function useGitHubContent(documentPath: string) {
       setIsLoading(true);
       
       try {
+        const config = EditorConfig.getInstance();
         const filePath = normalizeDocPath(documentPath);
-        const githubBaseUrl = (siteConfig.customFields?.githubEditUrl as string) 
-          || 'https://github.com/moorestech/moorestech_doc/tree/master';
-        const rawUrl = buildGitHubRawUrl(githubBaseUrl, filePath);
+        const rawUrl = `${config.getRawContentUrl()}/${filePath}`;
         
         console.log('Fetching from GitHub:', rawUrl);
         
@@ -35,7 +33,7 @@ export function useGitHubContent(documentPath: string) {
     };
     
     loadContent();
-  }, [documentPath, siteConfig]);
+  }, [documentPath]);
 
   return {
     content,

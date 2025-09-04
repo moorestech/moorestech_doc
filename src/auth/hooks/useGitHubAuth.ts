@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useNetlifyAuth } from './useNetlifyAuth';
+import { EditorConfig } from '../../config/editor.config';
 
 interface GitHubAuthOptions {
   scope?: string;
@@ -41,7 +42,8 @@ export function useGitHubAuth(options: GitHubAuthOptions = {}) {
   // GitHubユーザー情報を取得
   const fetchUserInfo = useCallback(async (token: string): Promise<GitHubUserInfo | null> => {
     try {
-      const response = await fetch('https://api.github.com/user', {
+      const config = EditorConfig.getInstance();
+      const response = await fetch(config.getApiUserUrl(), {
         headers: {
           Authorization: `token ${token}`,
           Accept: 'application/vnd.github.v3+json',
@@ -147,7 +149,8 @@ export function useGitHubAuth(options: GitHubAuthOptions = {}) {
   const createRepo = useCallback(async (name: string, options?: any) => {
     if (!user?.token) throw new Error('Not authenticated');
     
-    const response = await fetch('https://api.github.com/user/repos', {
+    const config = EditorConfig.getInstance();
+    const response = await fetch(config.getApiUserReposUrl(), {
       method: 'POST',
       headers: {
         Authorization: `token ${user.token}`,
@@ -167,7 +170,8 @@ export function useGitHubAuth(options: GitHubAuthOptions = {}) {
   const getRepo = useCallback(async (owner: string, repo: string) => {
     if (!user?.token) throw new Error('Not authenticated');
     
-    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+    const config = EditorConfig.getInstance();
+    const response = await fetch(config.getCustomRepoApiUrl(owner, repo), {
       headers: {
         Authorization: `token ${user.token}`,
         Accept: 'application/vnd.github.v3+json',
@@ -184,8 +188,9 @@ export function useGitHubAuth(options: GitHubAuthOptions = {}) {
   const getFileContent = useCallback(async (owner: string, repo: string, path: string) => {
     if (!user?.token) throw new Error('Not authenticated');
     
+    const config = EditorConfig.getInstance();
     const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
+      `${config.getCustomRepoApiUrl(owner, repo)}/contents/${path}`,
       {
         headers: {
           Authorization: `token ${user.token}`,
@@ -222,8 +227,9 @@ export function useGitHubAuth(options: GitHubAuthOptions = {}) {
       
       const encodedContent = btoa(content);
       
+      const config = EditorConfig.getInstance();
       const response = await fetch(
-        `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
+        `${config.getCustomRepoApiUrl(owner, repo)}/contents/${path}`,
         {
           method: 'PUT',
           headers: {
