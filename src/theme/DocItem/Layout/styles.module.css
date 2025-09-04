@@ -1,0 +1,23 @@
+.docItemCol {
+  min-width: 0;
+}
+
+.docItemContainer {
+  margin: 0 auto;
+}
+
+.breadcrumbsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* モバイルレスポンシブ対応 */
+@media (max-width: 996px) {
+  .breadcrumbsContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

@@ -4,13 +4,12 @@ import { useAuth } from '@site/src/auth/contexts/AuthContext';
 
 interface EditorHeaderProps {
   documentPath: string;
-  onExitEditMode: () => void;
 }
 
 /**
  * エディターのヘッダーコンポーネント
  */
-export default function EditorHeader({ documentPath, onExitEditMode }: EditorHeaderProps) {
+export default function EditorHeader({ documentPath }: EditorHeaderProps) {
   const { logout } = useAuth();
   
   const onLogout = useCallback(() => {
@@ -34,13 +33,6 @@ export default function EditorHeader({ documentPath, onExitEditMode }: EditorHea
           title="Logout"
         >
           🔓 Logout
-        </button>
-        <button 
-          className={styles.exitButton}
-          onClick={onExitEditMode}
-          title="Exit Edit Mode"
-        >
-          👁️ View Mode
         </button>
       </div>
     </div>

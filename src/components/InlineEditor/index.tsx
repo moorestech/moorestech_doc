@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './InlineEditor.module.css';
 import {useGitHubContent} from './hooks/useGitHubContent';
-import {useEditMode} from './hooks/useEditMode';
 import EditorHeader from './components/EditorHeader';
 import EditorContent from './components/EditorContent';
 
@@ -22,15 +21,11 @@ export default function InlineEditor({
 }: InlineEditorProps) {
   // GitHubコンテンツの管理
   const {content, setContent, isLoading} = useGitHubContent(documentPath);
-  
-  // 編集モードの管理
-  const {exitEditMode} = useEditMode(documentPath);
 
   return (
     <div className={styles.editorContainer}>
       <EditorHeader 
         documentPath={documentPath}
-        onExitEditMode={exitEditMode}
       />
       
       <EditorContent 
