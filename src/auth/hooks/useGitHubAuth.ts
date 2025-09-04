@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useNetlifyAuth } from './useNetlifyAuth';
@@ -23,9 +23,10 @@ interface GitHubUserInfo {
 
 export function useGitHubAuth(options: GitHubAuthOptions = {}) {
   const { siteConfig } = useDocusaurusContext();
-  const { user, login: authLogin, logout: authLogout } = useAuth();
+  const { user, login: authLogin, logout: authLogout, isAutoLoggingIn, setAutoLoginCallback } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState<GitHubUserInfo | null>(null);
+  const loginRef = useRef<(silent?: boolean) => Promise<any>>();
   
   const customFields = (siteConfig?.customFields || {}) as any;
   const baseUrl = customFields.authBaseUrl || 'https://api.netlify.com';
@@ -68,8 +69,10 @@ export function useGitHubAuth(options: GitHubAuthOptions = {}) {
     }
   }, [user, fetchUserInfo]);
   
-  const login = useCallback(async () => {
-    setIsLoading(true);
+  const login = useCallback(async (silent: boolean = false) => {
+    if (!silent) {
+      setIsLoading(true);
+    }
     
     try {
       const result = await netlifyAuth.authenticate({
@@ -98,20 +101,42 @@ export function useGitHubAuth(options: GitHubAuthOptions = {}) {
           setUserInfo(info);
         }
         
-        options.onSuccess?.(userData);
+        if (!silent) {
+          options.onSuccess?.(userData);
+        }
         return userData;
       }
       
       throw new Error('No token received from authentication');
     } catch (err) {
       const error = err as Error;
-      console.error('GitHub authentication failed:', error);
-      options.onError?.(error);
+      if (!silent) {
+        console.error('GitHub authentication failed:', error);
+        options.onError?.(error);
+      }
       throw error;
     } finally {
-      setIsLoading(false);
+      if (!silent) {
+        setIsLoading(false);
+      }
     }
   }, [netlifyAuth, authLogin, fetchUserInfo, options, defaultScope]);
+  
+  // login関数への参照を更新
+  useEffect(() => {
+    loginRef.current = login;
+  }, [login]);
+  
+  // 自動ログイン用のコールバックを登録（初回マウント時のみ）
+  useEffect(() => {
+    const silentLogin = async () => {
+      if (loginRef.current) {
+        await loginRef.current(true);
+      }
+    };
+    setAutoLoginCallback(silentLogin);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // 初回マウント時のみ実行
   
   const logout = useCallback(() => {
     authLogout();
@@ -231,11 +256,12 @@ export function useGitHubAuth(options: GitHubAuthOptions = {}) {
     token: user?.provider === 'github' ? user.token : null,
     
     // 認証アクション
-    login,
+    login: () => login(false),
     logout,
     
     // 状態
     isLoading: isLoading || netlifyAuth.isAuthenticating,
+    isAutoLoggingIn,
     error: netlifyAuth.error,
     
     // GitHub API ヘルパー

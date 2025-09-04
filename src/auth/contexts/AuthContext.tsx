@@ -13,24 +13,30 @@ interface AuthContextValue {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isAutoLoggingIn: boolean;
   error: Error | null;
   login: (user: User) => void;
   logout: () => void;
   updateToken: (token: string) => void;
   clearError: () => void;
+  setAutoLoginCallback: (callback: () => Promise<void>) => void;
 }
 
 const TOKEN_KEY = 'docGithubToken';
 const USER_KEY = 'docGithubUser';
+const HAS_LOGGED_IN_BEFORE = 'docHasLoggedInBefore';
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAutoLoggingIn, setIsAutoLoggingIn] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [autoLoginCallback, setAutoLoginCallbackState] = useState<(() => Promise<void>) | null>(null);
+  const [hasAttemptedAutoLogin, setHasAttemptedAutoLogin] = useState(false);
   
-  // 初期化時にローカルストレージから認証情報を復元
+  // 初期化時にセッションストレージから認証情報を復元
   useEffect(() => {
     if (!ExecutionEnvironment.canUseDOM) {
       setIsLoading(false);
@@ -38,58 +44,76 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     
     try {
-      const storedToken = localStorage.getItem(TOKEN_KEY);
-      const storedUser = localStorage.getItem(USER_KEY);
+      // セッションストレージから復元
+      const storedToken = sessionStorage.getItem(TOKEN_KEY);
+      const storedUser = sessionStorage.getItem(USER_KEY);
       
       if (storedToken && storedUser) {
         const parsedUser = JSON.parse(storedUser);
         setUser({ ...parsedUser, token: storedToken });
+        setIsLoading(false);
+      } else {
+        // セッションにない場合、過去にログインしたことがあるかチェック
+        const hasLoggedInBefore = localStorage.getItem(HAS_LOGGED_IN_BEFORE) === 'true';
+        if (hasLoggedInBefore && autoLoginCallback) {
+          // 自動ログインを試みる
+          setIsAutoLoggingIn(true);
+          setIsLoading(false);
+        } else {
+          setIsLoading(false);
+        }
       }
     } catch (err) {
       console.error('Failed to restore auth state:', err);
       setError(new Error('Failed to restore authentication'));
-    } finally {
       setIsLoading(false);
     }
   }, []);
   
-  // ストレージイベントをリッスン（他のタブでのログイン/ログアウトを検知）
+  // 自動ログインの実行（一度だけ）
   useEffect(() => {
     if (!ExecutionEnvironment.canUseDOM) return;
+    if (!autoLoginCallback) return;
+    if (hasAttemptedAutoLogin) return; // 既に試行済みならスキップ
     
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === TOKEN_KEY) {
-        if (e.newValue === null) {
-          setUser(null);
-        } else {
-          try {
-            const storedUser = localStorage.getItem(USER_KEY);
-            if (storedUser) {
-              const parsedUser = JSON.parse(storedUser);
-              setUser({ ...parsedUser, token: e.newValue });
-            }
-          } catch (err) {
-            console.error('Failed to sync auth state:', err);
-          }
-        }
-      }
-    };
+    const hasLoggedInBefore = localStorage.getItem(HAS_LOGGED_IN_BEFORE) === 'true';
+    const hasCurrentSession = sessionStorage.getItem(TOKEN_KEY) !== null;
     
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
+    // 過去にログインしたことがあり、かつ現在のセッションがない場合
+    if (hasLoggedInBefore && !hasCurrentSession && !user) {
+      setHasAttemptedAutoLogin(true); // 試行したことを記録
+      setIsAutoLoggingIn(true);
+      autoLoginCallback()
+        .then(() => {
+          // 成功時は何もしない（login関数が呼ばれてuserが設定される）
+        })
+        .catch(err => {
+          console.error('Auto-login failed:', err);
+          setError(new Error('自動ログインに失敗しました。手動でログインしてください。'));
+        })
+        .finally(() => {
+          setIsAutoLoggingIn(false);
+        });
+    }
+  }, [autoLoginCallback, user, hasAttemptedAutoLogin]);
   
   const login = useCallback((newUser: User) => {
     if (!ExecutionEnvironment.canUseDOM) return;
     
     try {
-      localStorage.setItem(TOKEN_KEY, newUser.token);
-      localStorage.setItem(USER_KEY, JSON.stringify({
+      // セッションストレージに保存
+      sessionStorage.setItem(TOKEN_KEY, newUser.token);
+      sessionStorage.setItem(USER_KEY, JSON.stringify({
         ...newUser,
         token: undefined, // トークンは別キーで保存
       }));
+      
+      // 過去にログインしたことがあることを記録
+      localStorage.setItem(HAS_LOGGED_IN_BEFORE, 'true');
+      
       setUser(newUser);
       setError(null);
+      setIsAutoLoggingIn(false);
     } catch (err) {
       const error = new Error('Failed to save authentication');
       setError(error);
@@ -101,8 +125,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!ExecutionEnvironment.canUseDOM) return;
     
     try {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(USER_KEY);
+      // セッションストレージから削除
+      sessionStorage.removeItem(TOKEN_KEY);
+      sessionStorage.removeItem(USER_KEY);
+      
+      // 自動ログインフラグも削除（ログアウトは自動ログインの資格も破棄する）
+      localStorage.removeItem(HAS_LOGGED_IN_BEFORE);
+      
       setUser(null);
       setError(null);
     } catch (err) {
@@ -115,7 +144,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!user) return;
     
     try {
-      localStorage.setItem(TOKEN_KEY, token);
+      sessionStorage.setItem(TOKEN_KEY, token);
       setUser(prev => prev ? { ...prev, token } : null);
     } catch (err) {
       const error = new Error('Failed to update token');
@@ -128,15 +157,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setError(null);
   }, []);
   
+  const setAutoLoginCallback = useCallback((callback: () => Promise<void>) => {
+    setAutoLoginCallbackState(() => callback);
+  }, []);
+  
   const value: AuthContextValue = {
     user,
     isAuthenticated: !!user,
     isLoading,
+    isAutoLoggingIn,
     error,
     login,
     logout,
     updateToken,
     clearError,
+    setAutoLoginCallback,
   };
   
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -8,7 +8,7 @@ interface LoginPromptProps {
 }
 
 export default function LoginPrompt({ documentPath }: LoginPromptProps) {
-  const { login, isAuthenticated } = useGitHubAuth();
+  const { login, isAuthenticated, isAutoLoggingIn } = useGitHubAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const history = useHistory();
@@ -33,6 +33,21 @@ export default function LoginPrompt({ documentPath }: LoginPromptProps) {
     // Remove ?edit=true to return to view mode
     history.push(documentPath);
   };
+
+  // 自動ログイン中の表示
+  if (isAutoLoggingIn) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.title}>自動ログイン中...</div>
+        <div className={styles.desc}>前回のログイン情報を使用して認証しています。</div>
+        <div className={styles.buttons}>
+          <button className={styles.secondaryButton} onClick={onCancel}>
+            閲覧に戻る
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
