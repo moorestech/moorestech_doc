@@ -3,6 +3,7 @@ import styles from './InlineEditor.module.css';
 import {useGitHubContent} from './hooks/useGitHubContent';
 import EditorHeader from './components/EditorHeader';
 import EditorContent from './components/EditorContent';
+import ForkCreationModal from './components/ForkCreationModal';
 
 interface InlineEditorProps {
   documentPath?: string;
@@ -20,19 +21,38 @@ export default function InlineEditor({
   originalProps
 }: InlineEditorProps) {
   // GitHubコンテンツの管理
-  const {content, setContent, isLoading} = useGitHubContent(documentPath);
+  const {
+    content,
+    setContent,
+    isLoading,
+    repoInfo,
+    isForkCreating,
+    forkCreationMessage,
+    forkCreationError,
+    clearForkError
+  } = useGitHubContent(documentPath);
 
   return (
-    <div className={styles.editorContainer}>
-      <EditorHeader 
-        documentPath={documentPath}
-      />
+    <>
+      <div className={styles.editorContainer}>
+        <EditorHeader 
+          documentPath={documentPath}
+          repoInfo={repoInfo}
+        />
+        
+        <EditorContent 
+          isLoading={isLoading}
+          content={content}
+          onContentChange={setContent}
+        />
+      </div>
       
-      <EditorContent 
-        isLoading={isLoading}
-        content={content}
-        onContentChange={setContent}
+      <ForkCreationModal
+        isOpen={isForkCreating}
+        message={forkCreationMessage}
+        error={forkCreationError}
+        onClose={clearForkError}
       />
-    </div>
+    </>
   );
 }

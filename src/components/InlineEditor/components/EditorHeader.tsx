@@ -4,12 +4,13 @@ import { useAuth } from '@site/src/auth/contexts/AuthContext';
 
 interface EditorHeaderProps {
   documentPath: string;
+  repoInfo?: { owner: string; repo: string } | null;
 }
 
 /**
  * エディターのヘッダーコンポーネント
  */
-export default function EditorHeader({ documentPath }: EditorHeaderProps) {
+export default function EditorHeader({ documentPath, repoInfo }: EditorHeaderProps) {
   const { logout } = useAuth();
   
   const onLogout = useCallback(() => {
@@ -25,6 +26,21 @@ export default function EditorHeader({ documentPath }: EditorHeaderProps) {
       <div className={styles.headerLeft}>
         <h3 className={styles.title}>📝 Document Editor</h3>
         <span className={styles.path}>{documentPath || '/unknown'}</span>
+        {repoInfo && (
+          <span className={styles.repoIndicator}>
+            {repoInfo.owner === 'moorestech' ? (
+              <>
+                <span className={styles.repoIcon}>📚</span>
+                <span className={styles.repoText}>Original</span>
+              </>
+            ) : (
+              <>
+                <span className={styles.repoIcon}>🍴</span>
+                <span className={styles.repoText}>Fork: {repoInfo.owner}/{repoInfo.repo}</span>
+              </>
+            )}
+          </span>
+        )}
       </div>
       <div className={styles.headerRight}>
         <button 

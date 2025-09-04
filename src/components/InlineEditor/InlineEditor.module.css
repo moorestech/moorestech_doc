@@ -52,6 +52,28 @@
   gap: 12px;
 }
 
+.repoIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--ifm-color-success-lightest);
+  border: 1px solid var(--ifm-color-success-light);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.repoIcon {
+  font-size: 14px;
+}
+
+.repoText {
+  color: var(--ifm-color-success-darker);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 12px;
+}
+
 
 .exitButton {
   padding: 8px 16px;

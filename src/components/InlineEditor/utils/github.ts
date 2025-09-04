@@ -218,16 +218,164 @@ export async function findUserForkRepository(
 }
 
 /**
+ * リポジトリをforkする
+ * @param owner - 元のリポジトリのオーナー
+ * @param repo - 元のリポジトリ名
+ * @param token - GitHubアクセストークン
+ * @returns forkされたリポジトリの情報
+ */
+export async function createFork(
+  owner: string,
+  repo: string,
+  token: string
+): Promise<any> {
+  const config = EditorConfig.getInstance();
+  const url = `${config.getApiBaseUrl()}/repos/${owner}/${repo}/forks`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error(`Failed to create fork: ${response.status} ${response.statusText}`, errorData);
+      
+      if (response.status === 401) {
+        throw new Error('認証に失敗しました。トークンを確認してください。');
+      } else if (response.status === 403) {
+        throw new Error('Forkを作成する権限がありません。');
+      } else if (response.status === 404) {
+        throw new Error('リポジトリが見つかりません。');
+      } else if (response.status === 422) {
+        throw new Error('既に同じ名前のリポジトリが存在します。');
+      }
+      
+      throw new Error(`Fork作成に失敗しました: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating fork:', error);
+    throw error;
+  }
+}
+
+/**
+ * Forkが利用可能になるまで待機
+ * @param owner - Forkのオーナー
+ * @param repo - Forkのリポジトリ名
+ * @param token - GitHubアクセストークン
+ * @param maxAttempts - 最大試行回数
+ * @param delayMs - 各試行間の遅延（ミリ秒）
+ * @returns 成功した場合はtrue、タイムアウトの場合はfalse
+ */
+export async function waitForForkAvailability(
+  owner: string,
+  repo: string,
+  token: string,
+  maxAttempts: number = 10,
+  delayMs: number = 3000
+): Promise<boolean> {
+  const config = EditorConfig.getInstance();
+  
+  for (let i = 0; i < maxAttempts; i++) {
+    if (i > 0) {
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+    
+    try {
+      const response = await fetch(
+        `${config.getApiBaseUrl()}/repos/${owner}/${repo}`,
+        {
+          headers: {
+            Authorization: `token ${token}`,
+            Accept: 'application/vnd.github.v3+json',
+          },
+        }
+      );
+      
+      if (response.ok) {
+        console.log(`Fork is ready: ${owner}/${repo}`);
+        return true;
+      }
+    } catch (err) {
+      // エラーは無視してリトライ
+    }
+  }
+  
+  console.warn(`Fork availability check timed out for ${owner}/${repo}`);
+  return false;
+}
+
+/**
+ * 既存のForkを取得するか、新しく作成する
+ * @param originalOwner - 元のリポジトリのオーナー
+ * @param originalRepo - 元のリポジトリ名
+ * @param token - GitHubアクセストークン
+ * @param onProgress - 進捗コールバック
+ * @returns Forkリポジトリ情報、作成できない場合はnull
+ */
+export async function getOrCreateFork(
+  originalOwner: string,
+  originalRepo: string,
+  token: string,
+  onProgress?: (message: string) => void
+): Promise<{ owner: string; repo: string } | null> {
+  // 1. 既存のForkを探す
+  onProgress?.('既存のForkを確認しています...');
+  const existingFork = await findUserForkRepository(originalOwner, originalRepo, token);
+  
+  if (existingFork) {
+    console.log(`Using existing fork: ${existingFork.owner}/${existingFork.repo}`);
+    onProgress?.('既存のForkが見つかりました');
+    return existingFork;
+  }
+  
+  // 2. Forkを作成する
+  onProgress?.('Forkを作成しています...');
+  console.log(`Creating fork of ${originalOwner}/${originalRepo}...`);
+  
+  try {
+    const forkData = await createFork(originalOwner, originalRepo, token);
+    const forkOwner = forkData.owner.login;
+    const forkRepo = forkData.name;
+    
+    // 3. Forkが利用可能になるまで待機
+    onProgress?.('Forkの準備をしています...');
+    const isReady = await waitForForkAvailability(forkOwner, forkRepo, token);
+    
+    if (isReady) {
+      console.log(`Fork created and ready: ${forkOwner}/${forkRepo}`);
+      onProgress?.('Forkの準備が完了しました');
+      return { owner: forkOwner, repo: forkRepo };
+    } else {
+      throw new Error('Forkの作成がタイムアウトしました。時間をおいて再度お試しください。');
+    }
+  } catch (error) {
+    console.error('Failed to create or verify fork:', error);
+    onProgress?.(`エラー: ${error.message}`);
+    throw error;
+  }
+}
+
+/**
  * 権限に応じて適切なリポジトリを決定
  * @param originalOwner - 元のリポジトリのオーナー
  * @param originalRepo - 元のリポジトリ名
  * @param token - GitHubアクセストークン
+ * @param onProgress - 進捗コールバック
  * @returns 使用するリポジトリ情報 {owner, repo}
  */
 export async function determineRepository(
   originalOwner: string,
   originalRepo: string,
-  token: string | null
+  token: string | null,
+  onProgress?: (message: string) => void
 ): Promise<{ owner: string; repo: string }> {
   // トークンがない場合は元のリポジトリを使用（読み取り専用）
   if (!token) {
@@ -247,17 +395,18 @@ export async function determineRepository(
     return { owner: originalOwner, repo: originalRepo };
   }
   
-  // 書き込み権限がない場合はforkを探す
-  const fork = await findUserForkRepository(originalOwner, originalRepo, token);
-  
-  if (fork) {
-    // forkが見つかった場合はforkを使用
-    console.log(`Using fork repository: ${fork.owner}/${fork.repo}`);
-    return fork;
+  // 書き込み権限がない場合はForkを取得または作成
+  try {
+    const fork = await getOrCreateFork(originalOwner, originalRepo, token, onProgress);
+    if (fork) {
+      return fork;
+    }
+  } catch (error) {
+    console.error('Failed to get or create fork:', error);
+    // エラーが発生した場合は元のリポジトリを読み取り専用で使用
   }
   
-  // TODO: forkリポジトリを作成する機能は後で実装
-  // 現時点では元のリポジトリを読み取り専用で使用
-  console.warn('No fork found and no write permission. Using original repository in read-only mode.');
+  // フォールバック: 元のリポジトリを読み取り専用で使用
+  console.warn('Using original repository in read-only mode.');
   return { owner: originalOwner, repo: originalRepo };
 }
