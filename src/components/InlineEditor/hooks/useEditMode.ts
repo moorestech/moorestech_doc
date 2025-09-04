@@ -11,7 +11,9 @@ export function useEditMode(documentPath: string) {
   
   const exitEditMode = useCallback(() => {
     // URLから?edit=trueを削除して通常モードに戻る
-    history.push(documentPath);
+    // 末尾のスラッシュを削除してから遷移
+    const cleanPath = documentPath.replace(/\/$/, '');
+    history.push(cleanPath);
   }, [documentPath, history]);
 
   return {

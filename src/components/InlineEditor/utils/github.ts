@@ -8,7 +8,8 @@
  * @returns 正規化されたファイルパス (e.g., "docs/intro.md")
  */
 export function normalizeDocPath(documentPath: string): string {
-  const cleanPath = documentPath.replace(/^\//, '');
+  // 先頭と末尾のスラッシュを削除
+  const cleanPath = documentPath.replace(/^\//, '').replace(/\/$/, '');
   return cleanPath.endsWith('.md') ? cleanPath : `${cleanPath}.md`;
 }
 
