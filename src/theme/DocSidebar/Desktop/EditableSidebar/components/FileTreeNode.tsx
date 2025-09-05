@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import styles from '../EditableSidebar.module.css';
-import { TreeNode, DOCS_ROOT } from '../types';
+import { FileSystemNode } from '../../../../../contexts/FileSystemContext';
 
 const ItemTypes = {
   NODE: 'node',
@@ -9,84 +9,64 @@ const ItemTypes = {
 
 interface DragItem {
   paths: string[];
-  nodes: { path: string; type: 'file' | 'dir' }[];
 }
 
 interface FileTreeNodeProps {
-  node: TreeNode;
-  expanded: Set<string>;
+  node: FileSystemNode;
   selectedPaths: Set<string>;
+  onSelect: (path: string, isMultiSelect: boolean) => void;
   onToggleExpand: (path: string) => void;
-  onLoadChildren: (node: TreeNode) => Promise<void>;
+  onLoadChildren: (path: string) => void;
   onAddFile: (dirPath: string) => void;
   onAddFolder: (dirPath: string) => void;
-  onDeleteFile: (filePath: string) => void;
-  onDeleteFolder: (dirPath: string, node: TreeNode) => void;
-  onMoveFile: (filePath: string) => void;
-  onMoveItems: (items: { path: string; type: 'file' | 'dir' }[], targetPath: string) => void;
-  onToggleSelection: (path: string, isMultiSelect: boolean) => void;
-  isSelected: (path: string) => boolean;
+  onDelete: (path: string) => void;
+  onRename: (path: string) => void;
+  onMoveItems: (sourcePaths: string[], targetPath: string) => void;
 }
 
 export const FileTreeNode: React.FC<FileTreeNodeProps> = ({
   node,
-  expanded,
   selectedPaths,
+  onSelect,
   onToggleExpand,
   onLoadChildren,
   onAddFile,
   onAddFolder,
-  onDeleteFile,
-  onDeleteFolder,
-  onMoveFile,
+  onDelete,
+  onRename,
   onMoveItems,
-  onToggleSelection,
-  isSelected,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const selected = isSelected(node.path);
+  const isSelected = selectedPaths.has(node.path);
   
-  // Setup drag
+  // ドラッグ設定
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.NODE,
     item: () => {
-      // If dragging a selected item, drag all selected items
-      if (selected && selectedPaths.size > 0) {
-        const selectedNodes = Array.from(selectedPaths).map(path => ({
-          path,
-          type: (path.endsWith('/') ? 'dir' : 'file') as 'file' | 'dir'
-        }));
-        return { 
-          paths: Array.from(selectedPaths), 
-          nodes: selectedNodes 
-        };
+      if (isSelected && selectedPaths.size > 0) {
+        return { paths: Array.from(selectedPaths) };
       }
-      // Otherwise, just drag this item
-      return { 
-        paths: [node.path], 
-        nodes: [{ path: node.path, type: node.type }]
-      };
+      return { paths: [node.path] };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-  }), [node.path, node.type, selected, selectedPaths]);
+  }), [node.path, isSelected, selectedPaths]);
   
-  // Setup drop (only for directories)
+  // ドロップ設定（ディレクトリのみ）
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: ItemTypes.NODE,
     canDrop: (item: DragItem) => {
-      // Can only drop into directories
-      if (node.type !== 'dir') return false;
+      if (node.type !== 'directory') return false;
       
-      // Cannot drop item into itself or its children
+      // 自分自身や子ディレクトリへのドロップを防ぐ
       return !item.paths.some(path => 
         node.path === path || 
         node.path.startsWith(path + '/')
       );
     },
     drop: (item: DragItem) => {
-      onMoveItems(item.nodes, node.path);
+      onMoveItems(item.paths, node.path);
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -94,91 +74,126 @@ export const FileTreeNode: React.FC<FileTreeNodeProps> = ({
     }),
   }), [node.path, node.type, onMoveItems]);
   
-  // Handle click for selection
-  const handleClick = (e: React.MouseEvent) => {
+  // クリックハンドラー
+  const handleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     const isMultiSelect = e.ctrlKey || e.metaKey;
-    onToggleSelection(node.path, isMultiSelect);
-  };
-  // Combine drag and drop refs for directories
-  if (node.type === 'dir') {
+    onSelect(node.path, isMultiSelect);
+  }, [node.path, onSelect]);
+  
+  // 展開ハンドラー
+  const handleExpand = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    onToggleExpand(node.path);
+    if (node.type === 'directory' && node.children && node.children.size === 0) {
+      onLoadChildren(node.path);
+    }
+  }, [node.path, node.type, node.type === 'directory' ? node.children : undefined, onToggleExpand, onLoadChildren]);
+  
+  // リネームハンドラー
+  const handleRename = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    onRename(node.path);
+  }, [node.path, onRename]);
+  
+  // 削除ハンドラー
+  const handleDelete = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (window.confirm(`${node.name} を削除しますか？`)) {
+      onDelete(node.path);
+    }
+  }, [node.name, node.path, onDelete]);
+  
+  // ドラッグ&ドロップの参照を結合
+  if (node.type === 'directory') {
     drag(drop(ref));
   } else {
     drag(ref);
   }
   
-  if (node.type === 'dir') {
-    const isOpen = expanded.has(node.path);
-    const isRoot = node.path === DOCS_ROOT;
+  if (node.type === 'directory') {
+    const isExpanded = node.isExpanded;
+    const isEmpty = node.children.size === 0;
+    const isRoot = node.path === 'docs';
+    const isDeleted = node.isDeleted;
     
     return (
-      <div className={styles.treeNode} ref={ref}>
+      <div 
+        className={styles.treeNode} 
+        ref={ref}
+        style={{ opacity: isDeleted ? 0.5 : (isDragging ? 0.5 : 1) }}
+      >
         <div 
-          className={`${styles.nodeContent} ${selected ? styles.selected : ''} ${isOver && canDrop ? styles.dropTarget : ''}`}
+          className={`${styles.nodeContent} ${isSelected ? styles.selected : ''} ${isOver && canDrop ? styles.dropTarget : ''}`}
           onClick={handleClick}
-          style={{ opacity: isDragging ? 0.5 : 1 }}
         >
           <button 
-            className={`${styles.expandIcon} ${isOpen ? styles.expanded : ''}`}
-            onClick={(e) => { 
-              e.stopPropagation();
-              onToggleExpand(node.path); 
-              if (!node.loaded) onLoadChildren(node); 
-            }} 
-            title={isOpen ? '折りたたむ' : '展開'}
+            className={`${styles.expandIcon} ${isExpanded ? styles.expanded : ''}`}
+            onClick={handleExpand}
+            title={isExpanded ? '折りたたむ' : '展開'}
           >
             ▶
           </button>
           <span className={styles.nodeIcon}>
-            {isOpen ? '📂' : '📁'}
+            {isExpanded ? '📂' : '📁'}
           </span>
           <span className={`${styles.nodeName} ${styles.dirName}`}>
             {node.name}
+            {node.isNew && ' (新規)'}
+            {node.isDeleted && ' (削除予定)'}
           </span>
-          <div className={styles.nodeActions}>
-            <button 
-              className={styles.actionButton} 
-              onClick={(e) => { e.stopPropagation(); onAddFile(node.path); }}
-              title="ファイル追加"
-            >
-              ＋ファイル
-            </button>
-            <button 
-              className={styles.actionButton} 
-              onClick={(e) => { e.stopPropagation(); onAddFolder(node.path); }}
-              title="フォルダ追加"
-            >
-              ＋フォルダ
-            </button>
-            {!isRoot && (
+          {!isDeleted && (
+            <div className={styles.nodeActions}>
               <button 
-                className={`${styles.actionButton} ${styles.danger}`}
-                onClick={(e) => { e.stopPropagation(); onDeleteFolder(node.path, node); }}
-                title="フォルダ削除"
+                className={styles.actionButton} 
+                onClick={(e) => { e.stopPropagation(); onAddFile(node.path); }}
+                title="ファイル追加"
               >
-                🗑
+                ＋ファイル
               </button>
-            )}
-          </div>
+              <button 
+                className={styles.actionButton} 
+                onClick={(e) => { e.stopPropagation(); onAddFolder(node.path); }}
+                title="フォルダ追加"
+              >
+                ＋フォルダ
+              </button>
+              {!isRoot && (
+                <>
+                  <button 
+                    className={styles.actionButton}
+                    onClick={handleRename}
+                    title="リネーム"
+                  >
+                    ✏️
+                  </button>
+                  <button 
+                    className={`${styles.actionButton} ${styles.danger}`}
+                    onClick={handleDelete}
+                    title="削除"
+                  >
+                    🗑
+                  </button>
+                </>
+              )}
+            </div>
+          )}
         </div>
-        {isOpen && node.children && (
+        {isExpanded && !isEmpty && (
           <div className={styles.childrenContainer}>
-            {node.children.map((child) => (
+            {Array.from(node.children.values()).map((child) => (
               <FileTreeNode
                 key={child.path}
                 node={child}
-                expanded={expanded}
                 selectedPaths={selectedPaths}
+                onSelect={onSelect}
                 onToggleExpand={onToggleExpand}
                 onLoadChildren={onLoadChildren}
                 onAddFile={onAddFile}
                 onAddFolder={onAddFolder}
-                onDeleteFile={onDeleteFile}
-                onDeleteFolder={onDeleteFolder}
-                onMoveFile={onMoveFile}
+                onDelete={onDelete}
+                onRename={onRename}
                 onMoveItems={onMoveItems}
-                onToggleSelection={onToggleSelection}
-                isSelected={isSelected}
               />
             ))}
           </div>
@@ -187,33 +202,46 @@ export const FileTreeNode: React.FC<FileTreeNodeProps> = ({
     );
   }
   
-  // file node
+  // ファイルノード
+  const isDeleted = node.isDeleted;
+  const isModified = node.isModified;
+  
   return (
-    <div className={styles.treeNode} ref={ref}>
+    <div 
+      className={styles.treeNode} 
+      ref={ref}
+      style={{ opacity: isDeleted ? 0.5 : (isDragging ? 0.5 : 1) }}
+    >
       <div 
-        className={`${styles.nodeContent} ${selected ? styles.selected : ''}`}
+        className={`${styles.nodeContent} ${isSelected ? styles.selected : ''}`}
         onClick={handleClick}
-        style={{ opacity: isDragging ? 0.5 : 1 }}
       >
         <span style={{ width: 16 }}></span>
         <span className={styles.nodeIcon}>📄</span>
-        <span className={styles.nodeName}>{node.name}</span>
-        <div className={styles.nodeActions}>
-          <button 
-            className={styles.actionButton}
-            onClick={(e) => { e.stopPropagation(); onMoveFile(node.path); }}
-            title="移動/リネーム"
-          >
-            ↔︎
-          </button>
-          <button 
-            className={`${styles.actionButton} ${styles.danger}`}
-            onClick={(e) => { e.stopPropagation(); onDeleteFile(node.path); }}
-            title="削除"
-          >
-            🗑
-          </button>
-        </div>
+        <span className={styles.nodeName}>
+          {node.name}
+          {node.isNew && ' (新規)'}
+          {isModified && ' (変更)'}
+          {isDeleted && ' (削除予定)'}
+        </span>
+        {!isDeleted && (
+          <div className={styles.nodeActions}>
+            <button 
+              className={styles.actionButton}
+              onClick={handleRename}
+              title="リネーム"
+            >
+              ✏️
+            </button>
+            <button 
+              className={`${styles.actionButton} ${styles.danger}`}
+              onClick={handleDelete}
+              title="削除"
+            >
+              🗑
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

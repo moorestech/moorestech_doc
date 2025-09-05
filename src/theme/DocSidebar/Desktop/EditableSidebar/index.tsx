@@ -1,111 +1,211 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styles from './EditableSidebar.module.css';
-import { useAuthToken } from '../../../../auth/contexts/AuthContext';
-import { useEditState, useIsEditing } from '../../../../contexts/EditStateContext';
-import { EditableSidebarProps, DOCS_ROOT } from './types';
-import { useRepository, useFileTree, useChangeManager, usePullRequest } from './hooks';
-import { FileTreeNode, ChangeManagementPanel } from './components';
+import { useFileSystem } from '../../../../contexts/FileSystemContext';
+import { useIsEditing } from '../../../../contexts/EditStateContext';
+import { FileTreeNode } from './components/FileTreeNode';
 
-export default function EditableSidebar({ items, path }: EditableSidebarProps) {
-  const token = useAuthToken();
-  const { editState, updateSidebarChanges, clearSidebarChanges } = useEditState();
+export default function EditableSidebar() {
   const isEditing = useIsEditing();
   
-  // Custom hooks
-  const { repo, branch, loadingRepo, error, setError } = useRepository();
-  const { root, expanded, toggleExpand, loadChildren, listDirectory, isDirEmpty } = useFileTree(repo, branch);
-  const { 
-    changes, 
-    clearChanges, 
-    stageAddFile, 
-    stageAddFolder, 
-    stageDeleteFile, 
-    stageDeleteFolder, 
-    stageMoveFile,
-    stageMoveItems,
-    changesSummary,
-    selectedPaths,
-    toggleSelection,
-    clearSelection,
-    isSelected 
-  } = useChangeManager();
+  console.log('[EditableSidebar] Component mounted, isEditing:', isEditing);
   
-  // EditStateContextとchangesを同期
-  useEffect(() => {
-    updateSidebarChanges(changes);
-  }, [changes, updateSidebarChanges]);
-  const { applyChanges } = usePullRequest();
-
-  // Handle apply changes
-  const handleApplyChanges = useCallback(async () => {
-    if (!repo) return;
-    await applyChanges(
-      repo,
-      changes,
-      branch,
-      listDirectory,
-      () => {
-        // On success
-        clearChanges();
-        clearSidebarChanges();
-        // Reload tree
-        listDirectory(repo.owner, repo.repo, DOCS_ROOT).then(children => {
-          // Tree will be updated automatically in the hook
-        });
-      },
-      setError
-    );
-  }, [repo, changes, branch, listDirectory, clearChanges, clearSidebarChanges, setError, applyChanges]);
+  const {
+    fileSystem,
+    repository,
+    createFile,
+    createDirectory,
+    deleteNode,
+    renameNode,
+    moveNodes,
+    selectFile,
+    toggleDirectory,
+    loadDirectoryContents,
+    createPullRequest,
+    hasUnsavedChanges,
+    clearChanges
+  } = useFileSystem();
+  
+  // 複数選択の状態
+  const [selectedPaths, setSelectedPaths] = useState<Set<string>>(new Set());
+  const [isCreatingPR, setIsCreatingPR] = useState(false);
+  
+  // ファイル/フォルダ追加
+  const handleAddFile = useCallback((dirPath: string) => {
+    const name = window.prompt('新しいファイル名 (.md 推奨):');
+    if (!name) return;
+    
+    const content = `# ${name.replace(/\.[^/.]+$/, '')}`;
+    createFile(dirPath, name, content);
+  }, [createFile]);
+  
+  const handleAddFolder = useCallback((dirPath: string) => {
+    const name = window.prompt('新しいフォルダ名:');
+    if (!name) return;
+    
+    createDirectory(dirPath, name);
+  }, [createDirectory]);
+  
+  // リネーム
+  const handleRename = useCallback((path: string) => {
+    const node = fileSystem.root;
+    const currentName = path.split('/').pop() || '';
+    const newName = window.prompt('新しい名前:', currentName);
+    if (!newName || newName === currentName) return;
+    
+    const parentPath = path.substring(0, path.lastIndexOf('/')) || '/';
+    const newPath = `${parentPath}/${newName}`.replace(/\/+/g, '/');
+    renameNode(path, newPath);
+  }, [fileSystem.root, renameNode]);
+  
+  // 選択処理
+  const handleSelect = useCallback((path: string, isMultiSelect: boolean) => {
+    if (isMultiSelect) {
+      setSelectedPaths(prev => {
+        const newSet = new Set(prev);
+        if (newSet.has(path)) {
+          newSet.delete(path);
+        } else {
+          newSet.add(path);
+        }
+        return newSet;
+      });
+    } else {
+      setSelectedPaths(new Set([path]));
+      // ファイルの場合は編集用に選択
+      const node = fileSystem.root.children.get(path.split('/').pop() || '');
+      if (node?.type === 'file') {
+        selectFile(path);
+      }
+    }
+  }, [fileSystem.root, selectFile]);
+  
+  // PR作成
+  const handleCreatePR = useCallback(async () => {
+    if (!hasUnsavedChanges() || isCreatingPR) return;
+    
+    const title = window.prompt('Pull Request のタイトル:', 'Update documentation');
+    if (!title) return;
+    
+    const description = window.prompt('Pull Request の説明 (オプション):', '');
+    
+    setIsCreatingPR(true);
+    try {
+      const prUrl = await createPullRequest(title, description || '');
+      window.alert(`Pull Request を作成しました: ${prUrl}`);
+      clearChanges();
+      setSelectedPaths(new Set());
+    } catch (error) {
+      console.error('PR作成エラー:', error);
+      window.alert(`エラー: ${error instanceof Error ? error.message : 'PR作成に失敗しました'}`);
+    } finally {
+      setIsCreatingPR(false);
+    }
+  }, [hasUnsavedChanges, isCreatingPR, createPullRequest, clearChanges]);
+  
+  // 変更のサマリー
+  const changesSummary = useMemo(() => {
+    const changes = fileSystem.changes;
+    return {
+      creates: changes.filter(c => c.type === 'create').length,
+      modifies: changes.filter(c => c.type === 'modify').length,
+      deletes: changes.filter(c => c.type === 'delete').length,
+      renames: changes.filter(c => c.type === 'rename').length,
+      total: changes.length
+    };
+  }, [fileSystem.changes]);
   
   // 編集モードでない場合は非表示
   if (!isEditing) {
+    console.log('[EditableSidebar] Not in edit mode, returning null');
     return null;
   }
-
+  
+  console.log('[EditableSidebar] Rendering with fileSystem:', {
+    isLoading: fileSystem.isLoading,
+    error: fileSystem.error,
+    rootChildren: fileSystem.root.children.size
+  });
+  
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.editableSidebar}>
-        {loadingRepo && (
+        {fileSystem.isLoading && (
           <div className={styles.placeholder}>
             <div className={styles.placeholderIcon}>⏳</div>
-            <div className={styles.placeholderText}>リポジトリ情報を取得中...</div>
+            <div className={styles.placeholderText}>読み込み中...</div>
           </div>
         )}
-
-        {!loadingRepo && error && (
+        
+        {fileSystem.error && (
           <div className={styles.placeholder}>
             <div className={styles.placeholderIcon}>⚠️</div>
             <div className={styles.placeholderText}>エラー</div>
-            <div className={styles.placeholderDescription}>{error}</div>
+            <div className={styles.placeholderDescription}>{fileSystem.error}</div>
           </div>
         )}
-
-        {!loadingRepo && !error && (
+        
+        {!fileSystem.isLoading && !fileSystem.error && (
           <>
             <div className={styles.fileTree}>
               <FileTreeNode
-                node={root}
-                expanded={expanded}
+                node={fileSystem.root}
                 selectedPaths={selectedPaths}
-                onToggleExpand={toggleExpand}
-                onLoadChildren={loadChildren}
-                onAddFile={stageAddFile}
-                onAddFolder={stageAddFolder}
-                onDeleteFile={stageDeleteFile}
-                onDeleteFolder={(dirPath, node) => stageDeleteFolder(dirPath, node, isDirEmpty)}
-                onMoveFile={stageMoveFile}
-                onMoveItems={stageMoveItems}
-                onToggleSelection={toggleSelection}
-                isSelected={isSelected}
+                onSelect={handleSelect}
+                onToggleExpand={toggleDirectory}
+                onLoadChildren={loadDirectoryContents}
+                onAddFile={handleAddFile}
+                onAddFolder={handleAddFolder}
+                onDelete={deleteNode}
+                onRename={handleRename}
+                onMoveItems={moveNodes}
               />
             </div>
-            <ChangeManagementPanel
-              changes={changes}
-              onApplyChanges={handleApplyChanges}
-              onClearChanges={clearChanges}
-            />
+            
+            {changesSummary.total > 0 && (
+              <div className={styles.changesPanel}>
+                <div className={styles.changesSummary}>
+                  <h4>変更内容</h4>
+                  <div className={styles.changeStats}>
+                    {changesSummary.creates > 0 && (
+                      <span>➕ 新規: {changesSummary.creates}</span>
+                    )}
+                    {changesSummary.modifies > 0 && (
+                      <span>✏️ 変更: {changesSummary.modifies}</span>
+                    )}
+                    {changesSummary.deletes > 0 && (
+                      <span>🗑️ 削除: {changesSummary.deletes}</span>
+                    )}
+                    {changesSummary.renames > 0 && (
+                      <span>↔️ 移動: {changesSummary.renames}</span>
+                    )}
+                  </div>
+                </div>
+                
+                <div className={styles.changeActions}>
+                  <button
+                    className={`${styles.actionButton} ${styles.primary}`}
+                    onClick={handleCreatePR}
+                    disabled={isCreatingPR}
+                  >
+                    {isCreatingPR ? '作成中...' : 'PR作成'}
+                  </button>
+                  <button
+                    className={`${styles.actionButton} ${styles.danger}`}
+                    onClick={() => {
+                      if (window.confirm('すべての変更を破棄しますか？')) {
+                        clearChanges();
+                        setSelectedPaths(new Set());
+                      }
+                    }}
+                    disabled={isCreatingPR}
+                  >
+                    破棄
+                  </button>
+                </div>
+              </div>
+            )}
           </>
         )}
       </div>
