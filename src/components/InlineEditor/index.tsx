@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './InlineEditor.module.css';
-import {useGitHubContent} from './hooks/useGitHubContent';
 import { useEditState, useIsEditing } from '../../contexts/EditStateContext';
 import EditorHeader from './components/EditorHeader';
 import EditorContent from './components/EditorContent';
 import ForkCreationModal from './components/ForkCreationModal';
+import { useFileSystem } from '@site/src/contexts/FileSystemContext';
+import { normalizeDocPath } from '@site/src/utils/github';
 
 interface InlineEditorProps {
   documentPath?: string;
@@ -23,25 +24,40 @@ export default function InlineEditor({
 }: InlineEditorProps) {
   const { enterEditMode } = useEditState();
   const isEditing = useIsEditing();
-  
-  // 編集パスを設定
+  const { repo, loading, selectedFile, selectFile, getFileContent, setFileContent, status } = useFileSystem();
+
+  // 編集パスを設定 + FS選択
   useEffect(() => {
     if (isEditing && documentPath) {
       enterEditMode(documentPath);
+      const normalized = normalizeDocPath(documentPath);
+      selectFile(normalized);
     }
-  }, [isEditing, documentPath, enterEditMode]);
-  
-  // GitHubコンテンツの管理
-  const {
-    content,
-    setContent,
-    isLoading,
-    repoInfo,
-    isForkCreating,
-    forkCreationMessage,
-    forkCreationError,
-    clearForkError
-  } = useGitHubContent(documentPath);
+  }, [isEditing, documentPath, enterEditMode, selectFile]);
+
+  const [content, setContentLocal] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      if (!selectedFile) { setIsLoading(false); return; }
+      setIsLoading(true);
+      try {
+        const txt = await getFileContent(selectedFile);
+        if (!mounted) return;
+        setContentLocal(txt);
+      } finally {
+        if (mounted) setIsLoading(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, [selectedFile, getFileContent]);
+
+  const handleContentChange = (newContent: string) => {
+    setContentLocal(newContent);
+    if (selectedFile) setFileContent(selectedFile, newContent);
+  };
   
   // 編集モードでない場合は非表示
   if (!isEditing) {
@@ -51,24 +67,20 @@ export default function InlineEditor({
   return (
     <>
       <div className={styles.editorContainer}>
-        <EditorHeader 
-          documentPath={documentPath}
-          repoInfo={repoInfo}
-          content={content}
-        />
+        <EditorHeader documentPath={documentPath} />
         
         <EditorContent 
           isLoading={isLoading}
           content={content}
-          onContentChange={setContent}
+          onContentChange={handleContentChange}
         />
       </div>
       
       <ForkCreationModal
-        isOpen={isForkCreating}
-        message={forkCreationMessage}
-        error={forkCreationError}
-        onClose={clearForkError}
+        isOpen={false}
+        message={''}
+        error={null}
+        onClose={() => {}}
       />
     </>
   );

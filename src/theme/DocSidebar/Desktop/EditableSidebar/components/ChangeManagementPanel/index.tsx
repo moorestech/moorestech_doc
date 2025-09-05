@@ -21,6 +21,7 @@ export const ChangeManagementPanel: React.FC<ChangeManagementPanelProps> = ({
   const getChangeIcon = (kind: Change['kind']) => {
     switch (kind) {
       case 'addFile': return '➕';
+      case 'updateFile': return '✏️';
       case 'deleteFile': return '🗑️';
       case 'moveFile': return '➡️';
       case 'addFolder': return '📁+';
@@ -33,6 +34,8 @@ export const ChangeManagementPanel: React.FC<ChangeManagementPanelProps> = ({
     switch (change.kind) {
       case 'addFile':
         return `ファイル追加: ${change.path}`;
+      case 'updateFile':
+        return `ファイル更新: ${change.path}`;
       case 'deleteFile':
         return `ファイル削除: ${change.path}`;
       case 'moveFile':

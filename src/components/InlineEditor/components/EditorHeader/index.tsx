@@ -1,32 +1,22 @@
 import React from 'react';
 import styles from '../../InlineEditor.module.css';
-import { useAuth } from '@site/src/auth/contexts/AuthContext';
-import { useSaveAndPr } from '../../hooks/useSaveAndPr';
 import HeaderTitle from './HeaderTitle';
 import RepoIndicator from './RepoIndicator';
 import StatusDisplay from './StatusDisplay';
 import SaveButton from './SaveButton';
 import LogoutButton from './LogoutButton';
+import { useFileSystem } from '@site/src/contexts/FileSystemContext';
 
 interface EditorHeaderProps {
   documentPath: string;
-  repoInfo?: { owner: string; repo: string } | null;
-  content?: string;
 }
 
 /**
  * エディターのヘッダーコンポーネント
  */
-export default function EditorHeader({ documentPath, repoInfo, content }: EditorHeaderProps) {
-  const { user } = useAuth();
-  const token = user?.token || null;
-  
-  const { isSaving, status, resultUrl, error, onSaveClick } = useSaveAndPr({
-    documentPath,
-    content,
-    token,
-    repoInfo,
-  });
+export default function EditorHeader({ documentPath }: EditorHeaderProps) {
+  const { repo, isSaving, status, resultUrl, saveAllChanges } = useFileSystem();
+  const repoInfo = repo ? { owner: repo.owner, repo: repo.repo } : null;
 
   return (
     <div className={styles.header}>
@@ -36,8 +26,8 @@ export default function EditorHeader({ documentPath, repoInfo, content }: Editor
       </div>
       <div className={styles.headerRight}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <StatusDisplay status={status} error={error} resultUrl={resultUrl} />
-          <SaveButton onSaveClick={onSaveClick} isSaving={isSaving} />
+          <StatusDisplay status={status} error={null} resultUrl={resultUrl} />
+          <SaveButton onSaveClick={saveAllChanges} isSaving={isSaving} />
         </div>
         <LogoutButton />
       </div>
