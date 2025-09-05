@@ -1,23 +1,109 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styles from './EditableSidebar.module.css';
-
-interface EditableSidebarProps {
-  items: any[];
-  path: string;
-}
+import { useAuthToken } from '../../../auth/contexts/AuthContext';
+import { EditableSidebarProps, DOCS_ROOT } from './types/editableSidebar';
+import { useRepository } from './hooks/useRepository';
+import { useFileTree } from './hooks/useFileTree';
+import { useChangeManager } from './hooks/useChangeManager';
+import { usePullRequest } from './hooks/usePullRequest';
+import { RepoHeader } from './components/RepoHeader';
+import { FileTreeNode } from './components/FileTreeNode';
+import { ChangesPanel } from './components/ChangesPanel';
 
 export default function EditableSidebar({ items, path }: EditableSidebarProps) {
+  const token = useAuthToken();
+  
+  // Custom hooks
+  const { repo, branch, loadingRepo, error, setError } = useRepository();
+  const { root, expanded, toggleExpand, loadChildren, listDirectory, isDirEmpty } = useFileTree(repo, branch);
+  const { 
+    changes, 
+    clearChanges, 
+    stageAddFile, 
+    stageAddFolder, 
+    stageDeleteFile, 
+    stageDeleteFolder, 
+    stageMoveFile, 
+    changesSummary 
+  } = useChangeManager();
+  const { applyChanges, deleteFileViaApi } = usePullRequest();
+
+  // Handle apply changes
+  const handleApplyChanges = useCallback(async () => {
+    if (!repo) return;
+    await applyChanges(
+      repo,
+      changes,
+      branch,
+      listDirectory,
+      deleteFileViaApi,
+      () => {
+        // On success
+        clearChanges();
+        // Reload tree
+        listDirectory(repo.owner, repo.repo, DOCS_ROOT).then(children => {
+          // Tree will be updated automatically in the hook
+        });
+      },
+      setError
+    );
+  }, [repo, changes, branch, listDirectory, deleteFileViaApi, clearChanges, setError, applyChanges]);
+
+  // Handle reload
+  const handleReload = useCallback(async () => {
+    if (!repo) return;
+    const children = await listDirectory(repo.owner, repo.repo, DOCS_ROOT);
+    // Tree will be updated automatically in the hook
+  }, [repo, listDirectory]);
+
   return (
     <div className={styles.editableSidebar}>
-      <div className={styles.placeholder}>
-        <div className={styles.placeholderIcon}>📝</div>
-        <div className={styles.placeholderText}>
-          編集用サイドバー
+      {!loadingRepo && repo && (
+        <RepoHeader 
+          repo={repo} 
+          branch={branch} 
+          onReload={handleReload} 
+        />
+      )}
+
+      {loadingRepo && (
+        <div className={styles.placeholder}>
+          <div className={styles.placeholderIcon}>⏳</div>
+          <div className={styles.placeholderText}>リポジトリ情報を取得中...</div>
         </div>
-        <div className={styles.placeholderDescription}>
-          ここに編集機能が表示されます
+      )}
+
+      {!loadingRepo && error && (
+        <div className={styles.placeholder}>
+          <div className={styles.placeholderIcon}>⚠️</div>
+          <div className={styles.placeholderText}>エラー</div>
+          <div className={styles.placeholderDescription}>{error}</div>
         </div>
-      </div>
+      )}
+
+      {!loadingRepo && !error && (
+        <div>
+          <FileTreeNode
+            node={root}
+            expanded={expanded}
+            onToggleExpand={toggleExpand}
+            onLoadChildren={loadChildren}
+            onAddFile={stageAddFile}
+            onAddFolder={stageAddFolder}
+            onDeleteFile={stageDeleteFile}
+            onDeleteFolder={(dirPath, node) => stageDeleteFolder(dirPath, node, isDirEmpty)}
+            onMoveFile={stageMoveFile}
+          />
+
+          <ChangesPanel
+            changes={changes}
+            changesSummary={changesSummary}
+            hasToken={!!token}
+            onClearChanges={clearChanges}
+            onApplyChanges={handleApplyChanges}
+          />
+        </div>
+      )}
     </div>
   );
 }
