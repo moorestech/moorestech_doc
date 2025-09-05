@@ -1,14 +1,17 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styles from './EditableSidebar.module.css';
 import { useAuthToken } from '../../../../auth/contexts/AuthContext';
+import { useEditState, useIsEditing } from '../../../../contexts/EditStateContext';
 import { EditableSidebarProps, DOCS_ROOT } from './types';
 import { useRepository, useFileTree, useChangeManager, usePullRequest } from './hooks';
 import { FileTreeNode, ChangeManagementPanel } from './components';
 
 export default function EditableSidebar({ items, path }: EditableSidebarProps) {
   const token = useAuthToken();
+  const { editState, updateSidebarChanges, clearSidebarChanges } = useEditState();
+  const isEditing = useIsEditing();
   
   // Custom hooks
   const { repo, branch, loadingRepo, error, setError } = useRepository();
@@ -28,6 +31,11 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
     clearSelection,
     isSelected 
   } = useChangeManager();
+  
+  // EditStateContextとchangesを同期
+  useEffect(() => {
+    updateSidebarChanges(changes);
+  }, [changes, updateSidebarChanges]);
   const { applyChanges } = usePullRequest();
 
   // Handle apply changes
@@ -41,6 +49,7 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
       () => {
         // On success
         clearChanges();
+        clearSidebarChanges();
         // Reload tree
         listDirectory(repo.owner, repo.repo, DOCS_ROOT).then(children => {
           // Tree will be updated automatically in the hook
@@ -48,7 +57,12 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
       },
       setError
     );
-  }, [repo, changes, branch, listDirectory, clearChanges, setError, applyChanges]);
+  }, [repo, changes, branch, listDirectory, clearChanges, clearSidebarChanges, setError, applyChanges]);
+  
+  // 編集モードでない場合は非表示
+  if (!isEditing) {
+    return null;
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>

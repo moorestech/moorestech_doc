@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import {useThemeConfig} from '@docusaurus/theme-common';
 import Logo from '@theme/Logo';
@@ -6,6 +6,7 @@ import CollapseButton from '@theme/DocSidebar/Desktop/CollapseButton';
 import Content from '@theme/DocSidebar/Desktop/Content';
 import EditableSidebar from './EditableSidebar';
 import styles from './styles.module.css';
+import { useIsEditing, useEditState } from '@site/src/contexts/EditStateContext';
 
 interface DocSidebarDesktopProps {
   path: string;
@@ -15,7 +16,8 @@ interface DocSidebarDesktopProps {
 }
 
 function DocSidebarDesktop({path, sidebar, onCollapse, isHidden}: DocSidebarDesktopProps) {
-  const [isEditMode, setIsEditMode] = useState(false);
+  const isEditMode = useIsEditing();
+  const { enterEditMode, exitEditMode } = useEditState();
   const {
     navbar: {hideOnScroll},
     docs: {
@@ -36,7 +38,7 @@ function DocSidebarDesktop({path, sidebar, onCollapse, isHidden}: DocSidebarDesk
       <div className={styles.editButtonContainer}>
         <button
           className={clsx(styles.editButton, isEditMode && styles.editButtonActive)}
-          onClick={() => setIsEditMode(!isEditMode)}
+          onClick={() => isEditMode ? exitEditMode() : enterEditMode(path)}
           title={isEditMode ? '編集モードを終了' : '編集モード'}
         >
           {isEditMode ? '✓ 編集中' : '✏️ 編集'}

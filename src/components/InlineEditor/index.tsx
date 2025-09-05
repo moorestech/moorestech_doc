@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './InlineEditor.module.css';
 import {useGitHubContent} from './hooks/useGitHubContent';
+import { useEditState, useIsEditing } from '../../contexts/EditStateContext';
 import EditorHeader from './components/EditorHeader';
 import EditorContent from './components/EditorContent';
 import ForkCreationModal from './components/ForkCreationModal';
@@ -20,6 +21,16 @@ export default function InlineEditor({
   storageKey = 'doc-inline-editor',
   originalProps
 }: InlineEditorProps) {
+  const { enterEditMode } = useEditState();
+  const isEditing = useIsEditing();
+  
+  // 編集パスを設定
+  useEffect(() => {
+    if (isEditing && documentPath) {
+      enterEditMode(documentPath);
+    }
+  }, [isEditing, documentPath, enterEditMode]);
+  
   // GitHubコンテンツの管理
   const {
     content,
@@ -31,6 +42,11 @@ export default function InlineEditor({
     forkCreationError,
     clearForkError
   } = useGitHubContent(documentPath);
+  
+  // 編集モードでない場合は非表示
+  if (!isEditing) {
+    return null;
+  }
 
   return (
     <>

@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useLocation } from '@docusaurus/router';
+import React from 'react';
+import { useLocation } from '@docusaurus/router';
 import IconEdit from '@theme/Icon/Edit';
+import { useEditState, useIsEditing } from '../../contexts/EditStateContext';
 
 export default function EditButton() {
-  const history = useHistory();
   const location = useLocation();
-  const [isEditMode, setIsEditMode] = useState(false);
-  
-  // URLパラメータの変更を監視
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    setIsEditMode(params.get('edit') === 'true');
-  }, [location.search]);
+  const { enterEditMode, exitEditMode } = useEditState();
+  const isEditMode = useIsEditing();
   
   const handleEditClick = () => {
-    // 現在のパスに?edit=trueを追加してソフトナビゲーション
-    const currentPath = location.pathname;
-    history.push(`${currentPath}?edit=true`);
+    // 編集モードに入る（現在のパスを渡す）
+    enterEditMode(location.pathname);
   };
   
   const handleBackClick = () => {
-    // ?edit=trueを削除して通常モードに戻る
-    const currentPath = location.pathname;
-    history.push(currentPath);
+    // 編集モードを終了
+    exitEditMode();
   };
   
   // 編集モードの場合はBackボタンを表示
