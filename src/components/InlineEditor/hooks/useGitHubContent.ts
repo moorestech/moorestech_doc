@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import {normalizeDocPath, fetchGitHubContent, determineRepository, buildCustomGitHubRawUrl} from '../utils/github';
+import {normalizeDocPath, fetchGitHubContent, determineRepository, buildCustomGitHubRawUrl} from '../../../utils/github';
 import { EditorConfig } from '../../../config/editor.config';
 import { useAuthToken } from '../../../auth/contexts/AuthContext';
 

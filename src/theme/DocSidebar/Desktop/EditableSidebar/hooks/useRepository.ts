@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { EditorConfig } from '../../../../../config/editor.config';
 import { useAuthToken } from '../../../../../auth/contexts/AuthContext';
-import { determineRepository } from '../../../../../components/InlineEditor/utils/github';
+import { determineRepository } from '../../../../../utils/github';
 import { Repository } from '../types';
 
 interface UseRepositoryReturn {

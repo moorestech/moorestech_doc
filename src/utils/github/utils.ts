@@ -2,7 +2,7 @@
  * GitHub関連のユーティリティ関数
  */
 
-import { EditorConfig } from '../../../../config/editor.config';
+import { EditorConfig } from '../../config/editor.config';
 
 /**
  * ドキュメントパスを正規化してファイルパスに変換

@@ -2,7 +2,7 @@
  * 高レベルのGitHubサービスロジック
  */
 
-import { EditorConfig } from '../../../../config/editor.config';
+import { EditorConfig } from '../../config/editor.config';
 import {
   checkWritePermissionForRepo,
   findUserForkRepository,

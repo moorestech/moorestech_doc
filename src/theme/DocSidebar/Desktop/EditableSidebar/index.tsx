@@ -21,7 +21,7 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
     stageMoveFile, 
     changesSummary 
   } = useChangeManager();
-  const { applyChanges, deleteFileViaApi } = usePullRequest();
+  const { applyChanges } = usePullRequest();
 
   // Handle apply changes
   const handleApplyChanges = useCallback(async () => {
@@ -31,7 +31,6 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
       changes,
       branch,
       listDirectory,
-      deleteFileViaApi,
       () => {
         // On success
         clearChanges();
@@ -42,7 +41,7 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
       },
       setError
     );
-  }, [repo, changes, branch, listDirectory, deleteFileViaApi, clearChanges, setError, applyChanges]);
+  }, [repo, changes, branch, listDirectory, clearChanges, setError, applyChanges]);
 
   // Handle reload
   const handleReload = useCallback(async () => {

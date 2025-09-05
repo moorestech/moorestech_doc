@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
-import { EditorConfig } from '../../../../../config/editor.config';
 import { useAuthToken } from '../../../../../auth/contexts/AuthContext';
+import { listDirectory as listDirectoryApi, GitHubItem } from '../../../../../utils/github';
 import { TreeNode, Repository, DOCS_ROOT } from '../types';
 
 interface UseFileTreeReturn {
@@ -31,30 +31,17 @@ export const useFileTree = (repo: Repository | null, branch: string): UseFileTre
     });
   }, []);
 
-  // GitHub contents API helpers (local, minimal)
-  const listDirectory = useCallback(async (owner: string, repoName: string, dirPath: string) => {
-    const apiBase = EditorConfig.getInstance().getApiBaseUrl();
-    const url = `${apiBase}/repos/${owner}/${repoName}/contents/${encodeURIComponent(dirPath)}?ref=${encodeURIComponent(branch)}`;
-    const res = await fetch(url, {
-      headers: {
-        Accept: 'application/vnd.github.v3+json',
-        ...(token ? { Authorization: `token ${token}` } : {}),
-      },
-    });
-    if (!res.ok) throw new Error(`ディレクトリ取得に失敗しました: ${res.status} ${res.statusText}`);
-    const data: any[] = await res.json();
-    return data
-      .filter((item) => item.type === 'dir' || item.type === 'file')
-      .map<TreeNode>((item) => ({
-        type: item.type,
-        name: item.name,
-        path: item.path,
-        sha: item.sha,
-        children: item.type === 'dir' ? [] : undefined,
-        loaded: item.type === 'dir' ? false : undefined,
-      }))
-      // Keep dirs first then files, alpha
-      .sort((a, b) => (a.type === b.type ? a.name.localeCompare(b.name) : a.type === 'dir' ? -1 : 1));
+  // GitHub contents APIのラッパー
+  const listDirectory = useCallback(async (owner: string, repoName: string, dirPath: string): Promise<TreeNode[]> => {
+    const items = await listDirectoryApi(owner, repoName, dirPath, branch, token);
+    return items.map<TreeNode>((item) => ({
+      type: item.type,
+      name: item.name,
+      path: item.path,
+      sha: item.sha,
+      children: item.type === 'dir' ? [] : undefined,
+      loaded: item.type === 'dir' ? false : undefined,
+    }));
   }, [branch, token]);
 
   const loadChildren = useCallback(async (node: TreeNode) => {

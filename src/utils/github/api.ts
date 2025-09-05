@@ -2,7 +2,7 @@
  * 低レベルのGitHub APIラッパー関数群
  */
 
-import { EditorConfig } from '../../../../config/editor.config';
+import { EditorConfig } from '../../config/editor.config';
 import { toBase64Utf8 } from './utils';
 
 /**

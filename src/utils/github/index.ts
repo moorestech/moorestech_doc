@@ -34,3 +34,10 @@ export {
   createPullRequest,
   mergePullRequest,
 } from './api';
+
+// ディレクトリ操作
+export { listDirectory } from './listDirectory';
+export type { GitHubItem } from './listDirectory';
+
+// ファイル削除
+export { deleteFileViaApi } from './deleteFile';

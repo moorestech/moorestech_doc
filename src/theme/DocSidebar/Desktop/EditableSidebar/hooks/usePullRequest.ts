@@ -9,7 +9,8 @@ import {
   createPullRequest,
   mergePullRequest,
   buildCustomGitHubRawUrl,
-} from '../../../../../components/InlineEditor/utils/github';
+  deleteFileViaApi,
+} from '../../../../../utils/github';
 import { Change, TreeNode, Repository, DOCS_ROOT } from '../types';
 
 interface UsePullRequestReturn {
@@ -18,41 +19,20 @@ interface UsePullRequestReturn {
     changes: Change[],
     branch: string,
     listDirectory: (owner: string, repoName: string, dirPath: string) => Promise<TreeNode[]>,
-    deleteFileViaApi: (owner: string, repoName: string, filePath: string, sha: string, message: string, onBranch: string) => Promise<void>,
     onSuccess: () => void,
     onError: (error: string) => void
   ) => Promise<void>;
-  deleteFileViaApi: (owner: string, repoName: string, filePath: string, sha: string, message: string, onBranch: string) => Promise<void>;
 }
 
 export const usePullRequest = (): UsePullRequestReturn => {
   const token = useAuthToken();
   const applyingRef = useRef(false);
 
-  const deleteFileViaApi = useCallback(async (owner: string, repoName: string, filePath: string, sha: string, message: string, onBranch: string) => {
-    const apiBase = EditorConfig.getInstance().getApiBaseUrl();
-    const url = `${apiBase}/repos/${owner}/${repoName}/contents/${encodeURIComponent(filePath)}`;
-    const res = await fetch(url, {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json',
-        ...(token ? { Authorization: `token ${token}` } : {}),
-      },
-      body: JSON.stringify({ message, sha, branch: onBranch }),
-    });
-    if (!res.ok) {
-      const text = await res.text().catch(() => '');
-      throw new Error(`削除に失敗しました: ${res.status} ${res.statusText} ${text}`);
-    }
-  }, [token]);
-
   const applyChanges = useCallback(async (
     repo: Repository,
     changes: Change[],
     branch: string,
     listDirectory: (owner: string, repoName: string, dirPath: string) => Promise<TreeNode[]>,
-    deleteFileViaApi: (owner: string, repoName: string, filePath: string, sha: string, message: string, onBranch: string) => Promise<void>,
     onSuccess: () => void,
     onError: (error: string) => void
   ) => {
@@ -91,7 +71,7 @@ export const usePullRequest = (): UsePullRequestReturn => {
         } else if (ch.kind === 'deleteFile') {
           const sha = await getFileSha(repo.owner, repo.repo, ch.path, workBranch, token);
           if (!sha) throw new Error(`${ch.path} のSHAが取得できませんでした`);
-          await deleteFileViaApi(repo.owner, repo.repo, ch.path, sha, `docs: delete ${ch.path} via EditableSidebar`, workBranch);
+          await deleteFileViaApi(repo.owner, repo.repo, ch.path, sha, `docs: delete ${ch.path} via EditableSidebar`, workBranch, token!);
         } else if (ch.kind === 'moveFile') {
           // Fetch old content
           const rawUrl = buildCustomGitHubRawUrl(repo.owner, repo.repo, workBranch, ch.from);
@@ -104,7 +84,7 @@ export const usePullRequest = (): UsePullRequestReturn => {
           await putFile(repo.owner, repo.repo, ch.to, content, putMsg, workBranch, token, existingNewSha);
           // Delete old
           const oldSha = await getFileSha(repo.owner, repo.repo, ch.from, workBranch, token);
-          await deleteFileViaApi(repo.owner, repo.repo, ch.from, oldSha!, `docs: move ${ch.from} -> ${ch.to} (delete)`, workBranch);
+          await deleteFileViaApi(repo.owner, repo.repo, ch.from, oldSha!, `docs: move ${ch.from} -> ${ch.to} (delete)`, workBranch, token!);
         } else if (ch.kind === 'addFolder') {
           const placeholder = `${ch.path.replace(/\/$/, '')}/.gitkeep`;
           const msg = `docs: add folder ${ch.path}`;
@@ -115,7 +95,7 @@ export const usePullRequest = (): UsePullRequestReturn => {
           const placeholder = `${ch.path.replace(/\/$/, '')}/.gitkeep`;
           const sha = await getFileSha(repo.owner, repo.repo, placeholder, workBranch, token).catch(() => null);
           if (sha) {
-            await deleteFileViaApi(repo.owner, repo.repo, placeholder, sha, `docs: delete folder ${ch.path}`, workBranch);
+            await deleteFileViaApi(repo.owner, repo.repo, placeholder, sha, `docs: delete folder ${ch.path}`, workBranch, token!);
           }
         }
       }
@@ -144,10 +124,9 @@ export const usePullRequest = (): UsePullRequestReturn => {
     } finally {
       applyingRef.current = false;
     }
-  }, [token, deleteFileViaApi]);
+  }, [token]);
 
   return {
     applyChanges,
-    deleteFileViaApi,
   };
 };

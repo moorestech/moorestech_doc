@@ -47,7 +47,7 @@ export function useSaveAndPr({
       setIsSaving(true);
       setStatus('ブランチ作成と保存を開始します...');
       
-      const { saveChangesAndOpenPR } = await import('../utils/github');
+      const { saveChangesAndOpenPR } = await import('../../../utils/github');
       const res = await saveChangesAndOpenPR({
         documentPath,
         content,
