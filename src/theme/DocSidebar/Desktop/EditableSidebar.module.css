@@ -1,0 +1,48 @@
+.editableSidebar {
+  height: 100%;
+  overflow-y: auto;
+  padding: 1rem;
+  background: var(--ifm-background-surface-color);
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  min-height: 300px;
+}
+
+.placeholderIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.placeholderText {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  margin-bottom: 0.5rem;
+}
+
+.placeholderDescription {
+  font-size: 0.875rem;
+  color: var(--ifm-font-color-secondary);
+  opacity: 0.8;
+}
+
+/* ダークモードの調整 */
+[data-theme='dark'] .editableSidebar {
+  background: var(--ifm-background-surface-color);
+}
+
+[data-theme='dark'] .placeholderText {
+  color: var(--ifm-font-color-base);
+}
+
+[data-theme='dark'] .placeholderDescription {
+  color: var(--ifm-font-color-secondary);
+}

@@ -32,3 +32,63 @@
     height: 2rem;
   }
 }
+
+/* 編集ボタンのスタイル */
+.editButtonContainer {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+.editButton {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: var(--ifm-button-border-radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.editButton:hover {
+  background: var(--ifm-hover-overlay);
+  border-color: var(--ifm-color-primary);
+}
+
+.editButtonActive {
+  background: var(--ifm-color-primary);
+  color: var(--ifm-color-primary-contrast-background);
+  border-color: var(--ifm-color-primary);
+}
+
+.editButtonActive:hover {
+  background: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
+}
+
+/* ダークモード */
+[data-theme='dark'] .editButtonContainer {
+  border-bottom-color: var(--ifm-toc-border-color);
+}
+
+[data-theme='dark'] .editButton {
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  border-color: var(--ifm-toc-border-color);
+}
+
+[data-theme='dark'] .editButton:hover {
+  background: var(--ifm-hover-overlay);
+  border-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .editButtonActive {
+  background: var(--ifm-color-primary);
+  color: var(--ifm-color-primary-contrast-background);
+}

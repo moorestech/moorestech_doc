@@ -133,6 +133,29 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+  
+  // Webpack configuration for polyfills
+  plugins: [
+    async function myPlugin(context, options) {
+      return {
+        name: "docusaurus-plugin-buffer-polyfill",
+        configureWebpack(config, isServer, utils) {
+          return {
+            resolve: {
+              fallback: {
+                buffer: require.resolve('buffer/'),
+              },
+            },
+            plugins: [
+              new utils.webpack.ProvidePlugin({
+                Buffer: ['buffer', 'Buffer'],
+              }),
+            ],
+          };
+        },
+      };
+    },
+  ],
 };
 
 export default config;
