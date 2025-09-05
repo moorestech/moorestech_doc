@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
-import { EditorConfig } from '../../../../config/editor.config';
-import { useAuthToken } from '../../../../auth/contexts/AuthContext';
-import { TreeNode, Repository, DOCS_ROOT } from '../types/editableSidebar';
+import { EditorConfig } from '../../../../../config/editor.config';
+import { useAuthToken } from '../../../../../auth/contexts/AuthContext';
+import { TreeNode, Repository, DOCS_ROOT } from '../types';
 
 interface UseFileTreeReturn {
   root: TreeNode;

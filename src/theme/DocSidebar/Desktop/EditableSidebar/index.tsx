@@ -1,14 +1,9 @@
 import React, { useCallback } from 'react';
 import styles from './EditableSidebar.module.css';
-import { useAuthToken } from '../../../auth/contexts/AuthContext';
-import { EditableSidebarProps, DOCS_ROOT } from './types/editableSidebar';
-import { useRepository } from './hooks/useRepository';
-import { useFileTree } from './hooks/useFileTree';
-import { useChangeManager } from './hooks/useChangeManager';
-import { usePullRequest } from './hooks/usePullRequest';
-import { RepoHeader } from './components/RepoHeader';
-import { FileTreeNode } from './components/FileTreeNode';
-import { ChangesPanel } from './components/ChangesPanel';
+import { useAuthToken } from '../../../../auth/contexts/AuthContext';
+import { EditableSidebarProps, DOCS_ROOT } from './types';
+import { useRepository, useFileTree, useChangeManager, usePullRequest } from './hooks';
+import { RepoHeader, FileTreeNode, ChangesPanel } from './components';
 
 export default function EditableSidebar({ items, path }: EditableSidebarProps) {
   const token = useAuthToken();

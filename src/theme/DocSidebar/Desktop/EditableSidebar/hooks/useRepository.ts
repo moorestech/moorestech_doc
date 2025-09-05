@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { EditorConfig } from '../../../../config/editor.config';
-import { useAuthToken } from '../../../../auth/contexts/AuthContext';
-import { determineRepository } from '../../../../components/InlineEditor/utils/github';
-import { Repository } from '../types/editableSidebar';
+import { EditorConfig } from '../../../../../config/editor.config';
+import { useAuthToken } from '../../../../../auth/contexts/AuthContext';
+import { determineRepository } from '../../../../../components/InlineEditor/utils/github';
+import { Repository } from '../types';
 
 interface UseRepositoryReturn {
   repo: Repository | null;

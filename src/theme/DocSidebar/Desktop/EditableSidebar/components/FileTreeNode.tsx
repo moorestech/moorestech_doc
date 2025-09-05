@@ -1,5 +1,5 @@
 import React from 'react';
-import { TreeNode, DOCS_ROOT } from '../types/editableSidebar';
+import { TreeNode, DOCS_ROOT } from '../types';
 
 interface FileTreeNodeProps {
   node: TreeNode;

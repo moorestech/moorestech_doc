@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../EditableSidebar.module.css';
-import { Change } from '../types/editableSidebar';
+import { Change } from '../types';
 
 interface ChangesPanelProps {
   changes: Change[];

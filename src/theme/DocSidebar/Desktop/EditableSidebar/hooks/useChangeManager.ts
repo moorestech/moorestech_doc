@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { Change, TreeNode } from '../types/editableSidebar';
+import { Change, TreeNode } from '../types';
 
 interface UseChangeManagerReturn {
   changes: Change[];

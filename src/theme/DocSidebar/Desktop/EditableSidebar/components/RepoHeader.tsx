@@ -1,5 +1,5 @@
 import React from 'react';
-import { Repository, TreeNode, DOCS_ROOT } from '../types/editableSidebar';
+import { Repository } from '../types';
 
 interface RepoHeaderProps {
   repo: Repository;

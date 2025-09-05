@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
-import { EditorConfig } from '../../../../config/editor.config';
-import { useAuthToken } from '../../../../auth/contexts/AuthContext';
+import { EditorConfig } from '../../../../../config/editor.config';
+import { useAuthToken } from '../../../../../auth/contexts/AuthContext';
 import {
   getRefSha,
   createBranch,
@@ -9,8 +9,8 @@ import {
   createPullRequest,
   mergePullRequest,
   buildCustomGitHubRawUrl,
-} from '../../../../components/InlineEditor/utils/github';
-import { Change, TreeNode, Repository, DOCS_ROOT } from '../types/editableSidebar';
+} from '../../../../../components/InlineEditor/utils/github';
+import { Change, TreeNode, Repository, DOCS_ROOT } from '../types';
 
 interface UsePullRequestReturn {
   applyChanges: (
