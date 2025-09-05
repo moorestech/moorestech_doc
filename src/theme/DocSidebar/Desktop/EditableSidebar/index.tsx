@@ -3,7 +3,7 @@ import styles from './EditableSidebar.module.css';
 import { useAuthToken } from '../../../../auth/contexts/AuthContext';
 import { EditableSidebarProps, DOCS_ROOT } from './types';
 import { useRepository, useFileTree, useChangeManager, usePullRequest } from './hooks';
-import { RepoHeader, FileTreeNode, ChangesPanel } from './components';
+import { RepoHeader, FileTreeNode } from './components';
 
 export default function EditableSidebar({ items, path }: EditableSidebarProps) {
   const token = useAuthToken();
@@ -88,14 +88,6 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
             onDeleteFile={stageDeleteFile}
             onDeleteFolder={(dirPath, node) => stageDeleteFolder(dirPath, node, isDirEmpty)}
             onMoveFile={stageMoveFile}
-          />
-
-          <ChangesPanel
-            changes={changes}
-            changesSummary={changesSummary}
-            hasToken={!!token}
-            onClearChanges={clearChanges}
-            onApplyChanges={handleApplyChanges}
           />
         </div>
       )}
