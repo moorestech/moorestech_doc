@@ -140,6 +140,7 @@ const config: Config = {
       return {
         name: "docusaurus-plugin-buffer-polyfill",
         configureWebpack(config, isServer, utils) {
+          const webpack = require('webpack');
           return {
             resolve: {
               fallback: {
@@ -147,7 +148,7 @@ const config: Config = {
               },
             },
             plugins: [
-              new utils.webpack.ProvidePlugin({
+              new webpack.ProvidePlugin({
                 Buffer: ['buffer', 'Buffer'],
               }),
             ],
