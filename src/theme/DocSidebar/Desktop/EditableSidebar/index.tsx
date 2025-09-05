@@ -1,4 +1,6 @@
 import React, { useCallback } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import styles from './EditableSidebar.module.css';
 import { useAuthToken } from '../../../../auth/contexts/AuthContext';
 import { EditableSidebarProps, DOCS_ROOT } from './types';
@@ -18,8 +20,13 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
     stageAddFolder, 
     stageDeleteFile, 
     stageDeleteFolder, 
-    stageMoveFile, 
-    changesSummary 
+    stageMoveFile,
+    stageMoveItems,
+    changesSummary,
+    selectedPaths,
+    toggleSelection,
+    clearSelection,
+    isSelected 
   } = useChangeManager();
   const { applyChanges } = usePullRequest();
 
@@ -51,45 +58,51 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
   }, [repo, listDirectory]);
 
   return (
-    <div className={styles.editableSidebar}>
-      {!loadingRepo && repo && (
-        <RepoHeader 
-          repo={repo} 
-          branch={branch} 
-          onReload={handleReload} 
-        />
-      )}
-
-      {loadingRepo && (
-        <div className={styles.placeholder}>
-          <div className={styles.placeholderIcon}>⏳</div>
-          <div className={styles.placeholderText}>リポジトリ情報を取得中...</div>
-        </div>
-      )}
-
-      {!loadingRepo && error && (
-        <div className={styles.placeholder}>
-          <div className={styles.placeholderIcon}>⚠️</div>
-          <div className={styles.placeholderText}>エラー</div>
-          <div className={styles.placeholderDescription}>{error}</div>
-        </div>
-      )}
-
-      {!loadingRepo && !error && (
-        <div className={styles.fileTree}>
-          <FileTreeNode
-            node={root}
-            expanded={expanded}
-            onToggleExpand={toggleExpand}
-            onLoadChildren={loadChildren}
-            onAddFile={stageAddFile}
-            onAddFolder={stageAddFolder}
-            onDeleteFile={stageDeleteFile}
-            onDeleteFolder={(dirPath, node) => stageDeleteFolder(dirPath, node, isDirEmpty)}
-            onMoveFile={stageMoveFile}
+    <DndProvider backend={HTML5Backend}>
+      <div className={styles.editableSidebar}>
+        {!loadingRepo && repo && (
+          <RepoHeader 
+            repo={repo} 
+            branch={branch} 
+            onReload={handleReload} 
           />
-        </div>
-      )}
-    </div>
+        )}
+
+        {loadingRepo && (
+          <div className={styles.placeholder}>
+            <div className={styles.placeholderIcon}>⏳</div>
+            <div className={styles.placeholderText}>リポジトリ情報を取得中...</div>
+          </div>
+        )}
+
+        {!loadingRepo && error && (
+          <div className={styles.placeholder}>
+            <div className={styles.placeholderIcon}>⚠️</div>
+            <div className={styles.placeholderText}>エラー</div>
+            <div className={styles.placeholderDescription}>{error}</div>
+          </div>
+        )}
+
+        {!loadingRepo && !error && (
+          <div className={styles.fileTree}>
+            <FileTreeNode
+              node={root}
+              expanded={expanded}
+              selectedPaths={selectedPaths}
+              onToggleExpand={toggleExpand}
+              onLoadChildren={loadChildren}
+              onAddFile={stageAddFile}
+              onAddFolder={stageAddFolder}
+              onDeleteFile={stageDeleteFile}
+              onDeleteFolder={(dirPath, node) => stageDeleteFolder(dirPath, node, isDirEmpty)}
+              onMoveFile={stageMoveFile}
+              onMoveItems={stageMoveItems}
+              onToggleSelection={toggleSelection}
+              isSelected={isSelected}
+            />
+          </div>
+        )}
+      </div>
+    </DndProvider>
   );
 }

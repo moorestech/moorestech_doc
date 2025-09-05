@@ -81,6 +81,18 @@
   background: var(--ifm-hover-overlay);
 }
 
+.nodeContent.selected {
+  background: rgba(0, 105, 255, 0.1);
+  border: 1px solid rgba(0, 105, 255, 0.3);
+  padding: 3px 7px; /* border分調整 */
+}
+
+.nodeContent.dropTarget {
+  background: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.4);
+  padding: 3px 7px; /* border分調整 */
+}
+
 .nodeIcon {
   width: 16px;
   height: 16px;
@@ -219,6 +231,16 @@
 
 [data-theme='dark'] .nodeContent:hover {
   background: var(--ifm-hover-overlay);
+}
+
+[data-theme='dark'] .nodeContent.selected {
+  background: rgba(0, 105, 255, 0.2);
+  border: 1px solid rgba(0, 105, 255, 0.4);
+}
+
+[data-theme='dark'] .nodeContent.dropTarget {
+  background: rgba(40, 167, 69, 0.2);
+  border: 1px solid rgba(40, 167, 69, 0.5);
 }
 
 [data-theme='dark'] .childrenContainer {

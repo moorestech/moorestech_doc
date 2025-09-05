@@ -9,13 +9,40 @@ interface UseChangeManagerReturn {
   stageDeleteFile: (filePath: string) => void;
   stageDeleteFolder: (dirPath: string, node: TreeNode, isDirEmpty: (node: TreeNode) => boolean) => void;
   stageMoveFile: (filePath: string) => void;
+  stageMoveItems: (items: { path: string; type: 'file' | 'dir' }[], targetPath: string) => void;
   changesSummary: string;
+  selectedPaths: Set<string>;
+  toggleSelection: (path: string, isMultiSelect: boolean) => void;
+  clearSelection: () => void;
+  isSelected: (path: string) => boolean;
 }
 
 export const useChangeManager = (): UseChangeManagerReturn => {
   const [changes, setChanges] = useState<Change[]>([]);
+  const [selectedPaths, setSelectedPaths] = useState<Set<string>>(new Set());
 
   const clearChanges = useCallback(() => setChanges([]), []);
+  const clearSelection = useCallback(() => setSelectedPaths(new Set()), []);
+  const isSelected = useCallback((path: string) => selectedPaths.has(path), [selectedPaths]);
+  
+  const toggleSelection = useCallback((path: string, isMultiSelect: boolean) => {
+    setSelectedPaths(prev => {
+      const newSet = new Set(prev);
+      if (isMultiSelect) {
+        // Ctrl/Cmd+Click: toggle individual selection
+        if (newSet.has(path)) {
+          newSet.delete(path);
+        } else {
+          newSet.add(path);
+        }
+      } else {
+        // Regular click: select only this item
+        newSet.clear();
+        newSet.add(path);
+      }
+      return newSet;
+    });
+  }, []);
 
   const stageAddFile = useCallback((dirPath: string) => {
     const name = window.prompt('新しいファイル名 (.md 推奨):');
@@ -43,6 +70,25 @@ export const useChangeManager = (): UseChangeManagerReturn => {
     if (!to || to === filePath) return;
     setChanges((c) => [...c, { kind: 'moveFile', from: filePath, to }]);
   }, []);
+  
+  const stageMoveItems = useCallback((items: { path: string; type: 'file' | 'dir' }[], targetPath: string) => {
+    const newChanges: Change[] = items.map(item => {
+      const fileName = item.path.split('/').pop();
+      const newPath = `${targetPath}/${fileName}`;
+      
+      // Avoid moving to the same location or into itself
+      if (item.path === newPath || targetPath.startsWith(item.path + '/')) {
+        return null;
+      }
+      
+      return { kind: 'moveFile' as const, from: item.path, to: newPath };
+    }).filter(Boolean) as Change[];
+    
+    if (newChanges.length > 0) {
+      setChanges((c) => [...c, ...newChanges]);
+      clearSelection();
+    }
+  }, [clearSelection]);
 
   const stageDeleteFolder = useCallback((dirPath: string, node: TreeNode, isDirEmpty: (node: TreeNode) => boolean) => {
     if (!isDirEmpty(node)) {
@@ -70,6 +116,11 @@ export const useChangeManager = (): UseChangeManagerReturn => {
     stageDeleteFile,
     stageDeleteFolder,
     stageMoveFile,
+    stageMoveItems,
     changesSummary,
+    selectedPaths,
+    toggleSelection,
+    clearSelection,
+    isSelected,
   };
 };
