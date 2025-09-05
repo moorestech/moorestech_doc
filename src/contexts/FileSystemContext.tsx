@@ -89,8 +89,6 @@ export function FileSystemProvider({ children }: { children: React.ReactNode }) 
   // selected file for inline editor
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
-  const selectFile = useCallback((path: string | null) => setSelectedFile(path), []);
-
   // Resolve repo (original or fork based on permissions)
   useEffect(() => {
     if (!ExecutionEnvironment.canUseDOM) return;
@@ -134,6 +132,26 @@ export function FileSystemProvider({ children }: { children: React.ReactNode }) 
     }
     return null;
   }, [root]);
+
+  const selectFile = useCallback((path: string | null) => {
+    if (path == null) {
+      setSelectedFile(null);
+      return;
+    }
+    const node = findNode(path);
+    if (node && node.type === 'file') {
+      setSelectedFile(path);
+    } else {
+      // If node not in tree yet, allow selecting if it likely represents a file (has extension)
+      const looksLikeFile = /\.[a-z0-9]+$/i.test(path);
+      if (!node && looksLikeFile) {
+        setSelectedFile(path);
+      } else {
+        // ignore directory selections
+        setSelectedFile(null);
+      }
+    }
+  }, [findNode]);
 
   const updateNodeChildren = useCallback((dirPath: string, children: TreeNode[]) => {
     const rec = (node: TreeNode): TreeNode => {
@@ -472,4 +490,3 @@ export function useFileSystem() {
   if (!ctx) throw new Error('useFileSystem must be used within FileSystemProvider');
   return ctx;
 }
-
