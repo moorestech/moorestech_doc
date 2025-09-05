@@ -5,7 +5,7 @@ import styles from './EditableSidebar.module.css';
 import { useAuthToken } from '../../../../auth/contexts/AuthContext';
 import { EditableSidebarProps, DOCS_ROOT } from './types';
 import { useRepository, useFileTree, useChangeManager, usePullRequest } from './hooks';
-import { RepoHeader, FileTreeNode } from './components';
+import { RepoHeader, FileTreeNode, ChangeManagementPanel } from './components';
 
 export default function EditableSidebar({ items, path }: EditableSidebarProps) {
   const token = useAuthToken();
@@ -84,23 +84,30 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
         )}
 
         {!loadingRepo && !error && (
-          <div className={styles.fileTree}>
-            <FileTreeNode
-              node={root}
-              expanded={expanded}
-              selectedPaths={selectedPaths}
-              onToggleExpand={toggleExpand}
-              onLoadChildren={loadChildren}
-              onAddFile={stageAddFile}
-              onAddFolder={stageAddFolder}
-              onDeleteFile={stageDeleteFile}
-              onDeleteFolder={(dirPath, node) => stageDeleteFolder(dirPath, node, isDirEmpty)}
-              onMoveFile={stageMoveFile}
-              onMoveItems={stageMoveItems}
-              onToggleSelection={toggleSelection}
-              isSelected={isSelected}
+          <>
+            <div className={styles.fileTree}>
+              <FileTreeNode
+                node={root}
+                expanded={expanded}
+                selectedPaths={selectedPaths}
+                onToggleExpand={toggleExpand}
+                onLoadChildren={loadChildren}
+                onAddFile={stageAddFile}
+                onAddFolder={stageAddFolder}
+                onDeleteFile={stageDeleteFile}
+                onDeleteFolder={(dirPath, node) => stageDeleteFolder(dirPath, node, isDirEmpty)}
+                onMoveFile={stageMoveFile}
+                onMoveItems={stageMoveItems}
+                onToggleSelection={toggleSelection}
+                isSelected={isSelected}
+              />
+            </div>
+            <ChangeManagementPanel
+              changes={changes}
+              onApplyChanges={handleApplyChanges}
+              onClearChanges={clearChanges}
             />
-          </div>
+          </>
         )}
       </div>
     </DndProvider>
