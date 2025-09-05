@@ -38,6 +38,7 @@ export default function InlineEditor({
         <EditorHeader 
           documentPath={documentPath}
           repoInfo={repoInfo}
+          content={content}
         />
         
         <EditorContent 
