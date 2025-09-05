@@ -47,7 +47,7 @@ function DocSidebarDesktop({path, sidebar, onCollapse, isHidden}: DocSidebarDesk
       
       {/* コンテンツの表示切り替え */}
       {isEditMode ? (
-        <EditableSidebar />
+        <EditableSidebar items={sidebar} path={path} />
       ) : (
         <Content path={path} sidebar={sidebar} />
       )}

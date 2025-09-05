@@ -27,7 +27,7 @@ export function useGitHubAuth(options: GitHubAuthOptions = {}) {
   const { user, login: authLogin, logout: authLogout, isAutoLoggingIn, setAutoLoginCallback } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState<GitHubUserInfo | null>(null);
-  const loginRef = useRef<(silent?: boolean) => Promise<any>>(undefined);
+  const loginRef = useRef<(silent?: boolean) => Promise<any>>();
   
   const customFields = (siteConfig?.customFields || {}) as any;
   const baseUrl = customFields.authBaseUrl || 'https://api.netlify.com';

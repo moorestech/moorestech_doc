@@ -32,15 +32,10 @@ export default function DocItemContentWrapper(props: any) {
   
   // エディットモードの時は認証状態を確認
   if (isEditing) {
-    // TODO: 開発中は認証をスキップ
-    console.log('[DocItem] Edit mode active, showing InlineEditor (auth skipped for dev)');
-    return <InlineEditor documentPath={pathname} />;
-    /*
     if (!isAuthenticated) {
       return <LoginPrompt documentPath={pathname} />;
     }
-    return <InlineEditor documentPath={pathname} />;
-    */
+    return <InlineEditor documentPath={pathname} originalProps={props} />;
   }
   
   return <OriginalContent {...props} />;
