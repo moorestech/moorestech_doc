@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../EditableSidebar.module.css';
 import { Repository } from '../types';
 
 interface RepoHeaderProps {
@@ -9,12 +10,15 @@ interface RepoHeaderProps {
 
 export const RepoHeader: React.FC<RepoHeaderProps> = ({ repo, branch, onReload }) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-      <span style={{ fontWeight: 600 }}>Repo:</span>
-      <span>{repo.owner}/{repo.repo}@{branch}</span>
-      <span style={{ flex: 1 }} />
-      <button onClick={onReload}>
-        再読み込み
+    <div className={styles.repoHeader}>
+      <div className={styles.repoInfo}>
+        <span className={styles.repoLabel}>Repo:</span>
+        <span className={styles.repoName}>
+          {repo.owner}/{repo.repo}@{branch}
+        </span>
+      </div>
+      <button className={styles.reloadButton} onClick={onReload}>
+        ↻ 再読み込み
       </button>
     </div>
   );

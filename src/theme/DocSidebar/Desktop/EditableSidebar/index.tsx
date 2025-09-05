@@ -76,7 +76,7 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
       )}
 
       {!loadingRepo && !error && (
-        <div>
+        <div className={styles.fileTree}>
           <FileTreeNode
             node={root}
             expanded={expanded}

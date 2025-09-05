@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../EditableSidebar.module.css';
 import { TreeNode, DOCS_ROOT } from '../types';
 
 interface FileTreeNodeProps {
@@ -26,26 +27,55 @@ export const FileTreeNode: React.FC<FileTreeNodeProps> = ({
 }) => {
   if (node.type === 'dir') {
     const isOpen = expanded.has(node.path);
+    const isRoot = node.path === DOCS_ROOT;
+    
     return (
-      <div key={node.path} style={{ marginLeft: node.path === DOCS_ROOT ? 0 : 12 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+      <div className={styles.treeNode}>
+        <div className={styles.nodeContent}>
           <button 
+            className={`${styles.expandIcon} ${isOpen ? styles.expanded : ''}`}
             onClick={() => { 
               onToggleExpand(node.path); 
               if (!node.loaded) onLoadChildren(node); 
             }} 
             title={isOpen ? '折りたたむ' : '展開'}
           >
-            {isOpen ? '📂' : '📁'}
+            ▶
           </button>
-          <span style={{ fontWeight: 600 }}>{node.name}</span>
-          <span style={{ flex: 1 }} />
-          <button onClick={() => onAddFile(node.path)} title="ファイル追加">＋ファイル</button>
-          <button onClick={() => onAddFolder(node.path)} title="フォルダ追加">＋フォルダ</button>
-          <button onClick={() => onDeleteFolder(node.path, node)} title="フォルダ削除">🗑</button>
+          <span className={styles.nodeIcon}>
+            {isOpen ? '📂' : '📁'}
+          </span>
+          <span className={`${styles.nodeName} ${styles.dirName}`}>
+            {node.name}
+          </span>
+          <div className={styles.nodeActions}>
+            <button 
+              className={styles.actionButton} 
+              onClick={(e) => { e.stopPropagation(); onAddFile(node.path); }}
+              title="ファイル追加"
+            >
+              ＋ファイル
+            </button>
+            <button 
+              className={styles.actionButton} 
+              onClick={(e) => { e.stopPropagation(); onAddFolder(node.path); }}
+              title="フォルダ追加"
+            >
+              ＋フォルダ
+            </button>
+            {!isRoot && (
+              <button 
+                className={`${styles.actionButton} ${styles.danger}`}
+                onClick={(e) => { e.stopPropagation(); onDeleteFolder(node.path, node); }}
+                title="フォルダ削除"
+              >
+                🗑
+              </button>
+            )}
+          </div>
         </div>
         {isOpen && node.children && (
-          <div>
+          <div className={styles.childrenContainer}>
             {node.children.map((child) => (
               <FileTreeNode
                 key={child.path}
@@ -68,12 +98,28 @@ export const FileTreeNode: React.FC<FileTreeNodeProps> = ({
   
   // file node
   return (
-    <div key={node.path} style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 24 }}>
-      <span>📄</span>
-      <span>{node.name}</span>
-      <span style={{ flex: 1 }} />
-      <button onClick={() => onMoveFile(node.path)} title="移動/リネーム">↔︎</button>
-      <button onClick={() => onDeleteFile(node.path)} title="削除">🗑</button>
+    <div className={styles.treeNode}>
+      <div className={styles.nodeContent}>
+        <span style={{ width: 16 }}></span>
+        <span className={styles.nodeIcon}>📄</span>
+        <span className={styles.nodeName}>{node.name}</span>
+        <div className={styles.nodeActions}>
+          <button 
+            className={styles.actionButton}
+            onClick={(e) => { e.stopPropagation(); onMoveFile(node.path); }}
+            title="移動/リネーム"
+          >
+            ↔︎
+          </button>
+          <button 
+            className={`${styles.actionButton} ${styles.danger}`}
+            onClick={(e) => { e.stopPropagation(); onDeleteFile(node.path); }}
+            title="削除"
+          >
+            🗑
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
