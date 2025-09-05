@@ -5,7 +5,7 @@ import styles from './EditableSidebar.module.css';
 import { useAuthToken } from '../../../../auth/contexts/AuthContext';
 import { EditableSidebarProps, DOCS_ROOT } from './types';
 import { useRepository, useFileTree, useChangeManager, usePullRequest } from './hooks';
-import { RepoHeader, FileTreeNode, ChangeManagementPanel } from './components';
+import { FileTreeNode, ChangeManagementPanel } from './components';
 
 export default function EditableSidebar({ items, path }: EditableSidebarProps) {
   const token = useAuthToken();
@@ -50,24 +50,9 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
     );
   }, [repo, changes, branch, listDirectory, clearChanges, setError, applyChanges]);
 
-  // Handle reload
-  const handleReload = useCallback(async () => {
-    if (!repo) return;
-    const children = await listDirectory(repo.owner, repo.repo, DOCS_ROOT);
-    // Tree will be updated automatically in the hook
-  }, [repo, listDirectory]);
-
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.editableSidebar}>
-        {!loadingRepo && repo && (
-          <RepoHeader 
-            repo={repo} 
-            branch={branch} 
-            onReload={handleReload} 
-          />
-        )}
-
         {loadingRepo && (
           <div className={styles.placeholder}>
             <div className={styles.placeholderIcon}>⏳</div>
