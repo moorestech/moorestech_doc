@@ -34,17 +34,6 @@ function DocSidebarDesktop({path, sidebar, onCollapse, isHidden}: DocSidebarDesk
       )}>
       {hideOnScroll && <Logo tabIndex={-1} className={styles.sidebarLogo} />}
       
-      {/* 編集モード切り替えボタン */}
-      <div className={styles.editButtonContainer}>
-        <button
-          className={clsx(styles.editButton, isEditMode && styles.editButtonActive)}
-          onClick={() => isEditMode ? exitEditMode() : enterEditMode(path)}
-          title={isEditMode ? '編集モードを終了' : '編集モード'}
-        >
-          {isEditMode ? '✓ 編集中' : '✏️ 編集'}
-        </button>
-      </div>
-      
       {/* コンテンツの表示切り替え */}
       {isEditMode ? (
         <EditableSidebar items={sidebar} path={path} />
