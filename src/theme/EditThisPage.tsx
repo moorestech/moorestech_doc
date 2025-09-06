@@ -23,18 +23,7 @@ export default function EditThisPageWrapper(props) {
                 <Translate
                     id="theme.common.editThisPage"
                     description="The link label to edit the current page">
-                    Edit on Github
-                </Translate>
-            </Link>
-
-            <> / </>
-
-            <Link to={props.editUrl} className={ThemeClassNames.common.editThisPage}>
-                <IconEdit />
-                <Translate
-                    id="theme.common.editThisPage"
-                    description="The link label to edit the current page">
-                    Edit on holocron editor
+                    View on Github
                 </Translate>
             </Link>
         </>
