@@ -6,6 +6,7 @@ import {
   createBranch,
   getFileSha,
   putFile,
+  putFileBase64,
   createPullRequest,
   mergePullRequest,
 } from '../utils/github/api';
@@ -77,11 +78,19 @@ export function usePullRequest({
         if (ch.kind === 'addFile') {
           setStatus(`追加: ${ch.path}`);
           const existing = await getFileSha(repo.owner, repo.repo, ch.path, workBranch, token).catch(() => null);
-          await putFile(repo.owner, repo.repo, ch.path, ch.content ?? '', `docs: add ${ch.path}`, workBranch, token, existing);
+          if (ch.encoding === 'base64') {
+            await putFileBase64(repo.owner, repo.repo, ch.path, ch.content ?? '', `docs: add ${ch.path}`, workBranch, token, existing);
+          } else {
+            await putFile(repo.owner, repo.repo, ch.path, ch.content ?? '', `docs: add ${ch.path}`, workBranch, token, existing);
+          }
         } else if (ch.kind === 'updateFile') {
           setStatus(`更新: ${ch.path}`);
           const sha = await getFileSha(repo.owner, repo.repo, ch.path, workBranch, token).catch(() => null);
-          await putFile(repo.owner, repo.repo, ch.path, ch.content ?? '', `docs: update ${ch.path}`, workBranch, token, sha);
+          if (ch.encoding === 'base64') {
+            await putFileBase64(repo.owner, repo.repo, ch.path, ch.content ?? '', `docs: update ${ch.path}`, workBranch, token, sha);
+          } else {
+            await putFile(repo.owner, repo.repo, ch.path, ch.content ?? '', `docs: update ${ch.path}`, workBranch, token, sha);
+          }
         } else if (ch.kind === 'deleteFile') {
           setStatus(`削除: ${ch.path}`);
           const sha = await getFileSha(repo.owner, repo.repo, ch.path, workBranch, token);

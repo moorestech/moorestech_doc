@@ -34,6 +34,7 @@ export function FileSystemProvider({ children }: { children: React.ReactNode }) 
     getFileContent,
     setFileContent,
     addFile,
+    addBinaryFile,
     addFolder,
     deleteFile,
     deleteFolder,
@@ -92,6 +93,7 @@ export function FileSystemProvider({ children }: { children: React.ReactNode }) 
     
     // File operations
     addFile,
+    addBinaryFile,
     addFolder,
     deleteFile,
     deleteFolder,
@@ -120,6 +122,7 @@ export function FileSystemProvider({ children }: { children: React.ReactNode }) 
     getFileContent,
     setFileContent,
     addFile,
+    addBinaryFile,
     addFolder,
     deleteFile,
     deleteFolder,

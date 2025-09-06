@@ -107,11 +107,11 @@ export function useFileManager({
         (copy[idxUpd] as any).content = content;
         return copy;
       }
-      return [...prev, { kind: 'updateFile', path, content } as Change];
+      return [...prev, { kind: 'updateFile', path, content, encoding: 'utf8' } as Change];
     });
   }, []);
 
-  const addFile = useCallback((path: string, content: string = `# ${path.split('/').pop()?.replace(/\.[^/.]+$/, '') || ''}`) => {
+  const addFile = useCallback((path: string, content: string = `# ${path.split('/').pop()?.replace(/\.[^/.]+$/, '') || ''}`, encoding: 'utf8' | 'base64' = 'utf8') => {
     // update tree
     const parentDir = path.split('/').slice(0, -1).join('/');
     const name = path.split('/').pop()!;
@@ -130,7 +130,7 @@ export function useFileManager({
     setRoot(prev => rec(prev));
     // set content & stage change
     contentsRef.current.set(path, content);
-    upsertChange({ kind: 'addFile', path, content });
+    upsertChange({ kind: 'addFile', path, content, encoding });
   }, [setRoot, upsertChange]);
 
   const addFolder = useCallback((path: string) => {
@@ -236,6 +236,7 @@ export function useFileManager({
     getFileContent,
     setFileContent,
     addFile,
+    addBinaryFile: (path: string, base64Content: string) => addFile(path, base64Content, 'base64'),
     addFolder,
     deleteFile,
     deleteFolder,

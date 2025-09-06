@@ -23,7 +23,9 @@ export interface FileSystemContextValue {
   setFileContent: (path: string, content: string) => void;
 
   // Structure operations (staged to in-memory)
-  addFile: (path: string, content?: string) => void;
+  addFile: (path: string, content?: string, encoding?: 'utf8' | 'base64') => void;
+  // Optional helper for binary uploads
+  addBinaryFile?: (path: string, base64Content: string) => void;
   addFolder: (path: string) => void;
   deleteFile: (path: string) => void;
   deleteFolder: (path: string) => void;
