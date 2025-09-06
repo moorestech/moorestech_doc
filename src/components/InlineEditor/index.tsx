@@ -3,7 +3,6 @@ import styles from './InlineEditor.module.css';
 import { useEditState, useIsEditing } from '../../contexts/EditStateContext';
 import EditorHeader from './components/EditorHeader';
 import EditorContent from './components/EditorContent';
-import ForkCreationModal from './components/ForkCreationModal';
 import { useFileSystem } from '@site/src/contexts/FileSystemContext';
 import { normalizeDocPath } from '@site/src/utils/github';
 
@@ -37,16 +36,29 @@ export default function InlineEditor({
 
   const [content, setContentLocal] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let mounted = true;
     (async () => {
-      if (!selectedFile) { setIsLoading(false); return; }
+      if (!selectedFile) { 
+        setIsLoading(false); 
+        return; 
+      }
       setIsLoading(true);
+      setError(null);
       try {
+        console.log('[InlineEditor] Loading content for:', selectedFile);
         const txt = await getFileContent(selectedFile);
         if (!mounted) return;
         setContentLocal(txt);
+        console.log('[InlineEditor] Content loaded successfully');
+      } catch (err) {
+        if (!mounted) return;
+        const errorMessage = err instanceof Error ? err.message : 'ファイルの読み込みに失敗しました';
+        console.error('[InlineEditor] Error loading content:', errorMessage);
+        setError(errorMessage);
+        setContentLocal('');
       } finally {
         if (mounted) setIsLoading(false);
       }
@@ -65,23 +77,27 @@ export default function InlineEditor({
   }
 
   return (
-    <>
-      <div className={styles.editorContainer}>
-        <EditorHeader documentPath={documentPath} />
-        
-        <EditorContent 
-          isLoading={isLoading}
-          content={content}
-          onContentChange={handleContentChange}
-        />
-      </div>
+    <div className={styles.editorContainer}>
+      <EditorHeader documentPath={documentPath} />
       
-      <ForkCreationModal
-        isOpen={false}
-        message={''}
-        error={null}
-        onClose={() => {}}
+      {error && (
+        <div style={{ 
+          padding: '12px', 
+          backgroundColor: '#fee', 
+          border: '1px solid #fcc',
+          borderRadius: '4px',
+          margin: '8px 0',
+          color: '#c00'
+        }}>
+          <strong>エラー:</strong> {error}
+        </div>
+      )}
+      
+      <EditorContent 
+        isLoading={isLoading}
+        content={content}
+        onContentChange={handleContentChange}
       />
-    </>
+    </div>
   );
 }
