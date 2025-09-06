@@ -15,18 +15,25 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@docusaurus/core": "3.6.3",
     "@docusaurus/preset-classic": "3.6.3",
     "@mdx-js/react": "^3.0.0",
+    "buffer": "^6.0.3",
     "clsx": "^2.0.0",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.6.3",
     "@docusaurus/tsconfig": "3.6.3",
     "@docusaurus/types": "3.6.3",
+    "@playwright/test": "^1.55.0",
     "typescript": "~5.6.2"
   },
   "browserslist": {

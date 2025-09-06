@@ -9,6 +9,10 @@ const config: Config = {
   customFields: {
     githubEditUrl: 'https://github.com/moorestech/moorestech_doc/tree/master',
     cmsEditUrl: baseEditUrl,
+    // GitHub OAuth (Decap lib-auth compatible)
+    authBaseUrl: 'https://api.netlify.com',
+    authEndpoint: 'auth',
+    authScope: 'public_repo',
   },
 
   title: 'moorestech documentation',
@@ -129,6 +133,30 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+  
+  // Webpack configuration for polyfills
+  plugins: [
+    async function myPlugin(context, options) {
+      return {
+        name: "docusaurus-plugin-buffer-polyfill",
+        configureWebpack(config, isServer, utils) {
+          const webpack = require('webpack');
+          return {
+            resolve: {
+              fallback: {
+                buffer: require.resolve('buffer/'),
+              },
+            },
+            plugins: [
+              new webpack.ProvidePlugin({
+                Buffer: ['buffer', 'Buffer'],
+              }),
+            ],
+          };
+        },
+      };
+    },
+  ],
 };
 
 export default config;

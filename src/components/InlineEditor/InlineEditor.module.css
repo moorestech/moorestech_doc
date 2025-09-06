@@ -1,0 +1,153 @@
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  background: var(--ifm-background-surface-color);
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--ifm-color-emphasis-100);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+.path {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 14px;
+  font-family: var(--ifm-font-family-monospace);
+  padding: 4px 8px;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 6px;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.repoIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--ifm-color-success-lightest);
+  border: 1px solid var(--ifm-color-success-light);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.repoIcon {
+  font-size: 14px;
+}
+
+.repoText {
+  color: var(--ifm-color-success-darker);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 12px;
+}
+
+
+.exitButton {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.exitButton:hover {
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.loadingSpinner {
+  font-size: 48px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.textarea {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border: none;
+  background: transparent;
+  color: var(--ifm-font-color-base);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 14px;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+}
+
+.textarea::placeholder {
+  color: var(--ifm-color-emphasis-400);
+}
+
+
+
+
+/* ダークモード対応 */
+[data-theme='dark'] .editorContainer {
+  background: var(--ifm-background-color);
+}
+
