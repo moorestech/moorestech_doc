@@ -6,6 +6,8 @@ import {
 } from '@docusaurus/theme-common';
 import {useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import DocSidebarItems from '@theme/DocSidebarItems';
+import EditableSidebar from '@theme/DocSidebar/Desktop/EditableSidebar';
+import { useIsEditing } from '@site/src/contexts/EditStateContext';
 
 interface DocSidebarMobileSecondaryMenuProps {
   sidebar: any;
@@ -14,7 +16,16 @@ interface DocSidebarMobileSecondaryMenuProps {
 
 const DocSidebarMobileSecondaryMenu = ({sidebar, path}: DocSidebarMobileSecondaryMenuProps) => {
   const mobileSidebar = useNavbarMobileSidebar();
-  
+  const isEditMode = useIsEditing();
+
+  if (isEditMode) {
+    return (
+      <div className={clsx(ThemeClassNames.docs.docSidebarMenu)}>
+        <EditableSidebar items={sidebar} path={path} />
+      </div>
+    );
+  }
+
   return (
     <ul className={clsx(ThemeClassNames.docs.docSidebarMenu, 'menu__list')}>
       <DocSidebarItems
