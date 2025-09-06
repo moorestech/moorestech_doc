@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styles from './EditableSidebar.module.css';
@@ -102,6 +102,15 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
   const handleApplyChanges = useCallback(async () => {
     await saveAllChanges();
   }, [saveAllChanges]);
+
+  // Ensure root directory contents load on initial open
+  useEffect(() => {
+    // Load only when authenticated, repo resolved (not loading), no error, and root not yet loaded
+    if (!loading && !error && token && root && root.type === 'dir' && !root.loaded) {
+      // If root is considered expanded by default, prefetch its children
+      loadChildren(root);
+    }
+  }, [loading, error, token, root, loadChildren]);
 
   if (!isEditing) return null;
 
