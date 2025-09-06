@@ -326,6 +326,46 @@ export async function putFile(
 }
 
 /**
+ * バイナリ（Base64文字列）をそのまま保存
+ * すでにBase64化されたコンテンツをGitHub APIへ送る
+ */
+export async function putFileBase64(
+  owner: string,
+  repo: string,
+  path: string,
+  base64Content: string,
+  message: string,
+  branch: string,
+  token: string,
+  sha?: string | null,
+): Promise<{ content: any; commit: any }> {
+  const config = EditorConfig.getInstance();
+  const url = `${config.getApiBaseUrl()}/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+  const body: any = {
+    message,
+    content: base64Content,
+    branch,
+  };
+  if (sha) body.sha = sha;
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      Authorization: `token ${token}`,
+      Accept: 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    const err = new Error(`ファイル保存に失敗しました(バイナリ): ${res.status} ${res.statusText} ${text}`) as any;
+    (err.status = res.status), (err.statusText = res.statusText), (err.body = text);
+    throw err;
+  }
+  return res.json();
+}
+
+/**
  * プルリクエストを作成
  */
 export async function createPullRequest(

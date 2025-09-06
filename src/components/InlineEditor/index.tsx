@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './InlineEditor.module.css';
 import { useEditState, useIsEditing } from '../../contexts/EditStateContext';
 import EditorHeader from './components/EditorHeader';
 import EditorContent from './components/EditorContent';
 import { useFileSystem } from '@site/src/contexts/FileSystemContext';
 import { normalizeDocPath } from '@site/src/utils/github';
+import { useImageUpload } from './hooks/useImageUpload';
 
 interface InlineEditorProps {
   documentPath?: string;
@@ -23,7 +24,7 @@ export default function InlineEditor({
 }: InlineEditorProps) {
   const { enterEditMode } = useEditState();
   const isEditing = useIsEditing();
-  const { repo, loading, selectedFile, selectFile, getFileContent, setFileContent, status } = useFileSystem();
+  const { selectedFile, selectFile, getFileContent, setFileContent, addFile, addBinaryFile } = useFileSystem();
 
   // 編集パスを設定 + FS選択
   useEffect(() => {
@@ -37,6 +38,10 @@ export default function InlineEditor({
   const [content, setContentLocal] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const currentLoadTokenRef = useRef<number>(0);
+  const userEditedSinceLoadRef = useRef<boolean>(false);
 
   useEffect(() => {
     let mounted = true;
@@ -47,11 +52,17 @@ export default function InlineEditor({
       }
       setIsLoading(true);
       setError(null);
+      // New load cycle
+      const myToken = ++currentLoadTokenRef.current;
+      userEditedSinceLoadRef.current = false;
       try {
         console.log('[InlineEditor] Loading content for:', selectedFile);
         const txt = await getFileContent(selectedFile);
         if (!mounted) return;
-        setContentLocal(txt);
+        // Only set if this is the latest load and user hasn't edited meanwhile
+        if (currentLoadTokenRef.current === myToken && !userEditedSinceLoadRef.current) {
+          setContentLocal(txt);
+        }
         console.log('[InlineEditor] Content loaded successfully');
       } catch (err) {
         if (!mounted) return;
@@ -67,9 +78,19 @@ export default function InlineEditor({
   }, [selectedFile, getFileContent]);
 
   const handleContentChange = (newContent: string) => {
+    userEditedSinceLoadRef.current = true;
     setContentLocal(newContent);
     if (selectedFile) setFileContent(selectedFile, newContent);
   };
+
+  // Image upload (paste/drag&drop) handlers via hook
+  const { handlePaste, handleDrop, handleDragOver } = useImageUpload({
+    content,
+    setContent: handleContentChange,
+    textareaRef,
+    addFile,
+    addBinaryFile,
+  });
   
   // 編集モードでない場合は非表示
   if (!isEditing) {
@@ -97,6 +118,10 @@ export default function InlineEditor({
         isLoading={isLoading}
         content={content}
         onContentChange={handleContentChange}
+        onPaste={handlePaste}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        textareaRef={textareaRef}
       />
     </div>
   );

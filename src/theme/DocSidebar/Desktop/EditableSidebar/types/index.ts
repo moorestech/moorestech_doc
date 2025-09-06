@@ -8,8 +8,8 @@ export type TreeNode = {
 };
 
 export type Change =
-  | { kind: 'addFile'; path: string; content: string }
-  | { kind: 'updateFile'; path: string; content: string }
+  | { kind: 'addFile'; path: string; content: string; encoding?: 'utf8' | 'base64' }
+  | { kind: 'updateFile'; path: string; content: string; encoding?: 'utf8' | 'base64' }
   | { kind: 'deleteFile'; path: string }
   | { kind: 'moveFile'; from: string; to: string }
   | { kind: 'addFolder'; path: string }
