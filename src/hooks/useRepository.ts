@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { EditorConfig } from '../config/editor.config';
-import { determineRepository } from '../utils/github';
+import { determineRepository, syncForkWithUpstream } from '../utils/github';
 import type { Repository } from '../theme/DocSidebar/Desktop/EditableSidebar/types';
 
 export function useRepository(token: string | null) {
@@ -29,6 +29,16 @@ export function useRepository(token: string | null) {
         setError(null);
         const cfg = EditorConfig.getInstance();
         const r = await determineRepository(cfg.getOwner(), cfg.getRepo(), token);
+        // フォークリポジトリを使用する場合は、ログイン直後に upstream と同期
+        const isFork = r.owner !== cfg.getOwner() || r.repo !== cfg.getRepo();
+        if (isFork) {
+          try {
+            await syncForkWithUpstream(r.owner, r.repo, branch, token);
+          } catch (e) {
+            // 同期失敗は致命的ではないためログのみに留める
+            console.warn('[useRepository] Failed to sync fork with upstream:', e);
+          }
+        }
         if (!mounted) return;
         setRepo(r);
       } catch (e: any) {

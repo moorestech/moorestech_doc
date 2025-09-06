@@ -383,3 +383,49 @@ export async function mergePullRequest(
   const data = await res.json();
   return !!data.merged;
 }
+
+/**
+ * フォークを upstream と同期（デフォルト: upstream のデフォルトブランチ -> 指定ブランチ）
+ * GitHub REST API: POST /repos/{owner}/{repo}/merge-upstream
+ */
+export async function syncForkWithUpstream(
+  owner: string,
+  repo: string,
+  branch: string,
+  token: string
+): Promise<{ merged: boolean; message?: string }> {
+  const config = EditorConfig.getInstance();
+  const url = `${config.getApiBaseUrl()}/repos/${owner}/${repo}/merge-upstream`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `token ${token}`,
+      Accept: 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ branch }),
+  });
+
+  // 204/200: 正常。API 仕様差異を吸収して扱う
+  if (res.ok) {
+    try {
+      const data = await res.json();
+      // data = { merged: boolean, message?: string }
+      return { merged: !!data.merged, message: data.message };
+    } catch {
+      // 一部実装では No Content を返すことがある
+      return { merged: true };
+    }
+  }
+
+  // 409: コンフリクト等で同期できないが致命的ではない
+  if (res.status === 409) {
+    const msg = await res.text().catch(() => '');
+    return { merged: false, message: msg || 'Conflict while syncing fork with upstream' };
+  }
+
+  const text = await res.text().catch(() => '');
+  const err = new Error(`フォーク同期に失敗しました: ${res.status} ${res.statusText} ${text}`) as any;
+  (err.status = res.status), (err.statusText = res.statusText), (err.body = text);
+  throw err;
+}

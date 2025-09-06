@@ -33,6 +33,7 @@ export {
   putFile,
   createPullRequest,
   mergePullRequest,
+  syncForkWithUpstream,
 } from './api';
 
 // ディレクトリ操作
