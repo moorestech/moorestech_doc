@@ -12,11 +12,21 @@ export function useRepository(token: string | null) {
 
   useEffect(() => {
     if (!ExecutionEnvironment.canUseDOM) return;
+    
+    // トークンがない場合は何もしない
+    if (!token) {
+      setLoading(false);
+      setRepo(null);
+      setError('認証が必要です');
+      return;
+    }
+    
     let mounted = true;
     
     (async () => {
       try {
         setLoading(true);
+        setError(null);
         const cfg = EditorConfig.getInstance();
         const r = await determineRepository(cfg.getOwner(), cfg.getRepo(), token);
         if (!mounted) return;

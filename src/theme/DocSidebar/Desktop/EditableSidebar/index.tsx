@@ -3,12 +3,14 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styles from './EditableSidebar.module.css';
 import { useIsEditing } from '../../../../contexts/EditStateContext';
+import { useAuthToken } from '../../../../auth/contexts/AuthContext';
 import { EditableSidebarProps } from './types';
 import { FileTreeNode, ChangeManagementPanel } from './components';
 import { useFileSystem } from '../../../../contexts/FileSystemContext';
 
 export default function EditableSidebar({ items, path }: EditableSidebarProps) {
   const isEditing = useIsEditing();
+  const token = useAuthToken();
   const {
     root,
     loadChildren,
@@ -102,6 +104,21 @@ export default function EditableSidebar({ items, path }: EditableSidebarProps) {
   }, [saveAllChanges]);
 
   if (!isEditing) return null;
+
+  // トークンがない場合はログイン待機画面を表示
+  if (!token) {
+    return (
+      <div className={styles.editableSidebar}>
+        <div className={styles.placeholder}>
+          <div className={styles.placeholderIcon}>🔒</div>
+          <div className={styles.placeholderText}>ログインが必要です</div>
+          <div className={styles.placeholderDescription}>
+            ファイルツリーを表示するにはGitHubアカウントでログインしてください
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>

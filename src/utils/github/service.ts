@@ -145,9 +145,9 @@ export async function determineRepository(
   token: string | null,
   onProgress?: (message: string) => void
 ): Promise<{ owner: string; repo: string }> {
-  // トークンがない場合は元のリポジトリを使用（読み取り専用）
+  // トークンがない場合はエラー
   if (!token) {
-    return { owner: originalOwner, repo: originalRepo };
+    throw new Error('認証が必要です。GitHubアカウントでログインしてください。');
   }
   
   // 書き込み権限をチェック
@@ -164,19 +164,13 @@ export async function determineRepository(
   }
   
   // 書き込み権限がない場合はForkを取得または作成
-  try {
-    const fork = await getOrCreateFork(originalOwner, originalRepo, token, onProgress);
-    if (fork) {
-      return fork;
-    }
-  } catch (error) {
-    console.error('Failed to get or create fork:', error);
-    // エラーが発生した場合は元のリポジトリを読み取り専用で使用
+  const fork = await getOrCreateFork(originalOwner, originalRepo, token, onProgress);
+  if (fork) {
+    return fork;
   }
   
-  // フォールバック: 元のリポジトリを読み取り専用で使用
-  console.warn('Using original repository in read-only mode.');
-  return { owner: originalOwner, repo: originalRepo };
+  // Forkの作成に失敗した場合
+  throw new Error('リポジトリへのアクセスに失敗しました。Forkの作成ができませんでした。');
 }
 
 /**
