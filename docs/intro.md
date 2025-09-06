@@ -12,4 +12,4 @@ moorestech公式ドキュメントへようこそ。
 
 プレスキット：[https://impress.games/press-kit/sakastudio/moorestech](https://impress.games/press-kit/sakastudio/moorestech)
 
-test edit　4
+test edit　5
