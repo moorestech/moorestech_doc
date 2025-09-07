@@ -70,6 +70,8 @@ export const FileTreeNode: React.FC<FileTreeNodeProps> = ({
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
+    // Disable dragging for directories
+    canDrag: () => node.type !== 'dir',
   }), [node.path, node.type, selected, selectedPaths]);
   
   // Setup drop (only for directories)
@@ -100,9 +102,9 @@ export const FileTreeNode: React.FC<FileTreeNodeProps> = ({
     const isMultiSelect = e.ctrlKey || e.metaKey;
     onToggleSelection(node.path, isMultiSelect);
   };
-  // Combine drag and drop refs for directories
+  // Combine refs: directories are drop-only (no drag), files are drag-only
   if (node.type === 'dir') {
-    drag(drop(ref));
+    drop(ref);
   } else {
     drag(ref);
   }
