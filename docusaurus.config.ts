@@ -87,6 +87,10 @@ const config: Config = {
           label: 'Documentation',
         },
         {
+          type: 'localeDropdown',
+          position: 'right',
+        },
+        {
           href: 'https://discord.gg/ekFYmY3rDP',
           label: 'Discord',
           position: 'right',
@@ -96,11 +100,7 @@ const config: Config = {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
           position: 'right',
-        },
-        {
-          type: 'localeDropdown',
-          position: 'right',
-        },
+        }
       ],
     },
     footer: {
