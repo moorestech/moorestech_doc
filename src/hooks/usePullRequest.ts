@@ -9,6 +9,7 @@ import {
   putFileBase64,
   createPullRequest,
   mergePullRequest,
+  deleteBranch,
 } from '../utils/github/api';
 import { deleteFileViaApi } from '../utils/github/deleteFile';
 import type { Repository, Change } from '../theme/DocSidebar/Desktop/EditableSidebar/types';
@@ -143,7 +144,14 @@ export function usePullRequest({
 
       // Try auto-merge if original
       if (isOriginal) {
-        await mergePullRequest(repo.owner, repo.repo, pr.number, token, 'squash').catch(() => false);
+        const merged = await mergePullRequest(repo.owner, repo.repo, pr.number, token, 'squash').catch(() => false);
+        
+        // マージ成功後、作業ブランチを削除
+        if (merged) {
+          await deleteBranch(repo.owner, repo.repo, workBranch, token).catch((err) => {
+            console.warn('ブランチ削除に失敗しましたが、処理は続行します:', err);
+          });
+        }
       }
       setStatus('PRを作成しました');
       setResultUrl(pr.html_url);
