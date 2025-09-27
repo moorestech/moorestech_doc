@@ -5,7 +5,9 @@
       "Bash(mkdir:*)",
       "Bash(yarn start)",
       "Bash(yarn typecheck)",
-      "Bash(gemini:*)"
+      "Bash(gemini:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm run:*)"
     ],
     "deny": [],
     "ask": []
