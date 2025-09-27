@@ -32,6 +32,8 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.6.3",
+    "@docusaurus/plugin-content-docs": "3.6.3",
+    "@docusaurus/theme-common": "3.6.3",
     "@docusaurus/tsconfig": "3.6.3",
     "@docusaurus/types": "3.6.3",
     "@playwright/test": "^1.55.0",

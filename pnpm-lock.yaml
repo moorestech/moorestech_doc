@@ -1,7 +1,5 @@
 lockfileVersion: '9.0'
 
-minimumReleaseAge: 10080
-
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
@@ -53,6 +51,12 @@ importers:
       '@docusaurus/module-type-aliases':
         specifier: 3.6.3
         version: 3.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@docusaurus/plugin-content-docs':
+        specifier: 3.6.3
+        version: 3.6.3(@mdx-js/react@3.1.1(@types/react@19.1.14)(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+      '@docusaurus/theme-common':
+        specifier: 3.6.3
+        version: 3.6.3(@docusaurus/plugin-content-docs@3.6.3(@mdx-js/react@3.1.1(@types/react@19.1.14)(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       '@docusaurus/tsconfig':
         specifier: 3.6.3
         version: 3.6.3
@@ -5118,6 +5122,8 @@ packages:
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+
+minimumReleaseAge: 10080
 
 snapshots:
 
