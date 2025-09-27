@@ -469,3 +469,49 @@ export async function syncForkWithUpstream(
   (err.status = res.status), (err.statusText = res.statusText), (err.body = text);
   throw err;
 }
+
+/**
+ * ブランチを削除
+ * GitHub REST API: DELETE /repos/{owner}/{repo}/git/refs/heads/{branch}
+ */
+export async function deleteBranch(
+  owner: string,
+  repo: string,
+  branch: string,
+  token: string
+): Promise<boolean> {
+  const config = EditorConfig.getInstance();
+  const url = `${config.getApiBaseUrl()}/repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(branch)}`;
+  
+  try {
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+      },
+    });
+    
+    // 204 No Content = 成功
+    if (res.status === 204) {
+      return true;
+    }
+    
+    // 404 = ブランチが既に存在しない（削除済みとみなす）
+    if (res.status === 404) {
+      return true;
+    }
+    
+    // 422 = 保護されたブランチなど削除できない
+    if (res.status === 422) {
+      console.warn(`ブランチ ${branch} は削除できません（保護されている可能性があります）`);
+      return false;
+    }
+    
+    console.warn(`ブランチ削除に失敗: ${res.status} ${res.statusText}`);
+    return false;
+  } catch (err) {
+    console.error('ブランチ削除中にエラーが発生:', err);
+    return false;
+  }
+}
