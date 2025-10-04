@@ -19,13 +19,15 @@ moorestechの実行には3つのリポジトリを用いています。
 
 ## ディレクトリ構造
 
+```
 ./[任意のディレクトリ名]
-  L **moorestech**
+  L * moorestech *
     L moorestech_client
       L Assets
         L PersonalAssets
-          L **moorestech-client-private**
-  L **moorestech_master**
+          L * moorestech-client-private *
+  L * moorestech_master *
+```
 
 # 構築手順
 
