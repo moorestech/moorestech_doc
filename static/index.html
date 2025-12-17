@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゲームタイトル - 自動化工業ゲーム × アニメ調オープンワールド × RPG</title>
+    <meta name="description" content="2026年夏Steam配信予定。歯車システムで動く工場建設、美麗なオープンワールド、魅力的なキャラクターたちとの物語。">
+    <script>
+      (function(d) {
+        var config = {
+          kitId: 'jxm0umo',
+          scriptTimeout: 3000,
+          async: true
+        },
+        h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+      })(document);
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    <script src="/i18n/i18n.js"></script>
+  <script type="module" crossorigin src="/assets/index-B-8ZjghC.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BLZkVszW.css">
+</head>
+<body>
+    <!-- スクロール進捗バー -->
+    <div class="scroll-progress"></div>
+
+    <!-- ナビゲーションバー -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="/assets/game_logo-Dj-ypBtO.png" alt="Game Logo" class="nav-logo-image">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#features" class="nav-link" data-i18n="nav.features">ゲーム特徴</a></li>
+                <li><a href="#story" class="nav-link" data-i18n="nav.story">ストーリー</a></li>
+                <li><a href="#mod" class="nav-link" data-i18n="nav.mod">mod開発</a></li>
+                <li><a href="#press" class="nav-link" data-i18n="nav.press">プレスキット</a></li>
+                <li><a href="https://moores.tech/docs/intro" class="nav-link" target="_blank" rel="noopener noreferrer">Wiki<svg class="external-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></li>
+                <li><a href="https://github.com/moorestech/moorestech" class="nav-link nav-icon-link" target="_blank" rel="noopener noreferrer" title="GitHub"><svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></li>
+            </ul>
+            <div class="language-switcher" id="languageSwitcher">
+                <button class="lang-dropdown-btn" id="langDropdownBtn">
+                    <span class="lang-current-flag" id="langCurrentFlag">🇯🇵</span>
+                    <span class="lang-current-name" id="langCurrentName">日本語</span>
+                    <svg class="lang-dropdown-arrow" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+                <div class="lang-dropdown-menu" id="langDropdownMenu">
+                    <button class="lang-option active" data-lang="ja" data-flag="🇯🇵" data-name="日本語">
+                        <span class="lang-option-flag">🇯🇵</span>
+                        <span class="lang-option-name">日本語</span>
+                    </button>
+                    <button class="lang-option" data-lang="en" data-flag="🇺🇸" data-name="English">
+                        <span class="lang-option-flag">🇺🇸</span>
+                        <span class="lang-option-name">English</span>
+                    </button>
+                    <!-- 将来的に追加可能な言語 -->
+                    <!-- <button class="lang-option" data-lang="zh" data-flag="🇨🇳" data-name="中文">
+                        <span class="lang-option-flag">🇨🇳</span>
+                        <span class="lang-option-name">中文</span>
+                    </button>
+                    <button class="lang-option" data-lang="ko" data-flag="🇰🇷" data-name="한국어">
+                        <span class="lang-option-flag">🇰🇷</span>
+                        <span class="lang-option-name">한국어</span>
+                    </button>
+                    <button class="lang-option" data-lang="fr" data-flag="🇫🇷" data-name="Français">
+                        <span class="lang-option-flag">🇫🇷</span>
+                        <span class="lang-option-name">Français</span>
+                    </button>
+                    <button class="lang-option" data-lang="de" data-flag="🇩🇪" data-name="Deutsch">
+                        <span class="lang-option-flag">🇩🇪</span>
+                        <span class="lang-option-name">Deutsch</span>
+                    </button>
+                    <button class="lang-option" data-lang="es" data-flag="🇪🇸" data-name="Español">
+                        <span class="lang-option-flag">🇪🇸</span>
+                        <span class="lang-option-name">Español</span>
+                    </button>
+                    <button class="lang-option" data-lang="pt" data-flag="🇧🇷" data-name="Português">
+                        <span class="lang-option-flag">🇧🇷</span>
+                        <span class="lang-option-name">Português</span>
+                    </button> -->
+                </div>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ファーストビュー / ヒーローセクション -->
+    <section class="hero" id="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="hero-cta">
+                <a href="https://store.steampowered.com/" target="_blank" class="btn btn-primary btn-hero-large">
+                    <img src="data:image/svg+xml,%3csvg%20version='1.1'%20id='Layer_1'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20x='0px'%20y='0px'%20viewBox='0%200%2088.3%2088.5'%20style='enable-background:new%200%200%2088.3%2088.5;'%20xml:space='preserve'%3e%3cstyle%20type='text/css'%3e%20.st0{fill:%23C5C3C0;}%20%3c/style%3e%3cg%3e%3cpath%20class='st0'%20d='M44.1,0C20.8,0,1.8,17.9,0,40.7l23.7,9.8c2-1.4,4.4-2.2,7-2.2c0.2,0,0.5,0,0.7,0L42,33.1c0-0.1,0-0.1,0-0.2%20c0-9.2,7.5-16.7,16.7-16.7c9.2,0,16.7,7.5,16.7,16.7s-7.5,16.7-16.7,16.7c-0.1,0-0.3,0-0.4,0l-15,10.7c0,0.2,0,0.4,0,0.6%20c0,6.9-5.6,12.5-12.5,12.5c-6.1,0-11.1-4.3-12.3-10.1l-17-7c5.2,18.6,22.3,32.2,42.6,32.2c24.4,0,44.2-19.8,44.2-44.2%20C88.3,19.8,68.5,0,44.1,0'%3e%3c/path%3e%3cpath%20class='st0'%20d='M27.7,67.1l-5.4-2.2c1,2,2.6,3.7,4.8,4.6c4.8,2,10.3-0.3,12.3-5.1c1-2.3,1-4.9,0-7.2c-1-2.3-2.8-4.1-5.1-5.1%20c-2.3-1-4.8-0.9-6.9-0.1l5.6,2.3c3.5,1.5,5.2,5.5,3.7,9C35.3,66.9,31.2,68.6,27.7,67.1'%3e%3c/path%3e%3cpath%20class='st0'%20d='M69.8,32.8c0-6.1-5-11.1-11.1-11.1c-6.1,0-11.1,5-11.1,11.1c0,6.1,5,11.1,11.1,11.1%20C64.8,43.9,69.8,39,69.8,32.8%20M50.3,32.8c0-4.6,3.7-8.3,8.4-8.3s8.4,3.7,8.4,8.3s-3.7,8.3-8.4,8.3S50.3,37.4,50.3,32.8'%3e%3c/path%3e%3c/g%3e%3c/svg%3e" alt="Steam" class="btn-icon-hero">
+                    <span data-i18n="hero.steam_wishlist">Steamウィッシュリストに追加</span>
+                </a>
+                <button class="btn btn-secondary-white btn-hero-large" id="trailerBtn">
+                    <svg class="btn-icon-hero" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <span data-i18n="hero.trailer">トレイラーを見る</span>
+                </button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- コンセプト動画セクション -->
+    <section class="video-section" id="video">
+        <div class="container">
+            <h2 class="section-title" data-i18n="video.title">コンセプトトレイラー</h2>
+            <div class="video-wrapper">
+                <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/sOYIfvKVeM8"
+                    title="Game Trailer"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ゲーム概要とゲームの特徴 -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title" data-i18n="overview.title">ゲーム概要</h2>
+            <div class="overview-content">
+                <div class="overview-concept">
+                    <h3 class="overview-label" data-i18n="overview.concept_label">コンセプト</h3>
+                    <p class="overview-text" data-i18n="overview.concept_text">自動化工業ゲーム × アニメ調オープンワールド × RPG</p>
+                </div>
+                <div class="overview-release">
+                    <h3 class="overview-label" data-i18n="overview.release_label">リリース情報</h3>
+                    <p class="overview-text" data-i18n="overview.release_text">2026年夏 / Steam（Win/Mac/Linux）/ 2000円前後</p>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 4rem;" data-i18n="features.title">ゲームの特徴</h2>
+
+            <!-- 歯車システム -->
+            <div class="feature-block">
+                <div class="feature-content">
+                    <h3 class="feature-title" data-i18n="features.gear.title">歯車システムを加えた工場建設</h3>
+                    <p class="feature-subtitle" data-i18n="features.gear.subtitle">連鎖する歯車、広がる自動化</p>
+                    <ul class="feature-list">
+                        <li data-i18n="features.gear.items.0">回転速度やトルクを制御し、工場を稼働させよう</li>
+                        <li data-i18n="features.gear.items.1">歯車で工場が稼働している様子を見守ろう</li>
+                        <li data-i18n="features.gear.items.2">敵、資源枯渇なし。自分のペースで工場を作ろう</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="/assets/game-feature-gear-CUAOS6wR.png" alt="歯車システム" data-i18n-alt="features.gear.alt">
+                </div>
+            </div>
+
+            <!-- 心揺さぶる物語体験 -->
+            <div class="feature-block reverse">
+                <div class="feature-content">
+                    <h3 class="feature-title" data-i18n="features.story.title">心揺さぶる物語体験</h3>
+                    <p class="feature-subtitle" data-i18n="features.story.subtitle">個性豊かなキャラクターたちと辿る、真実への旅</p>
+                    <ul class="feature-list">
+                        <li data-i18n="features.story.items.0">個性豊かな3人のキャラクターとの絆</li>
+                        <li data-i18n="features.story.items.1">物語の進行と共に変化していく関係性</li>
+                        <li data-i18n="features.story.items.2">追放の裏にある隠された真実</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="/assets/game-screenshot-6-uR1ajBX-.jpg" alt="心揺さぶる物語体験" data-i18n-alt="features.story.alt" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'%3E%3Crect fill=\'%23334155\' width=\'800\' height=\'600\'/%3E%3Ctext fill=\'%2394a3b8\' font-family=\'sans-serif\' font-size=\'32\' x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3E物語体験%3C/text%3E%3C/svg%3E'">
+                </div>
+            </div>
+
+            <!-- オープンワールド -->
+            <div class="feature-block">
+                <div class="feature-content">
+                    <h3 class="feature-title" data-i18n="features.openworld.title">オープンワールド</h3>
+                    <p class="feature-subtitle" data-i18n="features.openworld.subtitle">美麗なグラフィックで描かれた世界を工場で埋め尽くそう！</p>
+                    <ul class="feature-list">
+                        <li data-i18n="features.openworld.items.0">アニメ調の美しい3Dグラフィック</li>
+                        <li data-i18n="features.openworld.items.1">広大なマップを自由に探索</li>
+                        <li data-i18n="features.openworld.items.2">あなたの工場で世界を変えていく</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="/assets/game-feature-openworld-DViLb0zE.png" alt="オープンワールド" data-i18n-alt="features.openworld.alt">
+                </div>
+            </div>
+
+            <!-- 技術進化 -->
+            <div class="feature-block reverse">
+                <div class="feature-content">
+                    <h3 class="feature-title" data-i18n="features.tech.title">技術を発展させる</h3>
+                    <p class="feature-subtitle" data-i18n="features.tech.subtitle">人類の技術進化をたどる壮大な旅</p>
+                    <ul class="feature-list">
+                        <li data-i18n="features.tech.items.0">水車から始まり、蒸気機関、電気、核融合まで</li>
+                        <li data-i18n="features.tech.items.1">各時代の技術を再現した機械</li>
+                        <li data-i18n="features.tech.items.2">テックツリーで新技術を解放</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="/assets/game-feature-tech-BLmAHmCG.jpg" alt="技術進化" data-i18n-alt="features.tech.alt">
+                </div>
+            </div>
+
+            <!-- 初心者向け -->
+            <div class="feature-block">
+                <div class="feature-content">
+                    <h3 class="feature-title" data-i18n="features.beginner.title">自動化初心者でも安心</h3>
+                    <p class="feature-subtitle" data-i18n="features.beginner.subtitle">初めての自動化も、丁寧なガイドで快適なゲーム体験</p>
+                    <ul class="feature-list">
+                        <li data-i18n="features.beginner.items.0">自動化ゲームをプレイしたことがない人でもOK</li>
+                        <li data-i18n="features.beginner.items.1">段階的なチュートリアルシステム</li>
+                        <li data-i18n="features.beginner.items.2">スムーズにゲームに没入できる設計</li>
+                    </ul>
+                </div>
+                <div class="feature-image">
+                    <img src="/assets/game-feature-tutorial-BuGQjo7s.png" alt="初心者向けチュートリアル" data-i18n-alt="features.beginner.alt">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ストーリー -->
+    <section class="story" id="story">
+        <div class="container">
+            <h2 class="section-title" data-i18n="story.title">ストーリー</h2>
+            <div class="story-content">
+                <h3 class="story-catchphrase" data-i18n="story.catchphrase">追放されたのではなく、愛されていた。</h3>
+                <div class="story-text">
+                    <p data-i18n="story.text.0">西暦2700年、人類が自由に恒星間航行できるようになった時代。</p>
+                    <p data-i18n="story.text.1">惑星セレスタルの姫・ヨリは、理由も分からぬまま遥か遠くの<br>無人惑星アルカディアへと追放される。</p>
+                    <p data-i18n="story.text.2">何としてでも理由を知りたかった彼女は、工業化を進めるうちに真実を知る。</p>
+                    <p data-i18n="story.text.3">自分を捨てたと思っていた人々は、実は自分を愛していたのだと——</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- キャラクター -->
+    <section class="characters" id="characters">
+        <div class="container">
+            <h2 class="section-title" data-i18n="characters.title">キャラクター</h2>
+            <h3 class="characters-subtitle" data-i18n="characters.subtitle">仲間との絆を作る</h3>
+
+            <!-- キャラクターアイコン -->
+            <div class="character-icons">
+                <div class="character-icon active" data-character="1">
+                    <div class="character-icon-image">
+                        <img src="/assets/character-main-icon-9Fpb9d7V.png" alt="ヨリ" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\'%3E%3Ccircle fill=\'%23334155\' cx=\'75\' cy=\'75\' r=\'75\'/%3E%3Ctext fill=\'%2394a3b8\' font-family=\'sans-serif\' font-size=\'20\' x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3Eヨリ%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <p class="character-icon-name" data-character-name="1">ヨリ</p>
+                </div>
+
+                <div class="character-icon" data-character="2">
+                    <div class="character-icon-image">
+                        <img src="/assets/character-ai-icon-B1jjb_jO.png" alt="エレノ" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\'%3E%3Ccircle fill=\'%23334155\' cx=\'75\' cy=\'75\' r=\'75\'/%3E%3Ctext fill=\'%2394a3b8\' font-family=\'sans-serif\' font-size=\'20\' x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3Eエレノ%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <p class="character-icon-name" data-character-name="2">エレノ</p>
+                </div>
+
+                <div class="character-icon" data-character="3">
+                    <div class="character-icon-image">
+                        <img src="/assets/character-friend-icon-BvGInCBr.png" alt="クルア" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\'%3E%3Ccircle fill=\'%23334155\' cx=\'75\' cy=\'75\' r=\'75\'/%3E%3Ctext fill=\'%2394a3b8\' font-family=\'sans-serif\' font-size=\'20\' x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3Eクルア%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <p class="character-icon-name" data-character-name="3">クルア</p>
+                </div>
+            </div>
+
+            <!-- キャラクター詳細表示エリア -->
+            <div class="character-display" id="characterDisplay">
+                <!-- キャラクター詳細がJavaScriptで挿入されます -->
+            </div>
+        </div>
+    </section>
+
+    <!-- mod開発 -->
+    <section class="mod" id="mod">
+        <div class="container">
+            <h2 class="section-title" data-i18n="mod.title">mod開発</h2>
+            <h3 class="mod-subtitle" data-i18n="mod.subtitle">modで新たな体験を、mod開発に新たな体験を</h3>
+            <div class="mod-content">
+                <div class="mod-features">
+                    <div class="mod-feature">
+                        <div class="mod-icon">🔧</div>
+                        <h4 data-i18n="mod.features.0.title">modを全面的にサポート</h4>
+                        <p data-i18n="mod.features.0.description">ゲームシステムの大部分をmodで拡張可能</p>
+                    </div>
+                    <div class="mod-feature">
+                        <div class="mod-icon">📖</div>
+                        <h4 data-i18n="mod.features.1.title">オープンソース</h4>
+                        <p data-i18n="mod.features.1.description">ゲームコードをOSS化し、mod開発者がゲーム開発にも参加できる</p>
+                    </div>
+                    <div class="mod-feature">
+                        <div class="mod-icon">🤖</div>
+                        <h4 data-i18n="mod.features.2.title">強力な開発ツール</h4>
+                        <p data-i18n="mod.features.2.description">ドキュメント、AIサポートツールにより、誰でもmod開発できる</p>
+                    </div>
+                </div>
+                <div class="mod-links">
+                    <a href="https://discord.gg/ERPMZrrAdp" target="_blank" class="btn btn-primary btn-mod-large">
+                        <img src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'?%3e%3csvg%20id='Discord-Logo'%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20126.644%2096'%3e%3cpath%20id='Discord-Symbol-Black'%20d='M81.15,0c-1.2376,2.1973-2.3489,4.4704-3.3591,6.794-9.5975-1.4396-19.3718-1.4396-28.9945,0-.985-2.3236-2.1216-4.5967-3.3591-6.794-9.0166,1.5407-17.8059,4.2431-26.1405,8.0568C2.779,32.5304-1.6914,56.3725.5312,79.8863c9.6732,7.1476,20.5083,12.603,32.0505,16.0884,2.6014-3.4854,4.8998-7.1981,6.8698-11.0623-3.738-1.3891-7.3497-3.1318-10.8098-5.1523.9092-.6567,1.7932-1.3386,2.6519-1.9953,20.281,9.547,43.7696,9.547,64.0758,0,.8587.7072,1.7427,1.3891,2.6519,1.9953-3.4601,2.0457-7.0718,3.7632-10.835,5.1776,1.97,3.8642,4.2683,7.5769,6.8698,11.0623,11.5419-3.4854,22.3769-8.9156,32.0509-16.0631,2.626-27.2771-4.496-50.9172-18.817-71.8548C98.9811,4.2684,90.1918,1.5659,81.1752.0505l-.0252-.0505ZM42.2802,65.4144c-6.2383,0-11.4159-5.6575-11.4159-12.6535s4.9755-12.6788,11.3907-12.6788,11.5169,5.708,11.4159,12.6788c-.101,6.9708-5.026,12.6535-11.3907,12.6535ZM84.3576,65.4144c-6.2637,0-11.3907-5.6575-11.3907-12.6535s4.9755-12.6788,11.3907-12.6788,11.4917,5.708,11.3906,12.6788c-.101,6.9708-5.026,12.6535-11.3906,12.6535Z'/%3e%3c/svg%3e" alt="Discord" class="btn-icon-large">
+                        <span data-i18n="mod.buttons.discord">Discordに参加</span>
+                    </a>
+                    <a href="https://github.com/moorestech/moorestech" target="_blank" class="btn btn-secondary btn-mod-large">
+                        <img src="data:image/svg+xml,%3csvg%20width='98'%20height='96'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M48.854%200C21.839%200%200%2022%200%2049.217c0%2021.756%2013.993%2040.172%2033.405%2046.69%202.427.49%203.316-1.059%203.316-2.362%200-1.141-.08-5.052-.08-9.127-13.59%202.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015%204.934.326%207.523%205.052%207.523%205.052%204.367%207.496%2011.404%205.378%2014.235%204.074.404-3.178%201.699-5.378%203.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283%200-5.378%201.94-9.778%205.014-13.2-.485-1.222-2.184-6.275.486-13.038%200%200%204.125-1.304%2013.426%205.052a46.97%2046.97%200%200%201%2012.214-1.63c4.125%200%208.33.571%2012.213%201.63%209.302-6.356%2013.427-5.052%2013.427-5.052%202.67%206.763.97%2011.816.485%2013.038%203.155%203.422%205.015%207.822%205.015%2013.2%200%2018.905-11.404%2023.06-22.324%2024.283%201.78%201.548%203.316%204.481%203.316%209.126%200%206.6-.08%2011.897-.08%2013.526%200%201.304.89%202.853%203.316%202.364%2019.412-6.52%2033.405-24.935%2033.405-46.691C97.707%2022%2075.788%200%2048.854%200z'%20fill='%2324292f'/%3e%3c/svg%3e" alt="GitHub" class="btn-icon-large">
+                        <span data-i18n="mod.buttons.github">GitHubを見る</span>
+                    </a>
+                    <a href="https://moores.tech/docs/intro" target="_blank" class="btn btn-secondary btn-mod-large">
+                        <span data-i18n="mod.buttons.wiki">Wikiを見る</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- スクリーンショットギャラリー -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title" data-i18n="gallery.title">スクリーンショット</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="/assets/game-screenshot-1-DJ3aSHbO.jpg" alt="スクリーンショット1" data-i18n-alt="gallery.alt.0">
+                </div>
+                <div class="gallery-item">
+                    <img src="/assets/game-screenshot-2-Bdgb5b21.jpg" alt="スクリーンショット2" data-i18n-alt="gallery.alt.1">
+                </div>
+                <div class="gallery-item">
+                    <img src="/assets/game-feature-tech-BLmAHmCG.jpg" alt="スクリーンショット3" data-i18n-alt="gallery.alt.2">
+                </div>
+                <div class="gallery-item">
+                    <img src="/assets/game-screenshot-4-D7JdDMAT.jpg" alt="スクリーンショット4" data-i18n-alt="gallery.alt.3">
+                </div>
+                <div class="gallery-item">
+                    <img src="/assets/game-screenshot-5-DLRZF6Gh.jpg" alt="スクリーンショット5" data-i18n-alt="gallery.alt.4">
+                </div>
+                <div class="gallery-item">
+                    <img src="/assets/game-screenshot-6-uR1ajBX-.jpg" alt="スクリーンショット6" data-i18n-alt="gallery.alt.5">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- プレスキット -->
+    <section class="press" id="press">
+        <div class="container">
+            <h2 class="section-title" data-i18n="press.title">プレスキット / メディア向け</h2>
+            <p class="press-subtitle" data-i18n="press.subtitle">記者・メディアの方へ</p>
+            <div class="press-main-buttons">
+                <a href="assets/press/presskit.zip" download class="btn btn-primary btn-press-main" data-i18n="press.buttons.download_all">全てダウンロード</a>
+                <a href="https://impress.games/press-kit/sakastudio/moorestech" target="_blank" class="btn btn-primary btn-press-main" data-i18n="press.buttons.open_kit">Press Kitを開く</a>
+            </div>
+            <div class="press-contact">
+                <p><span data-i18n="press.contact">お問い合わせ先: </span><a href="mailto:sakastudio@moores.tech">sakastudio@moores.tech</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- コミュニティ＆SNS -->
+    <section class="community" id="community">
+        <div class="container">
+            <h2 class="section-title" data-i18n="community.title">コミュニティに参加しよう</h2>
+            <div class="social-links">
+                <a href="https://discord.gg/ERPMZrrAdp" target="_blank" class="social-link discord">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                    </div>
+                    <span data-i18n="community.platforms.discord">Discord</span>
+                </a>
+                <a href="https://x.com/sakastudio_" target="_blank" class="social-link twitter">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </div>
+                    <span data-i18n="community.platforms.twitter">X / Twitter</span>
+                </a>
+                <a href="https://www.youtube.com/@sakastudio_" target="_blank" class="social-link youtube">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </div>
+                    <span data-i18n="community.platforms.youtube">YouTube</span>
+                </a>
+                <a href="https://github.com/moorestech/moorestech" target="_blank" class="social-link github">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                    </div>
+                    <span data-i18n="community.platforms.github">GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 最終CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2 class="final-cta-title" data-i18n="cta.title">2026年夏、Steamでリリース予定</h2>
+            <div class="final-cta-buttons">
+                <a href="https://store.steampowered.com/" target="_blank" class="btn btn-primary btn-cta-large">
+                    <img src="data:image/svg+xml,%3csvg%20version='1.1'%20id='Layer_1'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20x='0px'%20y='0px'%20viewBox='0%200%2088.3%2088.5'%20style='enable-background:new%200%200%2088.3%2088.5;'%20xml:space='preserve'%3e%3cstyle%20type='text/css'%3e%20.st0{fill:%23C5C3C0;}%20%3c/style%3e%3cg%3e%3cpath%20class='st0'%20d='M44.1,0C20.8,0,1.8,17.9,0,40.7l23.7,9.8c2-1.4,4.4-2.2,7-2.2c0.2,0,0.5,0,0.7,0L42,33.1c0-0.1,0-0.1,0-0.2%20c0-9.2,7.5-16.7,16.7-16.7c9.2,0,16.7,7.5,16.7,16.7s-7.5,16.7-16.7,16.7c-0.1,0-0.3,0-0.4,0l-15,10.7c0,0.2,0,0.4,0,0.6%20c0,6.9-5.6,12.5-12.5,12.5c-6.1,0-11.1-4.3-12.3-10.1l-17-7c5.2,18.6,22.3,32.2,42.6,32.2c24.4,0,44.2-19.8,44.2-44.2%20C88.3,19.8,68.5,0,44.1,0'%3e%3c/path%3e%3cpath%20class='st0'%20d='M27.7,67.1l-5.4-2.2c1,2,2.6,3.7,4.8,4.6c4.8,2,10.3-0.3,12.3-5.1c1-2.3,1-4.9,0-7.2c-1-2.3-2.8-4.1-5.1-5.1%20c-2.3-1-4.8-0.9-6.9-0.1l5.6,2.3c3.5,1.5,5.2,5.5,3.7,9C35.3,66.9,31.2,68.6,27.7,67.1'%3e%3c/path%3e%3cpath%20class='st0'%20d='M69.8,32.8c0-6.1-5-11.1-11.1-11.1c-6.1,0-11.1,5-11.1,11.1c0,6.1,5,11.1,11.1,11.1%20C64.8,43.9,69.8,39,69.8,32.8%20M50.3,32.8c0-4.6,3.7-8.3,8.4-8.3s8.4,3.7,8.4,8.3s-3.7,8.3-8.4,8.3S50.3,37.4,50.3,32.8'%3e%3c/path%3e%3c/g%3e%3c/svg%3e" alt="Steam" class="btn-icon-large">
+                    <span data-i18n="cta.steam">Steamウィッシュリストに追加</span>
+                </a>
+                <a href="https://discord.gg/ERPMZrrAdp" target="_blank" class="btn btn-secondary btn-cta-large">
+                    <svg class="btn-icon-large" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                    <span data-i18n="cta.discord">Discordコミュニティに参加</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n="footer.copyright">&copy; 2025 Game Title. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- トレイラーモーダル -->
+    <div class="modal" id="trailerModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-video">
+                <iframe
+                    id="trailerIframe"
+                    width="100%"
+                    height="100%"
+                    src=""
+                    title="Game Trailer"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- キャラクター詳細モーダル -->
+    <div class="modal" id="characterModal">
+        <div class="modal-content character-modal-content">
+            <button class="modal-close" id="closeCharacterModal">&times;</button>
+            <div class="character-detail" id="characterDetail">
+                <!-- キャラクター詳細がJavaScriptで挿入されます -->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

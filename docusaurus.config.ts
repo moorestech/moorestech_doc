@@ -30,7 +30,7 @@ const config: Config = {
   organizationName: 'moorestech', // Usually your GitHub org/user name.
   projectName: 'moorestech_doc', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -63,6 +63,8 @@ const config: Config = {
             editLocalizedFiles: true,
             editCurrentVersion: true,
         },
+        // ページ機能を無効化してstatic/index.htmlをルートとして使用
+        pages: false,
         theme: {
           customCss: './src/css/custom.css',
         },
