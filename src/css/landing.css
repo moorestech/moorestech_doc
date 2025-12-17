@@ -164,6 +164,7 @@ a {
     font-weight: 600;
     font-size: 0.95rem;
     letter-spacing: 0.02em;
+    text-decoration: none;
 }
 
 .nav-link::before {
@@ -182,6 +183,7 @@ a {
 .nav-link:hover {
     color: var(--primary-color);
     transform: translateY(-2px);
+    text-decoration: none;
 }
 
 .nav-link:hover::before {

@@ -110,14 +110,16 @@ export default function LandingPage(): React.ReactElement {
     // スムーススクロール
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const href = this.getAttribute('href');
-        if (href) {
-          const target = document.querySelector(href);
-          if (target) {
-            const offsetTop = (target as HTMLElement).offsetTop - 70;
-            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-          }
+        // '#'のみの場合はスキップ（無効なセレクター）
+        if (!href || href === '#') {
+          return;
+        }
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const offsetTop = (target as HTMLElement).offsetTop - 70;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
         }
       });
     });
