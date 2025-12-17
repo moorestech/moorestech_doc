@@ -84,8 +84,8 @@ a {
     height: 4px;
     background: var(--gradient-cosmic);
     z-index: 9999;
-    transition: width 0.1s linear;
     box-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
+    will-change: width;
 }
 
 /* ===== ナビゲーションバー - グラスモーフィズム ===== */
@@ -403,7 +403,9 @@ a {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: -1;
+    z-index: 0;
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .hero-background::before {

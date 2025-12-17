@@ -1,36 +1,82 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import Head from '@docusaurus/Head';
 import '../css/landing.css';
 
 export default function LandingPage(): React.ReactElement {
+  // TypeKitフォント読み込み（早期実行）
+  useLayoutEffect(() => {
+    // wf-loadingクラスを追加
+    document.documentElement.classList.add('wf-loading');
+
+    // TypeKitスクリプトを動的に読み込み
+    const config = { kitId: 'jxm0umo', scriptTimeout: 3000, async: true };
+    const timeout = setTimeout(() => {
+      document.documentElement.classList.remove('wf-loading');
+      document.documentElement.classList.add('wf-inactive');
+    }, config.scriptTimeout);
+
+    const script = document.createElement('script');
+    script.src = `https://use.typekit.net/${config.kitId}.js`;
+    script.async = true;
+    script.onload = () => {
+      clearTimeout(timeout);
+      try {
+        (window as any).Typekit.load(config);
+      } catch (e) {
+        console.error('TypeKit load error:', e);
+      }
+    };
+    document.head.appendChild(script);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
   useEffect(() => {
-    // ===== スクロール進捗バー =====
-    function updateScrollProgress() {
-      const scrollProgress = document.querySelector('.scroll-progress') as HTMLElement;
-      if (!scrollProgress) return;
-      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (window.scrollY / windowHeight) * 100;
-      scrollProgress.style.width = scrolled + '%';
-    }
-    window.addEventListener('scroll', updateScrollProgress);
+    // ===== スクロールイベントの最適化 =====
+    let ticking = false;
+    const scrollProgress = document.querySelector('.scroll-progress') as HTMLElement;
+    const navbar = document.getElementById('navbar');
+    const heroBackground = document.querySelector('.hero-background') as HTMLElement;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+
+          // スクロール進捗バー
+          if (scrollProgress) {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollY / windowHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+          }
+
+          // ナビゲーションバー
+          if (navbar) {
+            if (scrollY > 100) {
+              navbar.classList.add('scrolled');
+            } else {
+              navbar.classList.remove('scrolled');
+            }
+          }
+
+          // パララックス効果
+          if (heroBackground) {
+            heroBackground.style.transform = `translateY(${scrollY * 0.5}px)`;
+          }
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     // ===== ナビゲーション =====
-    const navbar = document.getElementById('navbar');
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-
-    // スクロール時のナビゲーションバー
-    const handleNavScroll = () => {
-      if (navbar) {
-        if (window.scrollY > 100) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      }
-    };
-    window.addEventListener('scroll', handleNavScroll);
 
     // ハンバーガーメニュー
     const handleHamburgerClick = () => {
@@ -217,14 +263,6 @@ export default function LandingPage(): React.ReactElement {
       overviewObserver.observe(el);
     });
 
-    // ===== パララックス効果 =====
-    const handleParallax = () => {
-      const scrolled = window.scrollY;
-      const heroBackground = document.querySelector('.hero-background') as HTMLElement;
-      if (heroBackground) heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
-    };
-    window.addEventListener('scroll', handleParallax);
-
     // ===== ギャラリー画像クリック(拡大表示) =====
     function setupGalleryModal() {
       const galleryItems = document.querySelectorAll('.gallery-item');
@@ -350,9 +388,7 @@ export default function LandingPage(): React.ReactElement {
 
     // クリーンアップ
     return () => {
-      window.removeEventListener('scroll', updateScrollProgress);
-      window.removeEventListener('scroll', handleNavScroll);
-      window.removeEventListener('scroll', handleParallax);
+      window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('keydown', handleEscapeKey);
     };
   }, []);
@@ -369,14 +405,6 @@ export default function LandingPage(): React.ReactElement {
         <script src="/landing/i18n/i18n.js" />
       </Head>
       <div>
-        {/* TypeKit フォント読み込み */}
-        <script dangerouslySetInnerHTML={{__html: `
-          (function(d) {
-            var config = { kitId: 'jxm0umo', scriptTimeout: 3000, async: true },
-            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\\bwf-loading\\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-          })(document);
-        `}} />
-
         {/* スクロール進捗バー */}
         <div className="scroll-progress"></div>
 

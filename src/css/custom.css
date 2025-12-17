@@ -28,3 +28,34 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* ===== ランディングページ用オーバーライド ===== */
+/* Docusaurusのデフォルトスタイルを無効化 */
+html:has(.hero-background) {
+  scroll-behavior: smooth;
+}
+
+html:has(.hero-background) body {
+  background: linear-gradient(to bottom, #f7fafc 0%, #edf2f7 100%) !important;
+}
+
+/* Docusaurusのコンテナスタイルをリセット */
+html:has(.hero-background) #__docusaurus {
+  background: transparent;
+}
+
+html:has(.hero-background) main {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+
+/* ヒーロー背景が正しく表示されるように */
+.hero-background {
+  z-index: 0 !important;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+}
