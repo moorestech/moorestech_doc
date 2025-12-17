@@ -59,3 +59,48 @@ html:has(.hero-background) main {
   position: relative;
   z-index: 1;
 }
+
+/* ランディングページのナビゲーション - Infima リセット */
+html:has(.hero-background) .nav-menu,
+html:has(.hero-background) .nav-menu li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html:has(.hero-background) .nav-menu {
+  display: flex;
+  gap: 2.5rem;
+  margin-left: auto;
+  margin-right: 1.5rem;
+}
+
+html:has(.hero-background) .nav-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+/* ナビゲーションサイズの復元 */
+html:has(.hero-background) .nav-logo-image {
+  height: 60px;
+  width: auto;
+}
+
+html:has(.hero-background) .nav-container {
+  padding: 1.2rem 2rem;
+}
+
+html:has(.hero-background) .nav-link {
+  font-size: 1.05rem;
+}
+
+html:has(.hero-background) .language-switcher {
+  font-size: 1rem;
+}
+
+html:has(.hero-background) .lang-dropdown-btn {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+}
+
