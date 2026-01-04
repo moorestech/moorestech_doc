@@ -80,6 +80,8 @@ const config: Config = {
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.png',
+        href: 'pathname:///home.html',
+        target: '_self',
       },
       items: [
         {
