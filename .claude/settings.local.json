@@ -9,7 +9,8 @@
       "Bash(pnpm add:*)",
       "Bash(pnpm run:*)",
       "Bash(lsof:*)",
-      "Bash(xargs kill -9)"
+      "Bash(xargs kill -9)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []
