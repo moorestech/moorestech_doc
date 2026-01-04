@@ -91,6 +91,11 @@ const config: Config = {
           label: 'Documentation',
         },
         {
+          to: '/links',
+          label: 'Links',
+          position: 'left',
+        },
+        {
           type: 'localeDropdown',
           position: 'right',
         },
