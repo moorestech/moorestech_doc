@@ -63,8 +63,8 @@ const config: Config = {
             editLocalizedFiles: true,
             editCurrentVersion: true,
         },
-        // ページ機能を無効化してstatic/index.htmlをルートとして使用
-        pages: false,
+        // ページ機能を有効化（static/home.htmlにリダイレクト）
+        pages: {},
         theme: {
           customCss: './src/css/custom.css',
         },
