@@ -10,7 +10,10 @@
       "Bash(pnpm run:*)",
       "Bash(lsof:*)",
       "Bash(xargs kill -9)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "mcp__serena__search_for_pattern",
+      "Bash(cat:*)",
+      "mcp__playwright__browser_navigate"
     ],
     "deny": [],
     "ask": []
