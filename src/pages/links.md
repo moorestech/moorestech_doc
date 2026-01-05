@@ -10,11 +10,11 @@
 
 - [Discord](https://discord.gg/ERPMZrrAdp) - コミュニティ参加・質問・交流
 - [X / Twitter (@sakastudio_)](https://x.com/sakastudio_) - 最新情報
-- [YouTube](https://www.youtube.com/@sakastudio_) - トレイラー・開発動画
+- [YouTube](https://www.youtube.com/@sakastudio_) - トレイラー
 
 ## 開発・ツール
 
-- [GitHub](https://github.com/moorestech/moorestech) - ソースコード（オープンソース）
+- [GitHub](https://github.com/moorestech/moorestech) - ソースコード
 
 ## プレスキット
 
