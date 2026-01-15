@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "遊戲標題 - 自動化工業遊戲 × 動漫風格開放世界 × RPG",
+    "description": "2026年夏季登陸Steam。以齒輪系統驅動的工廠建造、美麗的開放世界，以及充滿魅力角色的故事。"
+  },
+  "nav": {
+    "logo": "遊戲標題",
+    "features": "遊戲特色",
+    "story": "故事",
+    "characters": "角色",
+    "mod": "Mod開發",
+    "gallery": "遊戲截圖",
+    "press": "媒體資料"
+  },
+  "hero": {
+    "steam_wishlist": "加入Steam願望清單",
+    "trailer": "觀看預告片",
+    "release_info": "2026年夏季 / Steam (Win/Mac/Linux) / 約15美元"
+  },
+  "video": {
+    "title": "概念預告片"
+  },
+  "overview": {
+    "title": "遊戲概述",
+    "concept_label": "概念",
+    "concept_text": "自動化工業遊戲 × 動漫風格開放世界 × RPG",
+    "release_label": "發售資訊",
+    "release_text": "2026年夏季 / Steam (Win/Mac/Linux) / 約15美元"
+  },
+  "features": {
+    "title": "遊戲特色",
+    "gear": {
+      "title": "齒輪系統工廠建造",
+      "subtitle": "連接齒輪，擴展自動化",
+      "items": [
+        "控制轉速和扭矩來運行您的工廠",
+        "透過相互連接的齒輪觀看工廠運轉",
+        "沒有敵人，資源不會枯竭。按照自己的節奏建造"
+      ],
+      "alt": "齒輪系統"
+    },
+    "story": {
+      "title": "扣人心弦的故事體驗",
+      "subtitle": "與獨特角色一起探尋真相的旅程",
+      "items": [
+        "與三位獨特角色建立羈絆",
+        "隨故事發展而深化的關係",
+        "流放背後隱藏的真相"
+      ],
+      "alt": "故事體驗"
+    },
+    "openworld": {
+      "title": "開放世界",
+      "subtitle": "用您的工廠填滿這個精美渲染的世界！",
+      "items": [
+        "精美的動漫風格3D畫面",
+        "自由探索廣闘的地圖",
+        "用您的工廠改變世界"
+      ],
+      "alt": "開放世界"
+    },
+    "tech": {
+      "title": "發展科技",
+      "subtitle": "一場人類科技進化的史詩之旅",
+      "items": [
+        "從水車到蒸汽機、電力，再到核融合",
+        "再現各個時代技術的機器",
+        "透過科技樹解鎖新技術"
+      ],
+      "alt": "科技進化"
+    },
+    "beginner": {
+      "title": "自動化新手也能安心遊玩",
+      "subtitle": "首次接觸自動化遊戲，細心引導帶來舒適體驗",
+      "items": [
+        "即使從未玩過自動化遊戲也完全沒問題",
+        "循序漸進的教學系統",
+        "專為順暢沉浸遊戲而設計"
+      ],
+      "alt": "新手友善教學"
+    }
+  },
+  "story": {
+    "title": "故事",
+    "catchphrase": "不是被流放，而是被深愛。",
+    "text": [
+      "公元2700年，人類自由穿梭於星際之間的時代。",
+      "天星球的公主依織在不明原因的情況下，<br>被流放到遙遠的無人星球阿卡迪亞。",
+      "為了探尋原因，她在將這顆星球工業化的過程中發現了真相。",
+      "那些她以為拋棄了自己的人，其實一直深愛著她——"
+    ]
+  },
+  "characters": {
+    "title": "角色",
+    "subtitle": "與同伴建立羈絆",
+    "data": {
+      "1": {
+        "name": "依織",
+        "role": "天星球公主（主角）",
+        "description": "天星球的二公主。在不知原因的情況下被流放到阿卡迪亞星球。最初是一位手無縛雞之力的貴族小姐，在輔助AI和摯友的幫助下推進工業化。"
+      },
+      "2": {
+        "name": "艾蕾諾",
+        "role": "輔助AI",
+        "description": "作為依織的照顧者一同前往阿卡迪亞星球的通用輔助AI系統。"
+      },
+      "3": {
+        "name": "庫露亞",
+        "role": "摯友",
+        "description": "運動神經發達，性格開朗大方。友善健談。熱愛金錢，為了生存可以做任何事。"
+      }
+    }
+  },
+  "mod": {
+    "title": "Mod開發",
+    "subtitle": "Mod帶來新體驗，Mod開發帶來新體驗",
+    "features": [
+      {
+        "icon": "🔧",
+        "title": "完整Mod支援",
+        "description": "遊戲系統的大部分內容都可以透過Mod進行擴展"
+      },
+      {
+        "icon": "📖",
+        "title": "開源",
+        "description": "遊戲程式碼開源，Mod開發者可以參與遊戲開發"
+      },
+      {
+        "icon": "🤖",
+        "title": "強大的開發工具",
+        "description": "文件和AI輔助工具讓任何人都能開發Mod"
+      }
+    ],
+    "buttons": {
+      "discord": "加入Discord",
+      "github": "檢視GitHub",
+      "wiki": "檢視Wiki"
+    }
+  },
+  "gallery": {
+    "title": "遊戲截圖",
+    "alt": [
+      "截圖1",
+      "截圖2",
+      "截圖3",
+      "截圖4",
+      "截圖5",
+      "截圖6"
+    ]
+  },
+  "press": {
+    "title": "媒體資料包 / 媒體專用",
+    "subtitle": "面向記者和媒體",
+    "buttons": {
+      "download_all": "下載全部",
+      "open_kit": "開啟媒體資料包",
+      "download_logo": "下載Logo",
+      "download_screenshots": "下載截圖",
+      "download_trailer": "下載預告片"
+    },
+    "contact": "聯絡方式："
+  },
+  "community": {
+    "title": "加入我們的社群",
+    "platforms": {
+      "discord": "Discord",
+      "twitter": "X / Twitter",
+      "youtube": "YouTube",
+      "github": "GitHub"
+    }
+  },
+  "cta": {
+    "title": "2026年夏季登陸Steam",
+    "steam": "加入Steam願望清單",
+    "discord": "加入Discord社群"
+  },
+  "footer": {
+    "copyright": "© 2025 遊戲標題。保留所有權利。"
+  }
+}

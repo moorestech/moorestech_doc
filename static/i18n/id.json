@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Judul Game - Game Industri Otomasi × Dunia Terbuka Bergaya Anime × RPG",
+    "description": "Hadir di Steam pada Musim Panas 2026. Pembangunan pabrik dengan sistem roda gigi, dunia terbuka yang indah, dan cerita dengan karakter-karakter yang memikat."
+  },
+  "nav": {
+    "logo": "JUDUL GAME",
+    "features": "Fitur Game",
+    "story": "Cerita",
+    "characters": "Karakter",
+    "mod": "Pengembangan Mod",
+    "gallery": "Tangkapan Layar",
+    "press": "Press Kit"
+  },
+  "hero": {
+    "steam_wishlist": "Tambahkan ke Wishlist Steam",
+    "trailer": "Tonton Trailer",
+    "release_info": "Musim Panas 2026 / Steam (Win/Mac/Linux) / Sekitar $15"
+  },
+  "video": {
+    "title": "Trailer Konsep"
+  },
+  "overview": {
+    "title": "Gambaran Game",
+    "concept_label": "Konsep",
+    "concept_text": "Game Industri Otomasi × Dunia Terbuka Bergaya Anime × RPG",
+    "release_label": "Info Rilis",
+    "release_text": "Musim Panas 2026 / Steam (Win/Mac/Linux) / Sekitar $15"
+  },
+  "features": {
+    "title": "Fitur Game",
+    "gear": {
+      "title": "Pembangunan Pabrik dengan Sistem Roda Gigi",
+      "subtitle": "Rangkai roda gigi, perluas otomasi",
+      "items": [
+        "Kontrol kecepatan rotasi dan torsi untuk menjalankan pabrikmu",
+        "Saksikan pabrikmu beroperasi melalui roda gigi yang saling terhubung",
+        "Tidak ada musuh, tidak ada penipisan sumber daya. Bangun sesuai kecepatanmu"
+      ],
+      "alt": "Sistem Roda Gigi"
+    },
+    "story": {
+      "title": "Pengalaman Cerita yang Menggetarkan Hati",
+      "subtitle": "Perjalanan menuju kebenaran bersama karakter-karakter unik",
+      "items": [
+        "Ikatan dengan tiga karakter unik",
+        "Hubungan yang berkembang seiring cerita",
+        "Kebenaran tersembunyi di balik pengasingan"
+      ],
+      "alt": "Pengalaman Cerita"
+    },
+    "openworld": {
+      "title": "Dunia Terbuka",
+      "subtitle": "Isi dunia yang dirender dengan indah dengan pabrik-pabrikmu!",
+      "items": [
+        "Grafis 3D bergaya anime yang indah",
+        "Jelajahi peta luas dengan bebas",
+        "Ubah dunia dengan pabrik-pabrikmu"
+      ],
+      "alt": "Dunia Terbuka"
+    },
+    "tech": {
+      "title": "Kembangkan Teknologi",
+      "subtitle": "Perjalanan epik melalui evolusi teknologi umat manusia",
+      "items": [
+        "Dari kincir air ke mesin uap, listrik, dan fusi nuklir",
+        "Mesin-mesin yang menciptakan ulang teknologi dari setiap era",
+        "Buka teknologi baru melalui pohon teknologi"
+      ],
+      "alt": "Evolusi Teknologi"
+    },
+    "beginner": {
+      "title": "Aman untuk Pemula Otomasi",
+      "subtitle": "Otomasi pertama dengan panduan yang teliti untuk pengalaman yang nyaman",
+      "items": [
+        "Sempurna meskipun kamu belum pernah memainkan game otomasi",
+        "Sistem tutorial bertahap",
+        "Dirancang untuk penyelaman yang mulus ke dalam game"
+      ],
+      "alt": "Tutorial Ramah Pemula"
+    }
+  },
+  "story": {
+    "title": "Cerita",
+    "catchphrase": "Bukan diasingkan, tapi dicintai.",
+    "text": [
+      "Tahun 2700, di era ketika umat manusia bebas bepergian antar bintang.",
+      "Putri Yori dari planet Celestial diasingkan ke planet<br>tak berpenghuni yang jauh, Arcadia, tanpa memahami alasannya.",
+      "Sangat ingin mengetahui alasannya, dia menemukan kebenaran saat mengindustrialisasi planet tersebut.",
+      "Orang-orang yang dia kira telah meninggalkannya ternyata selalu mencintainya—"
+    ]
+  },
+  "characters": {
+    "title": "Karakter",
+    "subtitle": "Bangun ikatan dengan teman-temanmu",
+    "data": {
+      "1": {
+        "name": "Yori",
+        "role": "Putri Planet Celestial (Protagonis)",
+        "description": "Putri kedua dari planet Celestial. Diasingkan ke planet Arcadia tanpa mengetahui alasannya. Awalnya seorang wanita bangsawan yang tak berdaya, dia memajukan industrialisasi dengan bantuan AI pendukungnya dan sahabatnya."
+      },
+      "2": {
+        "name": "Eleno",
+        "role": "AI Pendukung",
+        "description": "Sistem AI pendukung serbaguna yang menemani Yori ke planet Arcadia sebagai pengasuhnya."
+      },
+      "3": {
+        "name": "Kurua",
+        "role": "Sahabat",
+        "description": "Atletis, sangat ceria dan murah hati. Ramah dan suka mengobrol. Mencintai uang dan akan melakukan apa saja untuk bertahan hidup."
+      }
+    }
+  },
+  "mod": {
+    "title": "Pengembangan Mod",
+    "subtitle": "Pengalaman baru dengan mod, pengalaman baru untuk pengembangan mod",
+    "features": [
+      {
+        "icon": "🔧",
+        "title": "Dukungan Mod Penuh",
+        "description": "Sebagian besar sistem game dapat diperluas dengan mod"
+      },
+      {
+        "icon": "📖",
+        "title": "Open Source",
+        "description": "Kode game bersifat open-source, memungkinkan pengembang mod berpartisipasi dalam pengembangan game"
+      },
+      {
+        "icon": "🤖",
+        "title": "Alat Pengembangan yang Kuat",
+        "description": "Dokumentasi dan alat dukungan AI memungkinkan siapa saja mengembangkan mod"
+      }
+    ],
+    "buttons": {
+      "discord": "Gabung Discord",
+      "github": "Lihat GitHub",
+      "wiki": "Lihat Wiki"
+    }
+  },
+  "gallery": {
+    "title": "Tangkapan Layar",
+    "alt": [
+      "Tangkapan Layar 1",
+      "Tangkapan Layar 2",
+      "Tangkapan Layar 3",
+      "Tangkapan Layar 4",
+      "Tangkapan Layar 5",
+      "Tangkapan Layar 6"
+    ]
+  },
+  "press": {
+    "title": "Press Kit / Untuk Media",
+    "subtitle": "Untuk Jurnalis & Media",
+    "buttons": {
+      "download_all": "Unduh Semua",
+      "open_kit": "Buka Press Kit",
+      "download_logo": "Unduh Logo",
+      "download_screenshots": "Unduh Tangkapan Layar",
+      "download_trailer": "Unduh Trailer"
+    },
+    "contact": "Kontak: "
+  },
+  "community": {
+    "title": "Bergabunglah dengan Komunitas Kami",
+    "platforms": {
+      "discord": "Discord",
+      "twitter": "X / Twitter",
+      "youtube": "YouTube",
+      "github": "GitHub"
+    }
+  },
+  "cta": {
+    "title": "Hadir di Steam pada Musim Panas 2026",
+    "steam": "Tambahkan ke Wishlist Steam",
+    "discord": "Gabung Komunitas Discord"
+  },
+  "footer": {
+    "copyright": "© 2025 Judul Game. Hak cipta dilindungi undang-undang."
+  }
+}

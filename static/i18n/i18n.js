@@ -5,8 +5,72 @@ let translations = {};
 let currentLanguage = 'ja'; // デフォルト言語
 
 // サポートされている言語
-const SUPPORTED_LANGUAGES = ['ja', 'en'];
+const SUPPORTED_LANGUAGES = [
+    'en',      // 英語
+    'ja',      // 日本語
+    'zh-CN',   // 簡体字中国語
+    'pt-BR',   // ポルトガル語(ブラジル)
+    'zh-TW',   // 繁体字中国語
+    'uk',      // ウクライナ語
+    'ko',      // 韓国語
+    'pt-PT',   // ポルトガル語(ポルトガル)
+    'tr',      // トルコ語
+    'ru',      // ロシア語
+    'pl',      // ポーランド語
+    'fr',      // フランス語
+    'de',      // ドイツ語
+    'es',      // スペイン語
+    'th',      // タイ語
+    'id',      // インドネシア語
+    'it',      // イタリア語
+    'cs',      // チェコ語
+];
 const STORAGE_KEY = 'preferred_language';
+
+// ===== ブラウザ言語検出 =====
+function detectBrowserLanguage() {
+    const browserLang = navigator.language;
+    const browserLangLower = browserLang.toLowerCase();
+
+    // 完全一致をまず試す（zh-CN, pt-BR など）
+    for (const lang of SUPPORTED_LANGUAGES) {
+        if (browserLangLower === lang.toLowerCase()) {
+            return lang;
+        }
+    }
+
+    // 地域付き言語コードの特別処理
+    // 中国語: zh-Hans* → zh-CN, zh-Hant* → zh-TW
+    if (browserLangLower.startsWith('zh')) {
+        if (browserLangLower.includes('hans') || browserLangLower === 'zh-cn' || browserLangLower === 'zh-sg') {
+            return 'zh-CN';
+        }
+        if (browserLangLower.includes('hant') || browserLangLower === 'zh-tw' || browserLangLower === 'zh-hk' || browserLangLower === 'zh-mo') {
+            return 'zh-TW';
+        }
+        // デフォルトは簡体字
+        return 'zh-CN';
+    }
+
+    // ポルトガル語: pt-BR はそのまま、それ以外は pt-PT
+    if (browserLangLower.startsWith('pt')) {
+        if (browserLangLower === 'pt-br') {
+            return 'pt-BR';
+        }
+        return 'pt-PT';
+    }
+
+    // その他の言語は言語コードのみで一致を試みる
+    const langCode = browserLangLower.split('-')[0];
+    for (const lang of SUPPORTED_LANGUAGES) {
+        if (lang.toLowerCase() === langCode || lang.toLowerCase().startsWith(langCode + '-')) {
+            return lang;
+        }
+    }
+
+    // デフォルトは日本語
+    return 'ja';
+}
 
 // ===== 初期化 =====
 async function initI18n() {
@@ -16,8 +80,7 @@ async function initI18n() {
     // 言語を決定: 1) localStorage, 2) ブラウザ言語, 3) デフォルト(ja)
     let language = savedLanguage;
     if (!language) {
-        const browserLang = navigator.language.toLowerCase().split('-')[0];
-        language = SUPPORTED_LANGUAGES.includes(browserLang) ? browserLang : 'ja';
+        language = detectBrowserLanguage();
     }
 
     // 言語を設定

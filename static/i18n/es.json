@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Título del Juego - Juego de Automatización Industrial × Mundo Abierto Estilo Anime × RPG",
+    "description": "Llegará a Steam en verano de 2026. Construcción de fábricas con sistemas de engranajes, hermoso mundo abierto y una historia con personajes cautivadores."
+  },
+  "nav": {
+    "logo": "TÍTULO DEL JUEGO",
+    "features": "Características",
+    "story": "Historia",
+    "characters": "Personajes",
+    "mod": "Desarrollo de Mods",
+    "gallery": "Capturas de Pantalla",
+    "press": "Kit de Prensa"
+  },
+  "hero": {
+    "steam_wishlist": "Añadir a la Lista de Deseados de Steam",
+    "trailer": "Ver Tráiler",
+    "release_info": "Verano 2026 / Steam (Win/Mac/Linux) / Alrededor de $15"
+  },
+  "video": {
+    "title": "Tráiler Conceptual"
+  },
+  "overview": {
+    "title": "Descripción del Juego",
+    "concept_label": "Concepto",
+    "concept_text": "Juego de Automatización Industrial × Mundo Abierto Estilo Anime × RPG",
+    "release_label": "Información de Lanzamiento",
+    "release_text": "Verano 2026 / Steam (Win/Mac/Linux) / Alrededor de $15"
+  },
+  "features": {
+    "title": "Características del Juego",
+    "gear": {
+      "title": "Construcción de Fábricas con Sistemas de Engranajes",
+      "subtitle": "Encadenando engranajes, expandiendo la automatización",
+      "items": [
+        "Controla la velocidad de rotación y el torque para operar tu fábrica",
+        "Observa tu fábrica funcionar a través de engranajes interconectados",
+        "Sin enemigos, sin agotamiento de recursos. Construye a tu propio ritmo"
+      ],
+      "alt": "Sistema de Engranajes"
+    },
+    "story": {
+      "title": "Experiencia de Historia Conmovedora",
+      "subtitle": "Un viaje hacia la verdad con personajes únicos",
+      "items": [
+        "Vínculos con tres personajes únicos",
+        "Relaciones que evolucionan con la historia",
+        "La verdad oculta detrás del exilio"
+      ],
+      "alt": "Experiencia de Historia"
+    },
+    "openworld": {
+      "title": "Mundo Abierto",
+      "subtitle": "¡Llena el hermoso mundo renderizado con tus fábricas!",
+      "items": [
+        "Hermosos gráficos 3D estilo anime",
+        "Explora libremente un mapa vasto",
+        "Transforma el mundo con tus fábricas"
+      ],
+      "alt": "Mundo Abierto"
+    },
+    "tech": {
+      "title": "Desarrolla Tecnología",
+      "subtitle": "Un viaje épico a través de la evolución tecnológica de la humanidad",
+      "items": [
+        "Desde ruedas hidráulicas hasta motores de vapor, electricidad y fusión nuclear",
+        "Máquinas que recrean tecnología de cada era",
+        "Desbloquea nuevas tecnologías a través de un árbol tecnológico"
+      ],
+      "alt": "Evolución Tecnológica"
+    },
+    "beginner": {
+      "title": "Ideal para Principiantes en Automatización",
+      "subtitle": "Primera automatización con guía cuidadosa para una experiencia cómoda",
+      "items": [
+        "Perfecto incluso si nunca has jugado juegos de automatización",
+        "Sistema de tutorial gradual",
+        "Diseñado para una inmersión suave en el juego"
+      ],
+      "alt": "Tutorial para Principiantes"
+    }
+  },
+  "story": {
+    "title": "Historia",
+    "catchphrase": "No exiliada, sino amada.",
+    "text": [
+      "Año 2700, en una era donde la humanidad viaja libremente entre las estrellas.",
+      "La Princesa Yori del planeta Celestial es exiliada al lejano<br>planeta deshabitado Arcadia sin entender por qué.",
+      "Desesperada por conocer la razón, descubre la verdad mientras industrializa el planeta.",
+      "Las personas que pensó la habían abandonado, en realidad siempre la amaron—"
+    ]
+  },
+  "characters": {
+    "title": "Personajes",
+    "subtitle": "Construye vínculos con tus compañeros",
+    "data": {
+      "1": {
+        "name": "Yori",
+        "role": "Princesa del Planeta Celestial (Protagonista)",
+        "description": "La segunda princesa del planeta Celestial. Exiliada al planeta Arcadia sin saber por qué. Inicialmente una dama noble indefensa, avanza en la industrialización con la ayuda de su IA de apoyo y su mejor amiga."
+      },
+      "2": {
+        "name": "Eleno",
+        "role": "IA de Apoyo",
+        "description": "Un sistema de IA de apoyo de uso general que acompañó a Yori al planeta Arcadia como su cuidadora."
+      },
+      "3": {
+        "name": "Kurua",
+        "role": "Mejor Amiga",
+        "description": "Atlética, profundamente alegre y generosa. Amigable y conversadora. Ama el dinero y hará cualquier cosa para sobrevivir."
+      }
+    }
+  },
+  "mod": {
+    "title": "Desarrollo de Mods",
+    "subtitle": "Nuevas experiencias con mods, nuevas experiencias para el desarrollo de mods",
+    "features": [
+      {
+        "icon": "🔧",
+        "title": "Soporte Completo de Mods",
+        "description": "La mayoría del sistema del juego puede expandirse con mods"
+      },
+      {
+        "icon": "📖",
+        "title": "Código Abierto",
+        "description": "El código del juego es de código abierto, permitiendo a los desarrolladores de mods participar en el desarrollo del juego"
+      },
+      {
+        "icon": "🤖",
+        "title": "Herramientas de Desarrollo Potentes",
+        "description": "La documentación y las herramientas de soporte con IA permiten que cualquiera desarrolle mods"
+      }
+    ],
+    "buttons": {
+      "discord": "Unirse a Discord",
+      "github": "Ver GitHub",
+      "wiki": "Ver Wiki"
+    }
+  },
+  "gallery": {
+    "title": "Capturas de Pantalla",
+    "alt": [
+      "Captura de Pantalla 1",
+      "Captura de Pantalla 2",
+      "Captura de Pantalla 3",
+      "Captura de Pantalla 4",
+      "Captura de Pantalla 5",
+      "Captura de Pantalla 6"
+    ]
+  },
+  "press": {
+    "title": "Kit de Prensa / Para Medios",
+    "subtitle": "Para Periodistas y Medios de Comunicación",
+    "buttons": {
+      "download_all": "Descargar Todo",
+      "open_kit": "Abrir Kit de Prensa",
+      "download_logo": "Descargar Logo",
+      "download_screenshots": "Descargar Capturas de Pantalla",
+      "download_trailer": "Descargar Tráiler"
+    },
+    "contact": "Contacto: "
+  },
+  "community": {
+    "title": "Únete a Nuestra Comunidad",
+    "platforms": {
+      "discord": "Discord",
+      "twitter": "X / Twitter",
+      "youtube": "YouTube",
+      "github": "GitHub"
+    }
+  },
+  "cta": {
+    "title": "Llegará a Steam en Verano de 2026",
+    "steam": "Añadir a la Lista de Deseados de Steam",
+    "discord": "Unirse a la Comunidad de Discord"
+  },
+  "footer": {
+    "copyright": "© 2025 Título del Juego. Todos los derechos reservados."
+  }
+}

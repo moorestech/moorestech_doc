@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Titre du Jeu - Jeu d'Automatisation Industrielle × Monde Ouvert Style Anime × RPG",
+    "description": "Disponible sur Steam été 2026. Construction d'usines alimentées par des systèmes d'engrenages, un magnifique monde ouvert et une histoire avec des personnages captivants."
+  },
+  "nav": {
+    "logo": "TITRE DU JEU",
+    "features": "Caractéristiques",
+    "story": "Histoire",
+    "characters": "Personnages",
+    "mod": "Développement de Mods",
+    "gallery": "Captures d'écran",
+    "press": "Kit Presse"
+  },
+  "hero": {
+    "steam_wishlist": "Ajouter à la liste de souhaits Steam",
+    "trailer": "Voir la bande-annonce",
+    "release_info": "Été 2026 / Steam (Win/Mac/Linux) / Environ 15 €"
+  },
+  "video": {
+    "title": "Bande-annonce conceptuelle"
+  },
+  "overview": {
+    "title": "Aperçu du Jeu",
+    "concept_label": "Concept",
+    "concept_text": "Jeu d'Automatisation Industrielle × Monde Ouvert Style Anime × RPG",
+    "release_label": "Informations de sortie",
+    "release_text": "Été 2026 / Steam (Win/Mac/Linux) / Environ 15 €"
+  },
+  "features": {
+    "title": "Caractéristiques du Jeu",
+    "gear": {
+      "title": "Construction d'Usines avec Systèmes d'Engrenages",
+      "subtitle": "Enchaînez les engrenages, développez l'automatisation",
+      "items": [
+        "Contrôlez la vitesse de rotation et le couple pour faire fonctionner votre usine",
+        "Regardez votre usine fonctionner grâce aux engrenages interconnectés",
+        "Pas d'ennemis, pas d'épuisement des ressources. Construisez à votre rythme"
+      ],
+      "alt": "Système d'Engrenages"
+    },
+    "story": {
+      "title": "Une Expérience Narrative Émouvante",
+      "subtitle": "Un voyage vers la vérité avec des personnages uniques",
+      "items": [
+        "Des liens avec trois personnages uniques",
+        "Des relations qui évoluent avec l'histoire",
+        "La vérité cachée derrière l'exil"
+      ],
+      "alt": "Expérience Narrative"
+    },
+    "openworld": {
+      "title": "Monde Ouvert",
+      "subtitle": "Remplissez ce monde magnifiquement rendu avec vos usines !",
+      "items": [
+        "De superbes graphismes 3D style anime",
+        "Explorez librement une vaste carte",
+        "Transformez le monde avec vos usines"
+      ],
+      "alt": "Monde Ouvert"
+    },
+    "tech": {
+      "title": "Développez la Technologie",
+      "subtitle": "Une épopée à travers l'évolution technologique de l'humanité",
+      "items": [
+        "Des moulins à eau aux machines à vapeur, à l'électricité et à la fusion nucléaire",
+        "Des machines recréant les technologies de chaque époque",
+        "Débloquez de nouvelles technologies grâce à un arbre technologique"
+      ],
+      "alt": "Évolution Technologique"
+    },
+    "beginner": {
+      "title": "Accessible aux Débutants en Automatisation",
+      "subtitle": "Première expérience d'automatisation avec un accompagnement soigné pour un confort optimal",
+      "items": [
+        "Parfait même si vous n'avez jamais joué à des jeux d'automatisation",
+        "Système de tutoriel progressif",
+        "Conçu pour une immersion fluide dans le jeu"
+      ],
+      "alt": "Tutoriel Adapté aux Débutants"
+    }
+  },
+  "story": {
+    "title": "Histoire",
+    "catchphrase": "Non pas exilée, mais aimée.",
+    "text": [
+      "An 2700, à une époque où l'humanité voyage librement entre les étoiles.",
+      "La princesse Yori de la planète Céleste est exilée sur la lointaine<br>planète inhabitée Arcadia sans comprendre pourquoi.",
+      "Désespérée de connaître la raison, elle découvre la vérité en industrialisant la planète.",
+      "Les gens qu'elle croyait l'avoir abandonnée l'avaient en fait toujours aimée—"
+    ]
+  },
+  "characters": {
+    "title": "Personnages",
+    "subtitle": "Tissez des liens avec vos compagnons",
+    "data": {
+      "1": {
+        "name": "Yori",
+        "role": "Princesse de la Planète Céleste (Protagoniste)",
+        "description": "La seconde princesse de la planète Céleste. Exilée sur la planète Arcadia sans savoir pourquoi. Initialement une noble dame démunie, elle fait progresser l'industrialisation avec l'aide de son IA de soutien et de sa meilleure amie."
+      },
+      "2": {
+        "name": "Eleno",
+        "role": "IA de Soutien",
+        "description": "Un système d'IA de soutien polyvalent qui a accompagné Yori sur la planète Arcadia en tant que gardienne."
+      },
+      "3": {
+        "name": "Kurua",
+        "role": "Meilleure Amie",
+        "description": "Athlétique, profondément joyeuse et généreuse. Amicale et bavarde. Aime l'argent et fera tout pour survivre."
+      }
+    }
+  },
+  "mod": {
+    "title": "Développement de Mods",
+    "subtitle": "De nouvelles expériences grâce aux mods, de nouvelles expériences pour le développement de mods",
+    "features": [
+      {
+        "icon": "🔧",
+        "title": "Support Complet des Mods",
+        "description": "La plupart du système de jeu peut être étendu avec des mods"
+      },
+      {
+        "icon": "📖",
+        "title": "Open Source",
+        "description": "Le code du jeu est open source, permettant aux développeurs de mods de participer au développement du jeu"
+      },
+      {
+        "icon": "🤖",
+        "title": "Outils de Développement Puissants",
+        "description": "Documentation et outils d'assistance IA permettent à quiconque de développer des mods"
+      }
+    ],
+    "buttons": {
+      "discord": "Rejoindre Discord",
+      "github": "Voir GitHub",
+      "wiki": "Voir le Wiki"
+    }
+  },
+  "gallery": {
+    "title": "Captures d'Écran",
+    "alt": [
+      "Capture d'écran 1",
+      "Capture d'écran 2",
+      "Capture d'écran 3",
+      "Capture d'écran 4",
+      "Capture d'écran 5",
+      "Capture d'écran 6"
+    ]
+  },
+  "press": {
+    "title": "Kit Presse / Pour les Médias",
+    "subtitle": "Pour les Journalistes et Médias",
+    "buttons": {
+      "download_all": "Tout Télécharger",
+      "open_kit": "Ouvrir le Kit Presse",
+      "download_logo": "Télécharger le Logo",
+      "download_screenshots": "Télécharger les Captures d'Écran",
+      "download_trailer": "Télécharger la Bande-Annonce"
+    },
+    "contact": "Contact : "
+  },
+  "community": {
+    "title": "Rejoignez Notre Communauté",
+    "platforms": {
+      "discord": "Discord",
+      "twitter": "X / Twitter",
+      "youtube": "YouTube",
+      "github": "GitHub"
+    }
+  },
+  "cta": {
+    "title": "Disponible sur Steam été 2026",
+    "steam": "Ajouter à la liste de souhaits Steam",
+    "discord": "Rejoindre la Communauté Discord"
+  },
+  "footer": {
+    "copyright": "© 2025 Titre du Jeu. Tous droits réservés."
+  }
+}

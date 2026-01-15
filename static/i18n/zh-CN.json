@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "游戏标题 - 自动化工业游戏 × 动漫风格开放世界 × RPG",
+    "description": "2026年夏季登陆Steam。以齿轮系统驱动的工厂建造、美丽的开放世界，以及充满魅力角色的故事。"
+  },
+  "nav": {
+    "logo": "游戏标题",
+    "features": "游戏特色",
+    "story": "故事",
+    "characters": "角色",
+    "mod": "Mod开发",
+    "gallery": "游戏截图",
+    "press": "媒体资料"
+  },
+  "hero": {
+    "steam_wishlist": "添加至Steam愿望单",
+    "trailer": "观看预告片",
+    "release_info": "2026年夏季 / Steam (Win/Mac/Linux) / 约15美元"
+  },
+  "video": {
+    "title": "概念预告片"
+  },
+  "overview": {
+    "title": "游戏概述",
+    "concept_label": "概念",
+    "concept_text": "自动化工业游戏 × 动漫风格开放世界 × RPG",
+    "release_label": "发售信息",
+    "release_text": "2026年夏季 / Steam (Win/Mac/Linux) / 约15美元"
+  },
+  "features": {
+    "title": "游戏特色",
+    "gear": {
+      "title": "齿轮系统工厂建造",
+      "subtitle": "连接齿轮，扩展自动化",
+      "items": [
+        "控制转速和扭矩来运行您的工厂",
+        "通过相互连接的齿轮观看工厂运转",
+        "没有敌人，资源不会枯竭。按照自己的节奏建造"
+      ],
+      "alt": "齿轮系统"
+    },
+    "story": {
+      "title": "动人心弦的故事体验",
+      "subtitle": "与独特角色一起探寻真相的旅程",
+      "items": [
+        "与三位独特角色建立羁绊",
+        "随故事发展而深化的关系",
+        "流放背后隐藏的真相"
+      ],
+      "alt": "故事体验"
+    },
+    "openworld": {
+      "title": "开放世界",
+      "subtitle": "用您的工厂填满这个精美渲染的世界！",
+      "items": [
+        "精美的动漫风格3D画面",
+        "自由探索广阔的地图",
+        "用您的工厂改变世界"
+      ],
+      "alt": "开放世界"
+    },
+    "tech": {
+      "title": "发展科技",
+      "subtitle": "一场人类科技进化的史诗之旅",
+      "items": [
+        "从水车到蒸汽机、电力，再到核聚变",
+        "再现各个时代技术的机器",
+        "通过科技树解锁新技术"
+      ],
+      "alt": "科技进化"
+    },
+    "beginner": {
+      "title": "自动化新手也能安心游玩",
+      "subtitle": "首次接触自动化游戏，细心引导带来舒适体验",
+      "items": [
+        "即使从未玩过自动化游戏也完全没问题",
+        "循序渐进的教程系统",
+        "专为顺畅沉浸游戏而设计"
+      ],
+      "alt": "新手友好教程"
+    }
+  },
+  "story": {
+    "title": "故事",
+    "catchphrase": "不是被流放，而是被深爱。",
+    "text": [
+      "公元2700年，人类自由穿梭于星际之间的时代。",
+      "天星球的公主依织在不明原因的情况下，<br>被流放到遥远的无人星球阿卡迪亚。",
+      "为了探寻原因，她在将这颗星球工业化的过程中发现了真相。",
+      "那些她以为抛弃了自己的人，其实一直深爱着她——"
+    ]
+  },
+  "characters": {
+    "title": "角色",
+    "subtitle": "与同伴建立羁绊",
+    "data": {
+      "1": {
+        "name": "依织",
+        "role": "天星球公主（主角）",
+        "description": "天星球的二公主。在不知原因的情况下被流放到阿卡迪亚星球。最初是一位手无缚鸡之力的贵族小姐，在辅助AI和挚友的帮助下推进工业化。"
+      },
+      "2": {
+        "name": "艾蕾诺",
+        "role": "辅助AI",
+        "description": "作为依织的照顾者一同前往阿卡迪亚星球的通用辅助AI系统。"
+      },
+      "3": {
+        "name": "库露亚",
+        "role": "挚友",
+        "description": "运动神经发达，性格开朗大方。友善健谈。热爱金钱，为了生存可以做任何事。"
+      }
+    }
+  },
+  "mod": {
+    "title": "Mod开发",
+    "subtitle": "Mod带来新体验，Mod开发带来新体验",
+    "features": [
+      {
+        "icon": "🔧",
+        "title": "完整Mod支持",
+        "description": "游戏系统的大部分内容都可以通过Mod进行扩展"
+      },
+      {
+        "icon": "📖",
+        "title": "开源",
+        "description": "游戏代码开源，Mod开发者可以参与游戏开发"
+      },
+      {
+        "icon": "🤖",
+        "title": "强大的开发工具",
+        "description": "文档和AI辅助工具让任何人都能开发Mod"
+      }
+    ],
+    "buttons": {
+      "discord": "加入Discord",
+      "github": "查看GitHub",
+      "wiki": "查看Wiki"
+    }
+  },
+  "gallery": {
+    "title": "游戏截图",
+    "alt": [
+      "截图1",
+      "截图2",
+      "截图3",
+      "截图4",
+      "截图5",
+      "截图6"
+    ]
+  },
+  "press": {
+    "title": "媒体资料包 / 媒体专用",
+    "subtitle": "面向记者和媒体",
+    "buttons": {
+      "download_all": "下载全部",
+      "open_kit": "打开媒体资料包",
+      "download_logo": "下载Logo",
+      "download_screenshots": "下载截图",
+      "download_trailer": "下载预告片"
+    },
+    "contact": "联系方式："
+  },
+  "community": {
+    "title": "加入我们的社区",
+    "platforms": {
+      "discord": "Discord",
+      "twitter": "X / Twitter",
+      "youtube": "YouTube",
+      "github": "GitHub"
+    }
+  },
+  "cta": {
+    "title": "2026年夏季登陆Steam",
+    "steam": "添加至Steam愿望单",
+    "discord": "加入Discord社区"
+  },
+  "footer": {
+    "copyright": "© 2025 游戏标题。保留所有权利。"
+  }
+}

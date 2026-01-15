@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Název Hry - Automatizační Průmyslová Hra × Otevřený Svět ve Stylu Anime × RPG",
+    "description": "Vychází na Steamu v létě 2026. Stavba továren poháněných systémy ozubených kol, krásný otevřený svět a příběh s podmanivými postavami."
+  },
+  "nav": {
+    "logo": "NÁZEV HRY",
+    "features": "Herní Prvky",
+    "story": "Příběh",
+    "characters": "Postavy",
+    "mod": "Vývoj Modů",
+    "gallery": "Snímky Obrazovky",
+    "press": "Tiskový Balíček"
+  },
+  "hero": {
+    "steam_wishlist": "Přidat na seznam přání Steam",
+    "trailer": "Sledovat trailer",
+    "release_info": "Léto 2026 / Steam (Win/Mac/Linux) / Přibližně 15 $"
+  },
+  "video": {
+    "title": "Koncepční trailer"
+  },
+  "overview": {
+    "title": "Přehled Hry",
+    "concept_label": "Koncept",
+    "concept_text": "Automatizační Průmyslová Hra × Otevřený Svět ve Stylu Anime × RPG",
+    "release_label": "Informace o vydání",
+    "release_text": "Léto 2026 / Steam (Win/Mac/Linux) / Přibližně 15 $"
+  },
+  "features": {
+    "title": "Herní Prvky",
+    "gear": {
+      "title": "Stavba Továren se Systémy Ozubených Kol",
+      "subtitle": "Řetězení ozubených kol, rozšiřování automatizace",
+      "items": [
+        "Ovládejte rychlost otáčení a točivý moment pro provoz vaší továrny",
+        "Sledujte, jak vaše továrna funguje prostřednictvím propojených ozubených kol",
+        "Žádní nepřátelé, žádné vyčerpání zdrojů. Stavte vlastním tempem"
+      ],
+      "alt": "Systém Ozubených Kol"
+    },
+    "story": {
+      "title": "Dojemný Příběhový Zážitek",
+      "subtitle": "Cesta k pravdě s jedinečnými postavami",
+      "items": [
+        "Pouta se třemi jedinečnými postavami",
+        "Vztahy, které se vyvíjejí s příběhem",
+        "Skrytá pravda za vyhnanstvím"
+      ],
+      "alt": "Příběhový Zážitek"
+    },
+    "openworld": {
+      "title": "Otevřený Svět",
+      "subtitle": "Naplňte krásně vykreslený svět svými továrnami!",
+      "items": [
+        "Krásná 3D grafika ve stylu anime",
+        "Volně prozkoumejte rozsáhlou mapu",
+        "Přeměňte svět svými továrnami"
+      ],
+      "alt": "Otevřený Svět"
+    },
+    "tech": {
+      "title": "Rozvíjejte Technologii",
+      "subtitle": "Epická cesta technologickou evolucí lidstva",
+      "items": [
+        "Od vodních kol přes parní stroje, elektřinu až po jadernou fúzi",
+        "Stroje znovu vytvářející technologie z každé éry",
+        "Odemkněte nové technologie prostřednictvím technologického stromu"
+      ],
+      "alt": "Technologická Evoluce"
+    },
+    "beginner": {
+      "title": "Bezpečné pro Začátečníky v Automatizaci",
+      "subtitle": "První automatizace s pečlivým vedením pro pohodlný zážitek",
+      "items": [
+        "Perfektní i když jste nikdy nehráli automatizační hry",
+        "Postupný tutoriálový systém",
+        "Navrženo pro plynulé ponoření do hry"
+      ],
+      "alt": "Tutoriál Přívětivý pro Začátečníky"
+    }
+  },
+  "story": {
+    "title": "Příběh",
+    "catchphrase": "Ne vyhnána, ale milována.",
+    "text": [
+      "Rok 2700, v éře, kdy lidstvo volně cestuje mezi hvězdami.",
+      "Princezna Yori z planety Celestial je vyhnána na vzdálenou<br>neobydlenou planetu Arcadia, aniž by chápala proč.",
+      "Zoufale toužící znát důvod, objevuje pravdu, jak industrializuje planetu.",
+      "Lidé, o kterých si myslela, že ji opustili, ji ve skutečnosti vždy milovali—"
+    ]
+  },
+  "characters": {
+    "title": "Postavy",
+    "subtitle": "Budujte pouta se svými společníky",
+    "data": {
+      "1": {
+        "name": "Yori",
+        "role": "Princezna Planety Celestial (Protagonistka)",
+        "description": "Druhá princezna planety Celestial. Vyhnána na planetu Arcadia, aniž by věděla proč. Zpočátku bezmocná šlechtična, rozvíjí industrializaci s pomocí své podpůrné AI a nejlepší přítelkyně."
+      },
+      "2": {
+        "name": "Eleno",
+        "role": "Podpůrná AI",
+        "description": "Univerzální podpůrný AI systém, který doprovázel Yori na planetu Arcadia jako její pečovatelka."
+      },
+      "3": {
+        "name": "Kurua",
+        "role": "Nejlepší Přítelkyně",
+        "description": "Atletická, hluboce veselá a štědrá. Přátelská a hovorná. Miluje peníze a udělá cokoliv, aby přežila."
+      }
+    }
+  },
+  "mod": {
+    "title": "Vývoj Modů",
+    "subtitle": "Nové zážitky s mody, nové zážitky pro vývoj modů",
+    "features": [
+      {
+        "icon": "🔧",
+        "title": "Plná Podpora Modů",
+        "description": "Většina herního systému může být rozšířena pomocí modů"
+      },
+      {
+        "icon": "📖",
+        "title": "Open Source",
+        "description": "Herní kód je open source, což umožňuje vývojářům modů podílet se na vývoji hry"
+      },
+      {
+        "icon": "🤖",
+        "title": "Výkonné Vývojové Nástroje",
+        "description": "Dokumentace a nástroje s podporou AI umožňují každému vyvíjet mody"
+      }
+    ],
+    "buttons": {
+      "discord": "Připojit se k Discordu",
+      "github": "Zobrazit GitHub",
+      "wiki": "Zobrazit Wiki"
+    }
+  },
+  "gallery": {
+    "title": "Snímky Obrazovky",
+    "alt": [
+      "Snímek obrazovky 1",
+      "Snímek obrazovky 2",
+      "Snímek obrazovky 3",
+      "Snímek obrazovky 4",
+      "Snímek obrazovky 5",
+      "Snímek obrazovky 6"
+    ]
+  },
+  "press": {
+    "title": "Tiskový Balíček / Pro Média",
+    "subtitle": "Pro Novináře a Média",
+    "buttons": {
+      "download_all": "Stáhnout vše",
+      "open_kit": "Otevřít tiskový balíček",
+      "download_logo": "Stáhnout logo",
+      "download_screenshots": "Stáhnout snímky obrazovky",
+      "download_trailer": "Stáhnout trailer"
+    },
+    "contact": "Kontakt: "
+  },
+  "community": {
+    "title": "Připojte se k Naší Komunitě",
+    "platforms": {
+      "discord": "Discord",
+      "twitter": "X / Twitter",
+      "youtube": "YouTube",
+      "github": "GitHub"
+    }
+  },
+  "cta": {
+    "title": "Vychází na Steamu v létě 2026",
+    "steam": "Přidat na seznam přání Steam",
+    "discord": "Připojit se ke komunitě Discord"
+  },
+  "footer": {
+    "copyright": "© 2025 Název Hry. Všechna práva vyhrazena."
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Oyun Adı - Otomasyon Endüstriyel Oyun × Anime Tarzı Açık Dünya × RPG",
+    "description": "2026 Yazında Steam'de. Dişli sistemleriyle fabrika inşaatı, güzel açık dünya ve etkileyici karakterlerle dolu bir hikaye."
+  },
+  "nav": {
+    "logo": "OYUN ADI",
+    "features": "Oyun Özellikleri",
+    "story": "Hikaye",
+    "characters": "Karakterler",
+    "mod": "Mod Geliştirme",
+    "gallery": "Ekran Görüntüleri",
+    "press": "Basın Kiti"
+  },
+  "hero": {
+    "steam_wishlist": "Steam İstek Listesine Ekle",
+    "trailer": "Fragmanı İzle",
+    "release_info": "2026 Yazı / Steam (Win/Mac/Linux) / Yaklaşık $15"
+  },
+  "video": {
+    "title": "Konsept Fragman"
+  },
+  "overview": {
+    "title": "Oyuna Genel Bakış",
+    "concept_label": "Konsept",
+    "concept_text": "Otomasyon Endüstriyel Oyun × Anime Tarzı Açık Dünya × RPG",
+    "release_label": "Çıkış Bilgisi",
+    "release_text": "2026 Yazı / Steam (Win/Mac/Linux) / Yaklaşık $15"
+  },
+  "features": {
+    "title": "Oyun Özellikleri",
+    "gear": {
+      "title": "Dişli Sistemleriyle Fabrika İnşaatı",
+      "subtitle": "Dişlileri birbirine bağla, otomasyonu genişlet",
+      "items": [
+        "Fabrikanı çalıştırmak için dönüş hızını ve torku kontrol et",
+        "Birbirine bağlı dişliler aracılığıyla fabrikanın çalışmasını izle",
+        "Düşman yok, kaynak tükenmesi yok. Kendi hızında inşa et"
+      ],
+      "alt": "Dişli Sistemi"
+    },
+    "story": {
+      "title": "Yürek Titreten Hikaye Deneyimi",
+      "subtitle": "Benzersiz karakterlerle gerçeğe yolculuk",
+      "items": [
+        "Üç benzersiz karakterle bağlar",
+        "Hikayeyle birlikte gelişen ilişkiler",
+        "Sürgünün ardındaki gizli gerçek"
+      ],
+      "alt": "Hikaye Deneyimi"
+    },
+    "openworld": {
+      "title": "Açık Dünya",
+      "subtitle": "Güzelce işlenmiş dünyayı fabrikalarınla doldur!",
+      "items": [
+        "Güzel anime tarzı 3D grafikler",
+        "Geniş haritayı özgürce keşfet",
+        "Dünyayı fabrikalarınla dönüştür"
+      ],
+      "alt": "Açık Dünya"
+    },
+    "tech": {
+      "title": "Teknoloji Geliştir",
+      "subtitle": "İnsanlığın teknolojik evrimi boyunca destansı bir yolculuk",
+      "items": [
+        "Su değirmenlerinden buhar makinelerine, elektriğe ve nükleer füzyona",
+        "Her çağın teknolojisini yeniden yaratan makineler",
+        "Teknoloji ağacı aracılığıyla yeni teknolojilerin kilidini aç"
+      ],
+      "alt": "Teknoloji Evrimi"
+    },
+    "beginner": {
+      "title": "Otomasyon Yeni Başlayanlar İçin Güvenli",
+      "subtitle": "Rahat bir deneyim için dikkatli rehberlikle ilk otomasyon deneyimi",
+      "items": [
+        "Daha önce hiç otomasyon oyunu oynamamış olsan bile mükemmel",
+        "Kademeli öğretici sistem",
+        "Oyuna sorunsuz dalış için tasarlandı"
+      ],
+      "alt": "Yeni Başlayanlar İçin Öğretici"
+    }
+  },
+  "story": {
+    "title": "Hikaye",
+    "catchphrase": "Sürgün edilmedi, sevildi.",
+    "text": [
+      "2700 yılı, insanlığın yıldızlar arasında özgürce seyahat ettiği bir çağ.",
+      "Celestial gezegeninin Prensesi Yori, nedenini anlamadan uzak<br>ıssız gezegen Arcadia'ya sürgün edilir.",
+      "Nedenini öğrenmeye çaresizce çalışırken, gezegeni sanayileştirdikçe gerçeği keşfeder.",
+      "Onu terk ettiğini düşündüğü insanlar aslında onu hep sevmişlerdi—"
+    ]
+  },
+  "characters": {
+    "title": "Karakterler",
+    "subtitle": "Yoldaşlarınla bağlar kur",
+    "data": {
+      "1": {
+        "name": "Yori",
+        "role": "Celestial Gezegeninin Prensesi (Başkahraman)",
+        "description": "Celestial gezegeninin ikinci prensesi. Nedenini bilmeden Arcadia gezegenine sürgün edildi. Başlangıçta çaresiz bir soylu hanım, destek yapay zekası ve en iyi arkadaşının yardımıyla sanayileşmeyi ilerletiyor."
+      },
+      "2": {
+        "name": "Eleno",
+        "role": "Destek Yapay Zekası",
+        "description": "Yori'nin bakıcısı olarak Arcadia gezegenine eşlik eden genel amaçlı bir destek yapay zeka sistemi."
+      },
+      "3": {
+        "name": "Kurua",
+        "role": "En İyi Arkadaş",
+        "description": "Atletik, son derece neşeli ve cömert. Arkadaş canlısı ve konuşkan. Parayı sever ve hayatta kalmak için her şeyi yapar."
+      }
+    }
+  },
+  "mod": {
+    "title": "Mod Geliştirme",
+    "subtitle": "Modlarla yeni deneyimler, mod geliştirme için yeni deneyimler",
+    "features": [
+      {
+        "icon": "🔧",
+        "title": "Tam Mod Desteği",
+        "description": "Oyun sisteminin çoğu modlarla genişletilebilir"
+      },
+      {
+        "icon": "📖",
+        "title": "Açık Kaynak",
+        "description": "Oyun kodu açık kaynaklıdır, mod geliştiricilerin oyun geliştirmeye katılmasına olanak tanır"
+      },
+      {
+        "icon": "🤖",
+        "title": "Güçlü Geliştirme Araçları",
+        "description": "Dokümantasyon ve yapay zeka destek araçları herkesin mod geliştirmesine olanak tanır"
+      }
+    ],
+    "buttons": {
+      "discord": "Discord'a Katıl",
+      "github": "GitHub'ı Görüntüle",
+      "wiki": "Wiki'yi Görüntüle"
+    }
+  },
+  "gallery": {
+    "title": "Ekran Görüntüleri",
+    "alt": [
+      "Ekran Görüntüsü 1",
+      "Ekran Görüntüsü 2",
+      "Ekran Görüntüsü 3",
+      "Ekran Görüntüsü 4",
+      "Ekran Görüntüsü 5",
+      "Ekran Görüntüsü 6"
+    ]
+  },
+  "press": {
+    "title": "Basın Kiti / Medya İçin",
+    "subtitle": "Gazeteciler ve Medya İçin",
+    "buttons": {
+      "download_all": "Tümünü İndir",
+      "open_kit": "Basın Kitini Aç",
+      "download_logo": "Logoyu İndir",
+      "download_screenshots": "Ekran Görüntülerini İndir",
+      "download_trailer": "Fragmanı İndir"
+    },
+    "contact": "İletişim: "
+  },
+  "community": {
+    "title": "Topluluğumuza Katıl",
+    "platforms": {
+      "discord": "Discord",
+      "twitter": "X / Twitter",
+      "youtube": "YouTube",
+      "github": "GitHub"
+    }
+  },
+  "cta": {
+    "title": "2026 Yazında Steam'de",
+    "steam": "Steam İstek Listesine Ekle",
+    "discord": "Discord Topluluğuna Katıl"
+  },
+  "footer": {
+    "copyright": "© 2025 Oyun Adı. Tüm hakları saklıdır."
+  }
+}

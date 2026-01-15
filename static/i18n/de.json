@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Spieltitel - Automatisierungs-Industriespiel × Anime-Stil Open World × RPG",
+    "description": "Erscheint im Sommer 2026 auf Steam. Fabrikbau mit Zahnradsystemen, eine wunderschöne offene Welt und eine Geschichte mit fesselnden Charakteren."
+  },
+  "nav": {
+    "logo": "SPIELTITEL",
+    "features": "Spielmerkmale",
+    "story": "Geschichte",
+    "characters": "Charaktere",
+    "mod": "Mod-Entwicklung",
+    "gallery": "Screenshots",
+    "press": "Pressekit"
+  },
+  "hero": {
+    "steam_wishlist": "Zur Steam-Wunschliste hinzufügen",
+    "trailer": "Trailer ansehen",
+    "release_info": "Sommer 2026 / Steam (Win/Mac/Linux) / Ca. 15 €"
+  },
+  "video": {
+    "title": "Konzept-Trailer"
+  },
+  "overview": {
+    "title": "Spielübersicht",
+    "concept_label": "Konzept",
+    "concept_text": "Automatisierungs-Industriespiel × Anime-Stil Open World × RPG",
+    "release_label": "Veröffentlichungsinfo",
+    "release_text": "Sommer 2026 / Steam (Win/Mac/Linux) / Ca. 15 €"
+  },
+  "features": {
+    "title": "Spielmerkmale",
+    "gear": {
+      "title": "Fabrikbau mit Zahnradsystemen",
+      "subtitle": "Zahnräder verketten, Automatisierung erweitern",
+      "items": [
+        "Steuern Sie Drehzahl und Drehmoment, um Ihre Fabrik zu betreiben",
+        "Beobachten Sie, wie Ihre Fabrik durch verbundene Zahnräder funktioniert",
+        "Keine Feinde, keine Ressourcenerschöpfung. Bauen Sie in Ihrem eigenen Tempo"
+      ],
+      "alt": "Zahnradsystem"
+    },
+    "story": {
+      "title": "Herzbewegende Geschichte",
+      "subtitle": "Eine Reise zur Wahrheit mit einzigartigen Charakteren",
+      "items": [
+        "Bindungen mit drei einzigartigen Charakteren",
+        "Beziehungen, die sich mit der Geschichte entwickeln",
+        "Verborgene Wahrheit hinter dem Exil"
+      ],
+      "alt": "Story-Erlebnis"
+    },
+    "openworld": {
+      "title": "Offene Welt",
+      "subtitle": "Füllen Sie die wunderschön gerenderte Welt mit Ihren Fabriken!",
+      "items": [
+        "Wunderschöne 3D-Grafik im Anime-Stil",
+        "Erkunden Sie frei eine riesige Karte",
+        "Verwandeln Sie die Welt mit Ihren Fabriken"
+      ],
+      "alt": "Offene Welt"
+    },
+    "tech": {
+      "title": "Technologie entwickeln",
+      "subtitle": "Eine epische Reise durch die technologische Evolution der Menschheit",
+      "items": [
+        "Von Wasserrädern zu Dampfmaschinen, Elektrizität und Kernfusion",
+        "Maschinen, die Technologien jeder Epoche nachbilden",
+        "Schalten Sie neue Technologien über einen Technologiebaum frei"
+      ],
+      "alt": "Technologische Evolution"
+    },
+    "beginner": {
+      "title": "Sicher für Automatisierungs-Anfänger",
+      "subtitle": "Erste Automatisierung mit sorgfältiger Anleitung für ein angenehmes Erlebnis",
+      "items": [
+        "Perfekt, auch wenn Sie noch nie Automatisierungsspiele gespielt haben",
+        "Schrittweises Tutorial-System",
+        "Konzipiert für ein reibungsloses Eintauchen ins Spiel"
+      ],
+      "alt": "Anfängerfreundliches Tutorial"
+    }
+  },
+  "story": {
+    "title": "Geschichte",
+    "catchphrase": "Nicht verbannt, sondern geliebt.",
+    "text": [
+      "Jahr 2700, in einer Ära, in der die Menschheit frei zwischen den Sternen reist.",
+      "Prinzessin Yori vom Planeten Celestial wird auf den fernen<br>unbewohnten Planeten Arcadia verbannt, ohne zu verstehen warum.",
+      "Verzweifelt nach dem Grund suchend, entdeckt sie die Wahrheit, während sie den Planeten industrialisiert.",
+      "Die Menschen, von denen sie dachte, sie hätten sie verlassen, hatten sie in Wirklichkeit immer geliebt—"
+    ]
+  },
+  "characters": {
+    "title": "Charaktere",
+    "subtitle": "Knüpfen Sie Bande mit Ihren Begleitern",
+    "data": {
+      "1": {
+        "name": "Yori",
+        "role": "Prinzessin des Planeten Celestial (Protagonistin)",
+        "description": "Die zweite Prinzessin des Planeten Celestial. Ohne zu wissen warum auf den Planeten Arcadia verbannt. Anfangs eine hilflose Adlige, treibt sie die Industrialisierung mit Hilfe ihrer Unterstützungs-KI und besten Freundin voran."
+      },
+      "2": {
+        "name": "Eleno",
+        "role": "Unterstützungs-KI",
+        "description": "Ein universelles Unterstützungs-KI-System, das Yori als ihre Betreuerin zum Planeten Arcadia begleitete."
+      },
+      "3": {
+        "name": "Kurua",
+        "role": "Beste Freundin",
+        "description": "Sportlich, zutiefst fröhlich und großzügig. Freundlich und gesprächig. Liebt Geld und tut alles, um zu überleben."
+      }
+    }
+  },
+  "mod": {
+    "title": "Mod-Entwicklung",
+    "subtitle": "Neue Erfahrungen mit Mods, neue Erfahrungen für Mod-Entwicklung",
+    "features": [
+      {
+        "icon": "🔧",
+        "title": "Volle Mod-Unterstützung",
+        "description": "Der Großteil des Spielsystems kann mit Mods erweitert werden"
+      },
+      {
+        "icon": "📖",
+        "title": "Open Source",
+        "description": "Der Spielcode ist Open Source, sodass Mod-Entwickler an der Spielentwicklung teilnehmen können"
+      },
+      {
+        "icon": "🤖",
+        "title": "Leistungsstarke Entwicklungswerkzeuge",
+        "description": "Dokumentation und KI-Unterstützungstools ermöglichen es jedem, Mods zu entwickeln"
+      }
+    ],
+    "buttons": {
+      "discord": "Discord beitreten",
+      "github": "GitHub ansehen",
+      "wiki": "Wiki ansehen"
+    }
+  },
+  "gallery": {
+    "title": "Screenshots",
+    "alt": [
+      "Screenshot 1",
+      "Screenshot 2",
+      "Screenshot 3",
+      "Screenshot 4",
+      "Screenshot 5",
+      "Screenshot 6"
+    ]
+  },
+  "press": {
+    "title": "Pressekit / Für Medien",
+    "subtitle": "Für Journalisten & Medien",
+    "buttons": {
+      "download_all": "Alles herunterladen",
+      "open_kit": "Pressekit öffnen",
+      "download_logo": "Logo herunterladen",
+      "download_screenshots": "Screenshots herunterladen",
+      "download_trailer": "Trailer herunterladen"
+    },
+    "contact": "Kontakt: "
+  },
+  "community": {
+    "title": "Treten Sie unserer Community bei",
+    "platforms": {
+      "discord": "Discord",
+      "twitter": "X / Twitter",
+      "youtube": "YouTube",
+      "github": "GitHub"
+    }
+  },
+  "cta": {
+    "title": "Erscheint im Sommer 2026 auf Steam",
+    "steam": "Zur Steam-Wunschliste hinzufügen",
+    "discord": "Der Discord-Community beitreten"
+  },
+  "footer": {
+    "copyright": "© 2025 Spieltitel. Alle Rechte vorbehalten."
+  }
+}

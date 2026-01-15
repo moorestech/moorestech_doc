@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Tytuł Gry - Gra Automatyzacji Przemysłowej × Otwarty Świat w Stylu Anime × RPG",
+    "description": "Premiera na Steam latem 2026. Budowanie fabryk napędzanych systemami kół zębatych, piękny otwarty świat i historia z fascynującymi postaciami."
+  },
+  "nav": {
+    "logo": "TYTUŁ GRY",
+    "features": "Cechy Gry",
+    "story": "Fabuła",
+    "characters": "Postacie",
+    "mod": "Tworzenie Modów",
+    "gallery": "Zrzuty Ekranu",
+    "press": "Zestaw Prasowy"
+  },
+  "hero": {
+    "steam_wishlist": "Dodaj do listy życzeń Steam",
+    "trailer": "Obejrzyj zwiastun",
+    "release_info": "Lato 2026 / Steam (Win/Mac/Linux) / Około 15 $"
+  },
+  "video": {
+    "title": "Zwiastun koncepcyjny"
+  },
+  "overview": {
+    "title": "Przegląd Gry",
+    "concept_label": "Koncept",
+    "concept_text": "Gra Automatyzacji Przemysłowej × Otwarty Świat w Stylu Anime × RPG",
+    "release_label": "Informacje o wydaniu",
+    "release_text": "Lato 2026 / Steam (Win/Mac/Linux) / Około 15 $"
+  },
+  "features": {
+    "title": "Cechy Gry",
+    "gear": {
+      "title": "Budowanie Fabryk z Systemami Kół Zębatych",
+      "subtitle": "Łącz koła zębate, rozwijaj automatyzację",
+      "items": [
+        "Kontroluj prędkość obrotową i moment obrotowy, aby uruchomić swoją fabrykę",
+        "Obserwuj działanie swojej fabryki poprzez połączone koła zębate",
+        "Brak wrogów, brak wyczerpywania zasobów. Buduj we własnym tempie"
+      ],
+      "alt": "System Kół Zębatych"
+    },
+    "story": {
+      "title": "Poruszająca Historia",
+      "subtitle": "Podróż ku prawdzie z wyjątkowymi postaciami",
+      "items": [
+        "Więzi z trzema wyjątkowymi postaciami",
+        "Relacje, które ewoluują wraz z fabułą",
+        "Ukryta prawda za wygnaniem"
+      ],
+      "alt": "Doświadczenie Fabularne"
+    },
+    "openworld": {
+      "title": "Otwarty Świat",
+      "subtitle": "Wypełnij pięknie wyrenderowany świat swoimi fabrykami!",
+      "items": [
+        "Piękna grafika 3D w stylu anime",
+        "Swobodnie eksploruj rozległą mapę",
+        "Przekształcaj świat swoimi fabrykami"
+      ],
+      "alt": "Otwarty Świat"
+    },
+    "tech": {
+      "title": "Rozwijaj Technologię",
+      "subtitle": "Epicka podróż przez ewolucję technologiczną ludzkości",
+      "items": [
+        "Od kół wodnych przez silniki parowe, elektryczność po fuzję jądrową",
+        "Maszyny odtwarzające technologię z każdej epoki",
+        "Odblokuj nowe technologie poprzez drzewko technologiczne"
+      ],
+      "alt": "Ewolucja Technologiczna"
+    },
+    "beginner": {
+      "title": "Bezpieczne dla Początkujących w Automatyzacji",
+      "subtitle": "Pierwsza automatyzacja ze starannym przewodnictwem dla komfortowego doświadczenia",
+      "items": [
+        "Idealne nawet jeśli nigdy nie grałeś w gry automatyzacyjne",
+        "Stopniowy system samouczka",
+        "Zaprojektowane dla płynnego zanurzenia w grę"
+      ],
+      "alt": "Samouczek Przyjazny Początkującym"
+    }
+  },
+  "story": {
+    "title": "Fabuła",
+    "catchphrase": "Nie wygnana, lecz kochana.",
+    "text": [
+      "Rok 2700, w erze, gdy ludzkość swobodnie podróżuje między gwiazdami.",
+      "Księżniczka Yori z planety Celestial zostaje wygnana na odległą<br>niezamieszkałą planetę Arcadia, nie rozumiejąc dlaczego.",
+      "Zdesperowana, by poznać powód, odkrywa prawdę industrializując planetę.",
+      "Ludzie, o których myślała, że ją porzucili, w rzeczywistości zawsze ją kochali—"
+    ]
+  },
+  "characters": {
+    "title": "Postacie",
+    "subtitle": "Buduj więzi ze swoimi towarzyszami",
+    "data": {
+      "1": {
+        "name": "Yori",
+        "role": "Księżniczka Planety Celestial (Protagonistka)",
+        "description": "Druga księżniczka planety Celestial. Wygnana na planetę Arcadia bez wiedzy dlaczego. Początkowo bezradna szlachcianka, rozwija industrializację z pomocą swojej wspierającej SI i najlepszej przyjaciółki."
+      },
+      "2": {
+        "name": "Eleno",
+        "role": "Wspierająca SI",
+        "description": "Uniwersalny system wspierającej SI, który towarzyszył Yori na planetę Arcadia jako jej opiekunka."
+      },
+      "3": {
+        "name": "Kurua",
+        "role": "Najlepsza Przyjaciółka",
+        "description": "Wysportowana, głęboko radosna i hojna. Przyjazna i rozmowna. Kocha pieniądze i zrobi wszystko, by przetrwać."
+      }
+    }
+  },
+  "mod": {
+    "title": "Tworzenie Modów",
+    "subtitle": "Nowe doświadczenia z modami, nowe doświadczenia w tworzeniu modów",
+    "features": [
+      {
+        "icon": "🔧",
+        "title": "Pełne Wsparcie dla Modów",
+        "description": "Większość systemu gry może być rozszerzona za pomocą modów"
+      },
+      {
+        "icon": "📖",
+        "title": "Open Source",
+        "description": "Kod gry jest open source, pozwalając twórcom modów uczestniczyć w rozwoju gry"
+      },
+      {
+        "icon": "🤖",
+        "title": "Potężne Narzędzia Deweloperskie",
+        "description": "Dokumentacja i narzędzia wsparcia AI pozwalają każdemu tworzyć mody"
+      }
+    ],
+    "buttons": {
+      "discord": "Dołącz do Discord",
+      "github": "Zobacz GitHub",
+      "wiki": "Zobacz Wiki"
+    }
+  },
+  "gallery": {
+    "title": "Zrzuty Ekranu",
+    "alt": [
+      "Zrzut ekranu 1",
+      "Zrzut ekranu 2",
+      "Zrzut ekranu 3",
+      "Zrzut ekranu 4",
+      "Zrzut ekranu 5",
+      "Zrzut ekranu 6"
+    ]
+  },
+  "press": {
+    "title": "Zestaw Prasowy / Dla Mediów",
+    "subtitle": "Dla Dziennikarzy i Mediów",
+    "buttons": {
+      "download_all": "Pobierz wszystko",
+      "open_kit": "Otwórz zestaw prasowy",
+      "download_logo": "Pobierz logo",
+      "download_screenshots": "Pobierz zrzuty ekranu",
+      "download_trailer": "Pobierz zwiastun"
+    },
+    "contact": "Kontakt: "
+  },
+  "community": {
+    "title": "Dołącz do Naszej Społeczności",
+    "platforms": {
+      "discord": "Discord",
+      "twitter": "X / Twitter",
+      "youtube": "YouTube",
+      "github": "GitHub"
+    }
+  },
+  "cta": {
+    "title": "Premiera na Steam latem 2026",
+    "steam": "Dodaj do listy życzeń Steam",
+    "discord": "Dołącz do społeczności Discord"
+  },
+  "footer": {
+    "copyright": "© 2025 Tytuł Gry. Wszelkie prawa zastrzeżone."
+  }
+}
